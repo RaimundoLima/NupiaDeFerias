@@ -1,1 +1,4 @@
-<?php include("view/index.php");?>
+<?php
+include('controller/rotas.php');
+getPagina();
+ ?>
