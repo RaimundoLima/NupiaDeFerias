@@ -1,5 +1,5 @@
 <?php
-include('dao.php');
+include('model/acaoDAO.php');
 function getPagina(){
 	$url = $_SERVER['REQUEST_URI'];
 	$url = explode("?",$url);
