@@ -30,12 +30,13 @@ class ArtigoExternoDAO{
     $conexao = conexao();
     $query = "select * from artigoexterno where id = '".$id."'";
     $result = pg_query($conexao, $query);
-    $acaoAcaoAtor = pg_fetch_one($result);
-    $acaoDAO = new AcaoDAO();
+    $listaArtigoExterno = pg_fetch_one($result);
+    $artigoExternoDAO = new ArtigoExternoDAO();
     pg_close($conexao);
-    $idAcao = $listaAcaoAtor[$i]["idacao"];
+    $idAcao = $listaArtigoExterno[$i]["idacao"];
     $acao = $acaoDAO->obter($idAcao);
-    $acaoAtorObj = new AcaoAtor($ator, $acao, $titulo,$justificativa, $objetivo, $metodologia, $resultadoEsperado, $impactoEsperado);
+    $link = $listaArtigoExterno[$i]["link"];
+    $artigoExternoObj = new ArtigoExterno($acao, $link);
     return $AcaoAtorObj;
   }
   function editar($acaoator){

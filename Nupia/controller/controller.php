@@ -349,7 +349,7 @@
 			$conexao = conexao();
 			$query = "select * from acaoator where id = '".$idAcaoAtor."'";
 			$result = pg_query($conexao, $query);
-			$acaoAcaoAtor = pg_fetch_one($result);
+			$listaAcaoAtor = pg_fetch_one($result);
 			$atorDAO = new AtorDAO();
 			$acaoDAO = new AcaoDAO();
 			pg_close($conexao);

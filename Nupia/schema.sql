@@ -1,6 +1,6 @@
 CREATE TABLE public.eixo
 (
-  id integer serial,
+  id serial,
   nome character varying(100),
   descricao character varying(1000),
   CONSTRAINT eixo_pkey PRIMARY KEY (id)
@@ -8,15 +8,27 @@ CREATE TABLE public.eixo
 
 CREATE TABLE public.projeto
 (
-  id integer serial,
+  id serial,
   nome character varying(100),
   descricao character varying(1000),
   CONSTRAINT projeto_pkey PRIMARY KEY (id)
 )
 
+CREATE TABLE public.ator
+(
+  id serial,
+  idinstituicao integer,
+  nome character varying(100),
+  tipo character varying(100),
+  senha character varying(100),
+  email character varying(100),
+  codigo character varying(100),
+  CONSTRAINT ator_pkey PRIMARY KEY (id)
+)
+
 CREATE TABLE public.resumo
 (
-  id integer serial,
+  id serial,
   titulo character varying(100),
   justificativa character varying(10000),
   objetivo character varying(10000),
@@ -30,37 +42,9 @@ CREATE TABLE public.resumo
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 
-REATE TABLE public.acao
-(
-  id integer serial,
-  ideixo integer not null,
-  idprojeto integer not null,
-  titulo character varying(100),
-  palavrachave character varying(100),
-  datainicio date,
-  datatermino date,
-  previnicio date,
-  prevtermino date,
-  edital oid,
-  cronograma oid,
-  situacao boolean,
-  tema character varying(100),
-  idresumo integer,
-  CONSTRAINT acao_pkey PRIMARY KEY (id),
-  CONSTRAINT acao_ideixo_fkey FOREIGN KEY (ideixo)
-      REFERENCES public.eixo (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT acao_idprojeto_fkey FOREIGN KEY (idprojeto)
-      REFERENCES public.projeto (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT idresumo FOREIGN KEY (idresumo)
-      REFERENCES public.resumo (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-
 CREATE TABLE public.acao
 (
-  id integer serial,
+  id serial,
   ideixo integer NOT NULL,
   idprojeto integer NOT NULL,
   idresumo integer NOT NULL,
@@ -86,21 +70,10 @@ CREATE TABLE public.acao
       REFERENCES public.resumo (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
-CREATE TABLE public.ator
-(
-  id integer serial,
-  idinstituicao integer,
-  nome character varying(100),
-  tipo character varying(100),
-  senha character varying(100),
-  email character varying(100),
-  codigo character varying(100),
-  CONSTRAINT ator_pkey PRIMARY KEY (id)
-)
 
 CREATE TABLE public.acaoator
 (
-  id integer serial,
+  id serial,
   idator integer not null,
   idacao integer NOT NULL,
   titulo character varying(100),
@@ -120,7 +93,7 @@ CREATE TABLE public.acaoator
 
 CREATE TABLE public.acaovinculada
 (
-  id integer serial,
+  id serial,
   idacao1 integer not null,
   idacao2 integer not null,
   CONSTRAINT acaovinculada_pkey PRIMARY KEY (id),
@@ -134,7 +107,7 @@ CREATE TABLE public.acaovinculada
 
 CREATE TABLE public.arquivo
 (
-  id integer serial,
+  id serial,
   idacao integer not null,
   documento integer,
   nome character varying(100),
@@ -146,7 +119,7 @@ CREATE TABLE public.arquivo
 
 CREATE TABLE public.artigoexterno
 (
-  id integer serial,
+  id serial,
   idacao integer not null,
   link text,
   CONSTRAINT artigoexterno_pkey PRIMARY KEY (id),
