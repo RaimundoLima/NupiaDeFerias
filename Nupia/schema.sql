@@ -1,3 +1,63 @@
+CREATE TABLE public.eixo
+(
+  id integer serial,
+  nome character varying(100),
+  descricao character varying(1000),
+  CONSTRAINT eixo_pkey PRIMARY KEY (id)
+)
+
+CREATE TABLE public.projeto
+(
+  id integer serial,
+  nome character varying(100),
+  descricao character varying(1000),
+  CONSTRAINT projeto_pkey PRIMARY KEY (id)
+)
+
+CREATE TABLE public.resumo
+(
+  id integer serial,
+  titulo character varying(100),
+  justificativa character varying(10000),
+  objetivo character varying(10000),
+  metodologia character varying(10000),
+  resultadoesperado character varying(10000),
+  impactoesperado character varying(10000),
+  idator integer,
+  CONSTRAINT resumo_pkey PRIMARY KEY (id),
+  CONSTRAINT idator FOREIGN KEY (idator)
+      REFERENCES public.ator (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+REATE TABLE public.acao
+(
+  id integer serial,
+  ideixo integer not null,
+  idprojeto integer not null,
+  titulo character varying(100),
+  palavrachave character varying(100),
+  datainicio date,
+  datatermino date,
+  previnicio date,
+  prevtermino date,
+  edital oid,
+  cronograma oid,
+  situacao boolean,
+  tema character varying(100),
+  idresumo integer,
+  CONSTRAINT acao_pkey PRIMARY KEY (id),
+  CONSTRAINT acao_ideixo_fkey FOREIGN KEY (ideixo)
+      REFERENCES public.eixo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT acao_idprojeto_fkey FOREIGN KEY (idprojeto)
+      REFERENCES public.projeto (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT idresumo FOREIGN KEY (idresumo)
+      REFERENCES public.resumo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
 CREATE TABLE public.acao
 (
   id integer serial,
@@ -24,5 +84,73 @@ CREATE TABLE public.acao
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT idresumo FOREIGN KEY (idresumo)
       REFERENCES public.resumo (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+CREATE TABLE public.ator
+(
+  id integer serial,
+  idinstituicao integer,
+  nome character varying(100),
+  tipo character varying(100),
+  senha character varying(100),
+  email character varying(100),
+  codigo character varying(100),
+  CONSTRAINT ator_pkey PRIMARY KEY (id)
+)
+
+CREATE TABLE public.acaoator
+(
+  id integer serial,
+  idator integer not null,
+  idacao integer NOT NULL,
+  titulo character varying(100),
+  justificativa character varying(10000),
+  objetivo character varying(10000),
+  metodologia character varying(10000),
+  resultadoesperado character varying(100000),
+  impactoesperado character varying(100000),
+  CONSTRAINT acaoator_pkey PRIMARY KEY (id),
+  CONSTRAINT acaoator_idator_fkey FOREIGN KEY (idator)
+      REFERENCES public.ator (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT idacao FOREIGN KEY (idacao)
+      REFERENCES public.acao (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+CREATE TABLE public.acaovinculada
+(
+  id integer serial,
+  idacao1 integer not null,
+  idacao2 integer not null,
+  CONSTRAINT acaovinculada_pkey PRIMARY KEY (id),
+  CONSTRAINT acaovinculada_idacao1_fkey FOREIGN KEY (idacao1)
+      REFERENCES public.acao (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT acaovinculada_idacao2_fkey FOREIGN KEY (idacao2)
+      REFERENCES public.acao (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+CREATE TABLE public.arquivo
+(
+  id integer serial,
+  idacao integer not null,
+  documento integer,
+  nome character varying(100),
+  CONSTRAINT arquivo_pkey PRIMARY KEY (id),
+  CONSTRAINT arquivo_idacao_fkey FOREIGN KEY (idacao)
+      REFERENCES public.acao (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+
+CREATE TABLE public.artigoexterno
+(
+  id integer serial,
+  idacao integer not null,
+  link text,
+  CONSTRAINT artigoexterno_pkey PRIMARY KEY (id),
+  CONSTRAINT artigoexterno_idacao_fkey FOREIGN KEY (idacao)
+      REFERENCES public.acao (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
