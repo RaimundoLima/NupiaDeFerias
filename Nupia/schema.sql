@@ -4,7 +4,7 @@ CREATE TABLE public.eixo
   nome character varying(100),
   descricao character varying(1000),
   CONSTRAINT eixo_pkey PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE public.projeto
 (
@@ -12,7 +12,7 @@ CREATE TABLE public.projeto
   nome character varying(100),
   descricao character varying(1000),
   CONSTRAINT projeto_pkey PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE public.ator
 (
@@ -24,7 +24,7 @@ CREATE TABLE public.ator
   email character varying(100),
   codigo character varying(100),
   CONSTRAINT ator_pkey PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE public.resumo
 (
@@ -40,7 +40,7 @@ CREATE TABLE public.resumo
   CONSTRAINT idator FOREIGN KEY (idator)
       REFERENCES public.ator (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
-)
+);
 
 CREATE TABLE public.acao
 (
@@ -69,7 +69,7 @@ CREATE TABLE public.acao
   CONSTRAINT idresumo FOREIGN KEY (idresumo)
       REFERENCES public.resumo (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
-)
+);
 
 CREATE TABLE public.acaoator
 (
@@ -89,7 +89,7 @@ CREATE TABLE public.acaoator
   CONSTRAINT idacao FOREIGN KEY (idacao)
       REFERENCES public.acao (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
-)
+);
 
 CREATE TABLE public.acaovinculada
 (
@@ -103,7 +103,7 @@ CREATE TABLE public.acaovinculada
   CONSTRAINT acaovinculada_idacao2_fkey FOREIGN KEY (idacao2)
       REFERENCES public.acao (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
-)
+);
 
 CREATE TABLE public.arquivo
 (
@@ -115,7 +115,7 @@ CREATE TABLE public.arquivo
   CONSTRAINT arquivo_idacao_fkey FOREIGN KEY (idacao)
       REFERENCES public.acao (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
-)
+);
 
 CREATE TABLE public.artigoexterno
 (
@@ -126,4 +126,4 @@ CREATE TABLE public.artigoexterno
   CONSTRAINT artigoexterno_idacao_fkey FOREIGN KEY (idacao)
       REFERENCES public.acao (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
-)
+);
