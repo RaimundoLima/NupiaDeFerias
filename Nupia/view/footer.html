@@ -1,28 +1,30 @@
-      </div>
-	  <script type="text/javascript" src="js/materialize.min.js"></script>
-	  <script type="text/javascript" src="js/jquery.js"></script>
-	  <script>
-	$(window).on('load', function () {
-	$('#pesquisar').focus();
+</div>
+<script type="text/javascript" src="view/js/materialize.min.js"></script>
+<script type="text/javascript" src="view/js/jquery.js"></script>
+<script>
+  $(window).on('load', function() {
+    $('#pesquisar').focus();
     $('#preloader .inner').fadeOut();
-    $('#preloader').delay(5).fadeOut('slow'); 
-    $('body').delay(5).css({'overflow': 'visible'});
-})
-	  M.AutoInit();
-	    $(document).ready(function(){
-		$('#load').hide();
-		if($( document ).width()<=992)
-		{
-			$('#home').hide();
-			$('#eixos').hide();
-			$('#projetos').hide();
-			$('#cadastra').hide();
-			$('#acoes').hide();
-			$('#pesquisaIco').hide();
-		}
-		$('.sidenav').sidenav();	 
-		M.updateTextFields();
+    $('#preloader').delay(5).fadeOut('slow');
+    $('body').delay(5).css({
+      'overflow': 'visible'
+    });
+  })
+  M.AutoInit();
+  $(document).ready(function() {
+    $('#load').hide();
+    if ($(document).width() <= 992) {
+      $('#home').hide();
+      $('#eixos').hide();
+      $('#projetos').hide();
+      $('#cadastra').hide();
+      $('#acoes').hide();
+      $('#pesquisaIco').hide();
+    }
+    $('.sidenav').sidenav();
+    M.updateTextFields();
   });
-	  </script>
-	</body>
-  </html>
+</script>
+</body>
+
+</html>

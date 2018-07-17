@@ -7,23 +7,23 @@ function getPagina(){
 	$metodo = $_SERVER['REQUEST_METHOD'];
   if(true){
     switch($url[0]){
-      case '/home/':
-				include('../view/home.php');
+      case '/home':
+				include('view/home.php');
         break;
 			case '/':
 				include('view/home.php');
 				break;
 			case '/acoes/':
-				include('../view/acoes.php');
+				include('view/acoes.php');
 	      break;
 			case '/projetos/':
-				include('../view/projetos.php');
+				include('view/projetos.php');
 	      break;
 			case '/eixos/':
-				include('../view/eixos.php');
+				include('view/eixos.php');
 			  break;
 			case '/cadastrar/':
-				include('../view/cadastrar.php');
+				include('view/cadastrar.php');
 		  	break;
 			default :
 				echo 'deu ruim ou bom';
