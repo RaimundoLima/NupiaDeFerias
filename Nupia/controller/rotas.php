@@ -33,9 +33,12 @@ function getPagina(){
 			case '/cadastrando':
 				//$dao->AtorCadastra();//seria legal se as funções tiverem um return true
 				header("Location: /Home");//redireciona
-			///INFES##########
+			///INFES##########Só testando
 			case '/infes/home':
 				include('view/INFES/home.php');
+				break;
+			case '/infes/acoes':
+				include('view/INFES/acoes.php');
 				break;
 			////Paginas de erros####
 			default :
