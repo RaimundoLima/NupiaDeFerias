@@ -6,6 +6,7 @@ function getPagina(){
 	$url[0] = strtolower($url[0]);
 	$metodo = $_SERVER['REQUEST_METHOD'];
   if(true){
+		//fazer algo sobre logins
     switch($url[0]){
 			//NUPIA####
       case '/home':
@@ -18,19 +19,27 @@ function getPagina(){
 				include('view/acoes.php');
 	      break;
 			case '/projetos':
+				//$lista=$dao->ProjetosListar();
 				include('view/projetos.php');
 	      break;
 			case '/eixos':
+				//$lista=$dao->eixosListar();
 				include('view/eixos.php');
 			  break;
 			case '/cadastro':
+				//$lista=$dao->InstituicaoListar();
 				include('view/cadastro.php');
 		  	break;
-			default :
-				echo 'deu ruim ou bom';
-				break;
+			case '/cadastrando':
+				//$dao->AtorCadastra();//seria legal se as funções tiverem um return true
+				header("Location: /Home");//redireciona
+			///INFES##########
 			case '/infes/home':
 				include('view/INFES/home.php');
+				break;
+			////Paginas de erros####
+			default :
+				echo 'deu ruim ou bom';
 				break;
     }
   }
