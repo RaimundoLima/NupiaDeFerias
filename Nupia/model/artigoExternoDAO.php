@@ -30,35 +30,28 @@ class ArtigoExternoDAO{
     $conexao = conexao();
     $query = "select * from artigoexterno where id = '".$id."'";
     $result = pg_query($conexao, $query);
-    $listaArtigoExterno = pg_fetch_one($result);
+    $ArtigoExterno = pg_fetch_one($result);
     $artigoExternoDAO = new ArtigoExternoDAO();
     pg_close($conexao);
-    $idAcao = $listaArtigoExterno[$i]["idacao"];
+    $idAcao = $ArtigoExterno[$i]["idacao"];
     $acao = $acaoDAO->obter($idAcao);
-    $link = $listaArtigoExterno[$i]["link"];
+    $link = $ArtigoExterno[$i]["link"];
     $artigoExternoObj = new ArtigoExterno($acao, $link);
-    return $AcaoAtorObj;
+    return $artigoExternoObj;
   }
   function editar($acaoator){
     $conexao = conexao();
-    $ator = $acaoAtor->getAtor();
-    $idAtor = $ator->getId();
-    $acao = $acaoAtor->getAcao();
+    $acao = $artigoExterno->getAcao();
     $idAcao = $acao->getId();
-    $titulo = $acaoAtor->getTitulo();
-    $justificativa = $acaoAtor->getJustificativa();
-    $objetivo = $acaoAtor->getObjetivo();
-    $metodologia = $acaoAtor->getMetodologia();
-    $resultadoEsperado = $acaoAtor->getResultadoEsperado();
-    $impactoEsperado = $acaoAtor->getImpactoEsperado();
+    $link = $artigoExterno->getLink();
     $conexao = conexao();
-    $query = "UPDATE acaoator set idator='".$idAtor."', idacao='".$idAcao."', titulo='".$titulo."', idator='".$idAtor."', justificativa='".$justificativa."',objetivo='".$objetivo."',metodologia='".$metodologia."', resultadoesperado='".$resultadoEsperado."', impactoesperado='".$impactoEsperado."'";
+    $query = "UPDATE artigoexterno idacao='".$idAcao."', titulo='".$link."'";
     $result = pg_query($conexao, $query);
     pg_close($conexao);
   }
   function excluir($id){
     $conexao = conexao();
-    $query = "delete FROM acaoator WHERE id = '".$id."'";
+    $query = "delete FROM artigoexterno WHERE id = '".$id."'";
     $result = pg_query($conexao, $query);
     pg_close($conexao);
   }
