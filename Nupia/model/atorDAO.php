@@ -1,4 +1,5 @@
 <?php
+include('../controller/conexao.php');
 class AtorDAO{
   function adicionar($ator){
     $nome = $ator->getNome();
@@ -39,7 +40,7 @@ class AtorDAO{
     $tipo = $ator[$i]["tipo"];
     $senha = $ator[$i]["senha"];
     $email = $ator[$i]["email"];
-    $codigo = $ator[$i]["codigo"]
+    $codigo = $ator[$i]["codigo"];
     $atorObj = new Ator($nome, $tipo, $senha, $email, $codigo);
     return $atorObj;
   }

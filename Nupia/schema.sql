@@ -47,7 +47,7 @@ CREATE TABLE public.acao
   id serial,
   ideixo integer NOT NULL,
   idprojeto integer NOT NULL,
-  idresumo integer NOT NULL,
+  idresumo integer,
   titulo character varying(100),
   palavrachave character varying(100),
   datainicio date,
