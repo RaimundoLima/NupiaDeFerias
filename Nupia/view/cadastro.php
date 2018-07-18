@@ -40,7 +40,7 @@
 				<label>Instituição</label>
           </div>
 		  <br>
-		    <button class="green btn waves-effect waves-light" type="submit" name="action">Enviar Dados
+		    <button class="green btn waves-effect waves-light" type="submit" name="action">Cadastrar Conta
 			<i class="material-icons right">send</i>
   </button>
   <br><br><br><br>

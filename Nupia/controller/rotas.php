@@ -26,6 +26,9 @@ function getPagina(){
 				//$lista=$dao->eixosListar();
 				include('view/eixos.php');
 			  break;
+			case '/logar':
+				include('view/logar.php');
+				break;
 			case '/cadastro':
 				//$lista=$dao->InstituicaoListar();
 				include('view/cadastro.php');

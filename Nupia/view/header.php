@@ -38,8 +38,10 @@
           </form>
         </div>
         <div style='margin-right: 15%;' class='right'>
-          <li><a id="cadastra" href="Cadastro">Cadastro
-		<i id="countIco"  class="material-icons prefix left tiny">account_circle</i>
+          <li><a id="cadastra" href="Cadastro">Cadastrar</a>
+          </li>
+          <li><a id="logar" href="Logar">Logar</a>
+          </li>
         </div>
       </ul>
     </div>
