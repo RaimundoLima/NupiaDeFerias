@@ -68,14 +68,23 @@
 
   <ul class="green lighten-5 sidenav" id="mobile-demo">
     <div  class='green' style='height: 25%;'>
-      <div style='color: #fff;position: absolute;z-index:3;top:15%;'><img class='foto-sidenav'src='view/img/estatistica.png'></div>
+      <div style='position: absolute;z-index:3;top:10%;'>
+        <div class='foto-sidenav'>
+          <img src='view/img/NupiaPessoas.jpg'>
+        </div>
+      </div>
+      <div style='margin-left: 160px;position: absolute;z-index:3;top:12%;'>
+        <b>Logado como:</b>
+        <br>
+        <b>Nome de usuario</b>
+      </div>
     </div>
-    <div style='margin-top:15%;'>
+    <div style='margin-top:20%;'>
     <li><a href="Home">Home</a></li>
           <li><a href="Acoes">Ações</a></li>
           <li><a href="Projetos">Projetos</a></li>
           <li><a href="Eixos">Eixos</a></li>
-          
+
           <li><a href="Cadastro">Cadastrar</a></li>
           <li><a href="Logar">Logar</a></li>
     </div>
