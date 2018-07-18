@@ -1,5 +1,5 @@
 <?php
-	include("header.html");
+	include("header.php");
 ?>
 <br><br><br>
 <div style="border: 1px solid #a8dea4;" class="container">
@@ -48,5 +48,5 @@
 
 </div>
 <?php
-	include("footer.html");
+	include("footer.php");
 ?>
