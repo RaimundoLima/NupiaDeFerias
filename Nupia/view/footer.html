@@ -12,16 +12,18 @@
   })
   M.AutoInit();
   $(document).ready(function() {
-    $('#load').hide();
     if ($(document).width() <= 992) {
-      $('#home').hide();
-      $('#eixos').hide();
-      $('#projetos').hide();
-      $('#cadastra').hide();
-      $('#acoes').hide();
-      $('#pesquisaIco').hide();
+      $('#nav-mobile').hide();
     }
-    $('.sidenav').sidenav();
+    $('#load').hide();
+    $(window).on('resize', function() {
+      if ($(document).width() <= 992) {
+        $('#nav-mobile').hide();
+      } else {
+        $('#nav-mobile').show();
+      }
+    });
+
     M.updateTextFields();
   });
 </script>
