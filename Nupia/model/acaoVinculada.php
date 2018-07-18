@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class AcaoVinculada{
 	private $id;
@@ -22,7 +22,4 @@ class AcaoVinculada{
 		return $this->acao2;
 	}
 }
-
-
-
 ?>

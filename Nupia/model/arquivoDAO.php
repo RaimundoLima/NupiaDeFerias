@@ -1,4 +1,6 @@
 <?php
+include_once("../controller/conexao.php");
+include_once("arquivo.php");
 class ArquivoDAO{
   function adicionar($arquivo){
     $nome = $arquivo->getNome();
@@ -18,11 +20,12 @@ class ArquivoDAO{
     pg_close($conexao);
     $listaArquivoObj = [];
     for($i=0; $i<count($result); $i++){
+      $id = $listaArquivo[$i]["id"];
       $nome = $listaArquivo[$i]["nome"];
       $idAcao = $listaArquivo[$i]["idacao"];
       $acao = $acaoDAO->obter();
-      $arquivo = new Arquivo($acao, $nome);
-      $listaArquivoObj.append($arquivo);
+      $arquivo = new Arquivo($acao, $nome, $id);
+      array_push($listaArquivoObj, $arquivo);
     }
     return $listaArquivoObj;
   }
@@ -30,13 +33,14 @@ class ArquivoDAO{
     $conexao = conexao();
     $query = "select * from arquivo where id = '".$id."'";
     $result = pg_query($conexao, $query);
-    $arquivo = pg_fetch_one($result);
+    $arquivo = pg_fetch_all($result);
     $acaoDAO = new AcaoDAO();
     pg_close($conexao);
-    $idacao = $arquivo[$i]["idacao"];
+    $id = $arquivo[0]["id"];
+    $idacao = $arquivo[0]["idacao"];
     $acao = $acaoDAO->obter($idacao);
-    $nome = $arquivo[$i]["nome"];
-    $arquivoObj = new Arquivo($acao, $nome);
+    $nome = $arquivo[0]["nome"];
+    $arquivoObj = new Arquivo($acao, $nome, $id);
     return $arquivoObj;
   }
   function editar($arquivo){

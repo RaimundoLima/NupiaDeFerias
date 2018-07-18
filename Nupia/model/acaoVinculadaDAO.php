@@ -1,4 +1,6 @@
 <?php
+include_once("../controller/conexao.php");
+include_once("acaoVinculada.php");
 class AcaoVinculadaDAO{
   function adicionar($acaoVinculada){
     $acao1 = $acaoVinculada->getAcao1();
@@ -19,12 +21,13 @@ class AcaoVinculadaDAO{
     pg_close($conexao);
     $listaAcaoVinculadaObj = [];
     for($i=0; $i<count($result); $i++){
+      $id = $listaAcaoVinculada[$i]["id"];
       $idAcao1 = $listaAcaoVinculada[$i]["idacao1"];
       $acao1 = $acaoDAO->obter($idAcao1);
       $idAcao2 = $listaAcaoVinculada[$i]["idacao2"];
       $acao2 = $acaoDAO->obter($idAcao2);
       $acaoVinculada = new AcaoVinculada($acao1, $acao2);
-      $listaAcaoVinculadaObj.append($acaoVinculada);
+      array_push($listaAcaoVinculadaObj, $acaoVinculada, $id);
     }
     return $listaVinculadaObj;
   }
@@ -32,14 +35,15 @@ class AcaoVinculadaDAO{
     $conexao = conexao();
     $query = "select * from acaovinculada where id = '".$id."'";
     $result = pg_query($conexao, $query);
-    $acaoVinculada = pg_fetch_one($result);
+    $acaoVinculada = pg_fetch_all($result);
     $acaoDAO = new AcaoDAO();
     pg_close($conexao);
-    $idAcao1 = $acaoVinculada[$i]["idacao1"];
+    $id = $acaoVinculada[0]["id"];
+    $idAcao1 = $acaoVinculada[0]["idacao1"];
     $acao1 = $acaoDAO->obter($idAcao1);
-    $idAcao2 = $acaoVinculada[$i]["idacao2"];
+    $idAcao2 = $acaoVinculada[0]["idacao2"];
     $acao2 = $acaoDAO->obter($idAcao);
-    $acaoVinculadaObj = new AcaoVinculada($acao1, $acao2);
+    $acaoVinculadaObj = new AcaoVinculada($acao1, $acao2, $id);
     return $AcaoVinculadaObj;
   }
   function editar($acaoator){

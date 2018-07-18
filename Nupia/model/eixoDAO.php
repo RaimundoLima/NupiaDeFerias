@@ -1,4 +1,6 @@
 <?php
+include_once("../controller/conexao.php");
+include_once("eixo.php");
 class EixoDAO{
   function adicionar($eixo){
     $nome = $eixo->getNome();
@@ -16,10 +18,11 @@ class EixoDAO{
     pg_close($conexao);
     $listaEixoObj = [];
     for($i=0; $i<count($result); $i++){
+      $id = $listaEixo[$i]["id"];
       $nome = $listaEixo[$i]["nome"];
       $descricao = $listaEixo[$i]["descricao"];
       $eixo = new Eixo($nome, $descricao);
-      $listaEixoObj.append($eixo);
+      array_push($listaEixoObj, $eixo, $id);
     }
     return $listaEixoObj;
   }
@@ -27,11 +30,12 @@ class EixoDAO{
     $conexao = conexao();
     $query = "select * from eixo where id = '".$id."'";
     $result = pg_query($conexao, $query);
-    $eixo = pg_fetch_one($result);
+    $eixo = pg_fetch_all($result);
     pg_close($conexao);
-    $nome = $eixo[$i]["nome"];
-    $descricao = $eixo[$i]["descricao"];
-    $eixoObj = new Eixo($nome, $descricao);
+    $id = $eixo[0]["id"];
+    $nome = $eixo[0]["nome"];
+    $descricao = $eixo[0]["descricao"];
+    $eixoObj = new Eixo($nome, $descricao, $id);
     return $eixoObj;
   }
   function editar($eixo){

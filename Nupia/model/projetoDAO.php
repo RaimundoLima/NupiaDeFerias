@@ -1,4 +1,6 @@
 <?php
+include_once("../controller/conexao.php");
+include_once("projeto.php");
 class ProjetoDAO{
   function adicionar($projeto){
     $nome = $projeto->getNome();
@@ -16,10 +18,11 @@ class ProjetoDAO{
     pg_close($conexao);
     $listaProjetoObj = [];
     for($i=0; $i<count($result); $i++){
+      $id = $listaProjeto[$i]["id"];
       $nome = $listaProjeto[$i]["nome"];
       $descricao = $listaProjeto[$i]["descricao"];
       $projeto = new Projeto($nome, $descricao);
-      $listaProjetoObj.append($projeto);
+      array_push($listaProjetoObj, $projeto, $id);
     }
     return $listaProjetoObj;
   }
@@ -27,11 +30,12 @@ class ProjetoDAO{
     $conexao = conexao();
     $query = "select * from projeto where id = '".$id."'";
     $result = pg_query($conexao, $query);
-    $projeto = pg_fetch_one($result);
+    $projeto = pg_fetch_all($result);
     pg_close($conexao);
-    $nome = $projeto[$i]["nome"];
-    $descricao = $projeto[$i]["descricao"];
-    $projetoObj = new Eixo($nome, $descricao);
+    $id = $projeto[0]["id"];
+    $nome = $projeto[0]["nome"];
+    $descricao = $projeto[0]["descricao"];
+    $projetoObj = new Eixo($nome, $descricao, $id);
     return $projetoObj;
   }
   function editar($projeto){

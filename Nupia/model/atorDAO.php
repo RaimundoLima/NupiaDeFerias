@@ -1,5 +1,6 @@
 <?php
-include('../controller/conexao.php');
+include_once('../controller/conexao.php');
+include_once('ator.php');
 class AtorDAO{
   function adicionar($ator){
     $nome = $ator->getNome();
@@ -19,14 +20,15 @@ class AtorDAO{
     $listaAtor = pg_fetch_all($result);
     pg_close($conexao);
     $listaAtorObj = [];
-    for($i=0; $i<count($result); $i++){
+    for($i=0; $i<count($listaAtor); $i++){
+      $id = $listaAtor[$i]["id"];
       $nome = $listaAtor[$i]["nome"];
       $tipo = $listaAtor[$i]["tipo"];
       $senha = $listaAtor[$i]["senha"];
       $email = $listaAtor[$i]["email"];
       $codigo = $listaAtor[$i]["codigo"];
-      $ator = new Ator($nome, $tipo, $senha, $email, $codigo);
-      $listaAtorObj.append($ator);
+      $ator = new Ator($nome, $tipo, $senha, $email, $codigo, $id);
+      array_push($listaAtorObj, $ator);
     }
     return $listaAtorObj;
   }
@@ -34,14 +36,15 @@ class AtorDAO{
     $conexao = conexao();
     $query = "select * from ator where id = '".$id."'";
     $result = pg_query($conexao, $query);
-    $ator = pg_fetch_one($result);
+    $ator = pg_fetch_all($result);
     pg_close($conexao);
-    $nome = $ator[$i]["nome"];
-    $tipo = $ator[$i]["tipo"];
-    $senha = $ator[$i]["senha"];
-    $email = $ator[$i]["email"];
-    $codigo = $ator[$i]["codigo"];
-    $atorObj = new Ator($nome, $tipo, $senha, $email, $codigo);
+    $id = $ator[0]["id"];
+    $nome = $ator[0]["nome"];
+    $tipo = $ator[0]["tipo"];
+    $senha = $ator[0]["senha"];
+    $email = $ator[0]["email"];
+    $codigo = $ator[0]["codigo"];
+    $atorObj = new Ator($nome, $tipo, $senha, $email, $codigo, $id);
     return $atorObj;
   }
   function editar($ator){

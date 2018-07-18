@@ -1,4 +1,6 @@
 <?php
+include_once("../controller/conexao.php");
+include_once("artigoExterno.php");
 class ArtigoExternoDAO{
   function adicionar($artigoExterno){
     $acao = $artigoExterno->getAcao();
@@ -18,11 +20,12 @@ class ArtigoExternoDAO{
     pg_close($conexao);
     $listaArtigoExternoObj = [];
     for($i=0; $i<count($result); $i++){
+      $id = $listaArtigoExterno[$i]["id"];
       $idAcao = $listaArtigoExterno[$i]["idacao"];
       $acao = $acaoDAO->obter($idAcao);
       $link = $listaArtigoExterno[$i]["link"];
       $artigoExterno = new ArtigoExterno($acao, $link);
-      $listaArtigoExternoObj.append($artigoExterno);
+      array_push($listaArtigoExternoObj, $artigoExterno, $id);
     }
     return $listaArtigoExternoObj;
   }
@@ -30,13 +33,14 @@ class ArtigoExternoDAO{
     $conexao = conexao();
     $query = "select * from artigoexterno where id = '".$id."'";
     $result = pg_query($conexao, $query);
-    $ArtigoExterno = pg_fetch_one($result);
+    $artigoExterno = pg_fetch_all($result);
     $artigoExternoDAO = new ArtigoExternoDAO();
     pg_close($conexao);
-    $idAcao = $ArtigoExterno[$i]["idacao"];
+    $id = $artigoExterno[0]["id"];
+    $idAcao = $artigoExterno[0]["idacao"];
     $acao = $acaoDAO->obter($idAcao);
-    $link = $ArtigoExterno[$i]["link"];
-    $artigoExternoObj = new ArtigoExterno($acao, $link);
+    $link = $artigoExterno[0]["link"];
+    $artigoExternoObj = new ArtigoExterno($acao, $link, $id);
     return $artigoExternoObj;
   }
   function editar($acaoator){

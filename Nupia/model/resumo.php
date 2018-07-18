@@ -2,6 +2,7 @@
 
 class Resumo {
 	private $id;
+	private $acao;
 	private $titulo;
 	private $ator;
 	private $justificativa;
@@ -9,9 +10,10 @@ class Resumo {
 	private $metodologia;
 	private $resultadoEsperado;
 	private $impactoEsperado;
-	
-	public function __construct($titulo, $ator, $justificativa, $objetivo, $metodologia, $resultadoEsperado, $impactoEsperado, $id=0){
+
+	public function __construct($titulo, $acao, $ator, $justificativa, $objetivo, $metodologia, $resultadoEsperado, $impactoEsperado, $id=0){
 		$this->ator = $ator;
+		$this->acao = $acao;
 		$this->titulo = $titulo;
 		$this->justificativa = $justificativa;
 		$this->objetivo = $objetivo;
@@ -21,6 +23,9 @@ class Resumo {
 	}
 	public function getId(){
 		return $this->$id;
+	}
+	public function getAcao{
+		return $this->acao;
 	}
 	public function getTitulo(){
 		return $this->titulo;

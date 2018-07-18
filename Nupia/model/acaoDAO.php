@@ -1,5 +1,6 @@
 <?php
-include("conexao.php");
+include_once("../controller/conexao.php");
+include_once("acao.php");
 class AcaoDAO{
   function adicionar($acao){
     $resumo = $acao->getResumo();
@@ -30,6 +31,7 @@ class AcaoDAO{
     $projetoDAO = new ProjetoDAO();
     $listaAcaoObj = [];
     for($i=0; $i<count($result); $i++){
+      $id = $listaAcao[$i]["id"];
       $idResumo = $listaAcao[$i]["idresumo"];
       $resumo = $resumoDAO->obter();
       $idEixo = $listaAcao[$i]["ideixo"];
@@ -43,7 +45,7 @@ class AcaoDAO{
       $prevTermino = $listaAcao[$i]["prevtermino"];
       $situacao = $listaAcao[$i]["situacao"];
       $acao = new Acao($resumo, $eixo, $projeto, $titulo, $tema, $palavraChave, $prevInicio, $prevTermino, $situacao);
-      $listaAcaoObj.append($acao);
+      array_push($listaAcaoObj, $acao, $id);
     }
     return $listaAcaoObj;
   }
@@ -51,13 +53,11 @@ class AcaoDAO{
     $conexao = conexao();
     $query = "select * from acao where id = '".$id."'";
     $result = pg_query($conexao, $query);
-    $acao = pg_fetch_one($result);
-    $resumoDAO = new ResumoDAO();
+    $acao = pg_fetch_all($result);
     $eixoDAO = new EixoDAO();
     $projetoDAO = new ProjetoDAO();
     pg_close($conexao);
-    $idResumo = $acao[0]["idresumo"];
-    $resumo = $resumoDAO->ober($idResumo);
+    $id = $acao[0]["id"];
     $idEixo = $acao[0]["ideixo"];
     $eixo = $eixoDAO->ober($idEixo);
     $idProjeto = $acao[0]["idprojeto"];
@@ -68,13 +68,11 @@ class AcaoDAO{
     $prevInicio = $acao[0]["previnicio"];
     $prevTermino = $acao[0]["prevtermino"];
     $situacao = $acao[0]["situacao"];
-    $acaoObj = new Acao($idEixo, $idProjeto, $titulo, $tema, $palavraChave, $prevInicio, $prevTermino, $situacao);
+    $acaoObj = new Acao($idEixo, $idProjeto, $titulo, $tema, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
     return $acaoObj;
   }
   function editar($acao){
     $conexao = conexao();
-    $resumo = $acao->getResumo();
-    $idResumo = $resumo->getId();
     $eixo = $acao->getEixo();
     $idEixo = $eixo->getId();
     $projeto = $acao->getProjeto();
