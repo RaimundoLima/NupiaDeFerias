@@ -7,6 +7,10 @@ function getPagina(){
 	$metodo = $_SERVER['REQUEST_METHOD'];
   if(true){
 		//fazer algo sobre logins
+		/*if(!empty($_SESSION)){
+			$user=$dao->AtorBuscar($_SESSION['id']);
+		}
+		*/
     switch($url[0]){
 			//NUPIA####
       case '/home':

@@ -98,4 +98,12 @@ body {}
   padding-right: 15px;
 }
 
+.fotonav {
+  max-width: 36px;
+  max-height: 36px;
+  border-radius: 15px;
+  width: auto;
+  height: auto;
+}
+
 /*burger*/
