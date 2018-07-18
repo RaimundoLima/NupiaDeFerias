@@ -1,5 +1,5 @@
 <?php
-	include("header.html");
+	include("header.php");
 ?>
 <br><br><br>
 <div style="border: 1px solid #a8dea4;" class="container">
@@ -40,7 +40,7 @@
 				<label>Instituição</label>
           </div>
 		  <br>
-		    <button class="green btn waves-effect waves-light" type="submit" name="action">Enviar Dados
+		    <button class="green btn waves-effect waves-light" type="submit" name="action">Cadastrar Conta
 			<i class="material-icons right">send</i>
   </button>
   <br><br><br><br>
@@ -48,5 +48,5 @@
 
 </div>
 <?php
-	include("footer.html");
+	include("footer.php");
 ?>

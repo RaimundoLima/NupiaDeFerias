@@ -7,6 +7,10 @@ function getPagina(){
 	$metodo = $_SERVER['REQUEST_METHOD'];
   if(true){
 		//fazer algo sobre logins
+		/*if(!empty($_SESSION)){
+			$user=$dao->AtorBuscar($_SESSION['id']);
+		}
+		*/
     switch($url[0]){
 			//NUPIA####
       case '/home':
@@ -26,6 +30,9 @@ function getPagina(){
 				//$lista=$dao->eixosListar();
 				include('view/eixos.php');
 			  break;
+			case '/logar':
+				include('view/logar.php');
+				break;
 			case '/cadastro':
 				//$lista=$dao->InstituicaoListar();
 				include('view/cadastro.php');

@@ -1,5 +1,5 @@
 <?php
-	include("header.html");
+	include("header.php");
 ?>
 <br><br><br><br>
 <div style="border: 1px solid #a8dea4;" class="container">
@@ -16,5 +16,5 @@
 <h2 class="" >&nbsp <b style="color: #3b48ff;">Nupia-Conex</b></h2>
 <p tyle="color: black;" class="flow-text">&nbsp&nbsp&nbsp&nbspO GVTecAgro é um projeto...</p>
 <?php
-	include("footer.html");
+	include("footer.php");
 ?>

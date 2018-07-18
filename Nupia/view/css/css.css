@@ -88,4 +88,43 @@ body {}
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+.sidenav-trigger {
+  padding: : 5px;
+}
+
+.navio {
+  margin-left: 172px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.fotonav {
+  max-width: 36px;
+  max-height: 36px;
+  border-radius: 15px;
+  width: auto;
+  height: auto;
+}
+
+.foto-sidenav {
+  background-color: #aaa;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+  position: relative;
+}
+
+.foto-sidenav>img {
+  width: 100%;
+  height: 100%;
+  /*
+  max-width: 60%;
+  max-height: 60%;
+  border-radius: 50%;
+  width: auto;
+  height: auto;
+  */
+}
+
 /*burger*/
