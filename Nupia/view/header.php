@@ -66,12 +66,19 @@
     </div>
   </nav>
 
-  <ul class="sidenav" id="mobile-demo">
+  <ul class="green lighten-5 sidenav" id="mobile-demo">
+    <div  class='green' style='height: 25%;'>
+      <div style='color: #fff;position: absolute;z-index:3;top:15%;'><img class='foto-sidenav'src='view/img/estatistica.png'></div>
+    </div>
+    <div style='margin-top:15%;'>
     <li><a href="Home">Home</a></li>
           <li><a href="Acoes">Ações</a></li>
           <li><a href="Projetos">Projetos</a></li>
           <li><a href="Eixos">Eixos</a></li>
-          <li><a href="Cadastro">Cadastro</a></li>
+          
+          <li><a href="Cadastro">Cadastrar</a></li>
+          <li><a href="Logar">Logar</a></li>
+    </div>
           <!--	<li><i class="material-icons left">search</i></li><li><input  placeholder="Pesquisar" ></li>-->
       </ul>
       <script>
