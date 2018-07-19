@@ -39,29 +39,19 @@
         </div>
         <?php
           if(empty($user)){
-            /*
+
             echo ' <div style="margin-right: 15%;"" class="right">
                       <li><a id="cadastra" href="Cadastro">Cadastrar</a>
                       </li>
                       <li><a id="logar" href="Logar">Logar</a>
                       </li>
-                    </div>'
-            */
+                    </div>';
           }else{
-            /*
-            echo '<div style='margin-right: 15%;' class='right'>
-            <li><a >notficacoes</a>
-            </li>'
-                      <li><a id="'.$user->getId().'"></a>
-                      </li>';*/
+            echo '<div style="margin-right: 15%;" class="right">
+            <li><a >notficacoes</a></li>
+          <li><a id="'.$user->getId().'"></a></li>';
             }
         ?>
-        <div style='margin-right: 15%;' class='right'>
-          <li><a id="cadastra" href="Cadastro">Cadastrar</a>
-          </li>
-          <li><a id="logar" href="Logar">Logar</a>
-          </li>
-        </div>
       </ul>
     </div>
   </nav>
@@ -84,7 +74,6 @@
           <li><a href="Acoes">Ações</a></li>
           <li><a href="Projetos">Projetos</a></li>
           <li><a href="Eixos">Eixos</a></li>
-
           <li><a href="Cadastro">Cadastrar</a></li>
           <li><a href="Logar">Logar</a></li>
     </div>

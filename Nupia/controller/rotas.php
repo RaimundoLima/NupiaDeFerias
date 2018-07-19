@@ -1,16 +1,14 @@
 <?php
 //include('../model/acaoDAO.php');
-
 function getPagina(){
 	$url = $_SERVER['REQUEST_URI'];
 	$url = explode("?",$url);
 	$url[0] = strtolower($url[0]);
 	$metodo = $_SERVER['REQUEST_METHOD'];
   if($_SESSION['tipo']!='adm'){
-		//fazer algo sobre logins
-		/*if(!empty($_SESSION)){
-			$user=$dao->AtorBuscar($_SESSION['id']);
-		}*/
+		if(!empty($_SESSION)){
+			$user=$dao->AtorBuscar($_SESSION['ator']);
+		}
     switch($url[0]){
 			//NUPIA####
       case '/home':
