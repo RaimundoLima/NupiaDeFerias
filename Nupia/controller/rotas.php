@@ -1,16 +1,16 @@
 <?php
 //include('../model/acaoDAO.php');
+
 function getPagina(){
 	$url = $_SERVER['REQUEST_URI'];
 	$url = explode("?",$url);
 	$url[0] = strtolower($url[0]);
 	$metodo = $_SERVER['REQUEST_METHOD'];
-  if(true){
+  if($_SESSION['tipo']!='adm'){
 		//fazer algo sobre logins
 		/*if(!empty($_SESSION)){
 			$user=$dao->AtorBuscar($_SESSION['id']);
 		}*/
-
     switch($url[0]){
 			//NUPIA####
       case '/home':
@@ -27,7 +27,7 @@ function getPagina(){
 				include('view/projetos.php');
 	      break;
 			case '/eixos':
-				//$lista=$dao->eixosListar();
+				//$lista=$dao->EixosListar();
 				include('view/eixos.php');
 			  break;
 			case '/logar':
@@ -35,6 +35,16 @@ function getPagina(){
 				break;
 			case '/logando':
 				//
+				$usuario_informado=$dao->AtorBuscar($_POST['email']);
+				$senha=$usuario_informado->getSenha();
+				if(!empty($usuario_informado) && $_POST['senha']==$senha){
+					$_SESSION['ator']=$usuario_informado;
+					$_SESSION['tipo']='ator';
+				}
+				if($_POST['matricula']=='adm' && $_POST['senha']=='adm123'){
+					$_SESSION['tipo']='adm';
+				}
+				header("Location: /Home");//redireciona
 				break;
 			case '/deslogar':
 				session_destroy();
@@ -53,7 +63,7 @@ function getPagina(){
 			case '/infes/acoes':
 				include('view/INFES/acoes.php');
 				break;
-			////Paginas de erros####
+			////Paginas de erros#######################
 			default :
 				echo 'deu ruim ou bom';
 				break;
