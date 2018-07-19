@@ -6,11 +6,11 @@ class ArtigoExterno{
 	function __construct($acao, $link, $id=0){
 		$this->id = $id;
 		$this->acao=$acao;
-		$this->link=link;
+		$this->link=$link;
 	}
 
 	public function getId(){
-		$this->id = $id;
+		return $this->id;
 	}
 
 	public function getAcao(){

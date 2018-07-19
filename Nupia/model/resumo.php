@@ -20,11 +20,12 @@ class Resumo {
 		$this->metodologia = $metodologia;
 		$this->resultadoEsperado = $resultadoEsperado;
 		$this->impactoEsperado = $impactoEsperado;
+		$this->id = $id;
 	}
 	public function getId(){
-		return $this->$id;
+		return $this->id;
 	}
-	public function getAcao{
+	public function getAcao(){
 		return $this->acao;
 	}
 	public function getTitulo(){

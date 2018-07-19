@@ -5,6 +5,7 @@
   include_once("../model/projetoDAO.php");
   $eixoDAO = new EixoDAO();
   $projetoDAO = new ProjetoDAO();
+	$id = $_POST["id"];
   $idEixo = $_POST["ideixo"];
   $eixo = $eixoDAO->obter($idEixo);
 	$idProjeto = $_POST["idprojeto"];
@@ -15,7 +16,7 @@
   $prevInicio = $_POST["previnicio"];
   $prevTermino = $_POST["prevtermino"];
   $situacao = $_POST["situacao"];
-	$acao = new Acao($eixo, $projeto, $titulo, $tema, $palavraChave, $prevInicio, $prevTermino, $situacao);
+	$acao = new Acao($eixo, $projeto, $titulo, $tema, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
   $acaoDAO = new AcaoDAO();
 	$acaoDAO->editar($acao);
  ?>

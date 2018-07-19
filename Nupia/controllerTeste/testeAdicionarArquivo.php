@@ -6,7 +6,7 @@
   $idAcao = $_POST["idacao"];
   $acao = $acaoDAO->obter($idAcao);
 	$nome = $_POST["nome"];
-	$acao = new Ator($acao, $nome);
+	$arquivo= new Arquivo($acao, $nome);
   $arquivoDAO = new ArquivoDAO();
 	$arquivoDAO->adicionar($arquivo);
  ?>

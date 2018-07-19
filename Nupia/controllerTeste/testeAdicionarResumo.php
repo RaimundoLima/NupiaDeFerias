@@ -1,21 +1,21 @@
 <?php
-	include_once("../model/acaoAtor.php");
-	include_once("../model/acaoDAO.php");
+	include_once("../model/resumo.php");
+	include_once("../model/resumoDAO.php");
   include_once("../model/atorDAO.php");
-  include_once("../model/acaoAtorDAO.php");
+  include_once("../model/acaoDAO.php");
   $acaoDAO = new AcaoDAO();
   $atorDAO = new AtorDAO();
-  $idAcao = $_POST["idacao"];
+  $titulo = "titulo";
+  $idAcao = "1";
   $acao = $acaoDAO->obter($idAcao);
-  $titulo = $_POST["titulo"];
-	$idAtor = $_POST["idator"];
+	$idAtor = "2";
   $ator = $atorDAO->obter($idAtor);
-	$justificativa = $_POST["justificativa"];
-	$objetivo = $_POST["objetivo"];
-  $metodologia = $_POST["metodologia"];
-  $resultadoEsperado = $_POST["resultadoesperado"];
-  $impactoEsperado = $_POST["impactoesperado"];
-	$resumo = new Resumo($acao, $titulo, $ator, $justificativa, $objetivo, $metodologia, $resultadoEsperado, $impactoEsperado);
+	$justificativa = "justificativa";
+	$objetivo = "objetivo";
+  $metodologia = "metodologia";
+  $resultadoEsperado = "resultadoesperado";
+  $impactoEsperado = "impactoesperado";
+	$resumo = new Resumo($titulo, $acao, $ator, $justificativa, $objetivo, $metodologia, $resultadoEsperado, $impactoEsperado);
   $resumoDAO = new ResumoDAO();
-	$resumoDAO->adicionar($Resumo);
+	$resumoDAO->adicionar($resumo);
  ?>

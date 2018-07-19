@@ -1,20 +1,20 @@
-<?php 
+<?php
 
 class AcaoAtor{
 	private $id;
-	private $idAtor;
-	private $idAcao;
+	private $ator;
+	private $acao;
 	private $titulo;
 	private $justificativa;
 	private $objetivo;
 	private $metodologia;
 	private $resultadoEsperado;
 	private $impactoEsperado;
-	function __construct($idAtor, $idAcao, $titulo, $justificativa, $objetivo, $metodologia, $resultadoEsperado, $impactoEsperado, $id=0){
-		
+	function __construct($ator, $acao, $titulo, $justificativa, $objetivo, $metodologia, $resultadoEsperado, $impactoEsperado, $id=0){
+
 		$this->id = $id;
-		$this->idAtor = $idAtor;
-		$this->idAcao = $idAcao;
+		$this->ator = $ator;
+		$this->acao = $acao;
 		$this->titulo = $titulo;
 		$this->justificativa = $justificativa;
 		$this->objetivo = $objetivo;
@@ -26,12 +26,12 @@ class AcaoAtor{
 		return $this->id;
 	}
 
-	public function getIdAtor(){
-		return $this->idAtor;
+	public function getAtor(){
+		return $this->ator;
 	}
 
-	public function getIdAcao(){
-		return $this->idAcao;
+	public function getAcao(){
+		return $this->acao;
 	}
 
 	public function getTitulo(){

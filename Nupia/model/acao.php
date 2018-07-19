@@ -22,6 +22,9 @@ class Acao {
 		$this->situacao = $situacao;
 		$this->id = $id;
 	}
+	public function getId(){
+		return $this->id;
+	}
 	public function getEixo(){
 		return $this->eixo;
 	}

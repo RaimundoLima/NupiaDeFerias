@@ -1,6 +1,8 @@
 <?php
 include_once("../controller/conexao.php");
 include_once("acaoAtor.php");
+include_once("atorDAO.php");
+include_once("acaoDAO.php");
 class AcaoAtorDAO{
   function adicionar($acaoAtor){
     $ator = $acaoAtor->getAtor();
@@ -26,8 +28,8 @@ class AcaoAtorDAO{
     $atorDAO = new AtorDAO();
     $acaoDAO = new AcaoDAO();
     pg_close($conexao);
-    $listaResumoObj = [];
-    for($i=0; $i<count($result); $i++){
+    $listaAcaoAtorObj = [];
+    for($i=0; $i<count($listaAcaoAtor); $i++){
       $id = $listaAcaoAtor[$i]["id"];
       $idAtor = $listaAcaoAtor[$i]["idator"];
       $ator = $atorDAO->obter($idAtor);
@@ -39,14 +41,14 @@ class AcaoAtorDAO{
       $metodologia = $listaAcaoAtor[$i]["metodologia"];
       $resultadoEsperado = $listaAcaoAtor[$i]["resultadoesperado"];
       $impactoEsperado = $listaAcaoAtor[$i]["impactoesperado"];
-      $acaoAtor = new AcaoAtor($ator, $acao, $titulo, $justificativa, $objetivo, $metodologia, $resultadoEsperado, $impactoEsperado);
-      array_push($listaAcaoAtorObj, $acaoAtor, $id);
+      $acaoAtor = new AcaoAtor($ator, $acao, $titulo, $justificativa, $objetivo, $metodologia, $resultadoEsperado, $impactoEsperado, $id);
+      array_push($listaAcaoAtorObj, $acaoAtor);
     }
     return $listaAcaoAtorObj;
   }
   function obter($id){
     $conexao = conexao();
-    $query = "select * from acaoator where id = '".$idAcaoAtor."'";
+    $query = "select * from acaoator where id = '".$id."'";
     $result = pg_query($conexao, $query);
     $acaoAtor = pg_fetch_all($result);
     $atorDAO = new AtorDAO();
@@ -61,13 +63,14 @@ class AcaoAtorDAO{
     $justificativa = $acaoAtor[0]["justificativa"];
     $objetivo = $acaoAtor[0]["objetivo"];
     $metodologia = $acaoAtor[0]["metodologia"];
-    $resultadoEsperado = $acaoAtor[$0]["resultadoesperado"];
+    $resultadoEsperado = $acaoAtor[0]["resultadoesperado"];
     $impactoEsperado = $acaoAtor[0]["impactoesperado"];
     $acaoAtorObj = new AcaoAtor($ator, $acao, $titulo,$justificativa, $objetivo, $metodologia, $resultadoEsperado, $impactoEsperado, $id);
     return $AcaoAtorObj;
   }
-  function editar($acaoator){
+  function editar($acaoAtor){
     $conexao = conexao();
+    $id = $acaoAtor->getId();
     $ator = $acaoAtor->getAtor();
     $idAtor = $ator->getId();
     $acao = $acaoAtor->getAcao();
@@ -79,7 +82,7 @@ class AcaoAtorDAO{
     $resultadoEsperado = $acaoAtor->getResultadoEsperado();
     $impactoEsperado = $acaoAtor->getImpactoEsperado();
     $conexao = conexao();
-    $query = "UPDATE acaoator set idator='".$idAtor."', idacao='".$idAcao."', titulo='".$titulo."', idator='".$idAtor."', justificativa='".$justificativa."',objetivo='".$objetivo."',metodologia='".$metodologia."', resultadoesperado='".$resultadoEsperado."', impactoesperado='".$impactoEsperado."'";
+    $query = "UPDATE acaoator set idator='".$idAtor."', idacao='".$idAcao."', titulo='".$titulo."', justificativa='".$justificativa."',objetivo='".$objetivo."',metodologia='".$metodologia."', resultadoesperado='".$resultadoEsperado."', impactoesperado='".$impactoEsperado."' where id='".$id."'";
     $result = pg_query($conexao, $query);
     pg_close($conexao);
   }

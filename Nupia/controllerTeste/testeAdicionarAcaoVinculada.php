@@ -7,7 +7,7 @@
   $acao1 = $acaoDAO->obter($idAcao1);
 	$idAcao2 = $_POST["idacao2"];
   $acao2 = $acaoDAO->obter($idAcao2);
-	$acaoVinculada = new Ator($acao1, $acao2);
+	$acaoVinculada = new AcaoVinculada($acao1, $acao2);
   $acaoVinculadaDAO = new AcaoVinculadaDAO();
 	$acaoVinculadaDAO->adicionar($acaoVinculada);
  ?>

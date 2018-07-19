@@ -6,7 +6,7 @@
   $idAcao = $_POST["idacao"];
   $acao = $acaoDAO->obter($idAcao);
 	$link = $_POST["link"];
-	$acao = new Ator($acao, $link);
+	$artigoExterno = new ArtigoExterno($acao, $link);
   $artigoExternoDAO = new ArtigoExternoDAO();
 	$artigoExternoDAO->adicionar($artigoExterno);
  ?>

@@ -15,7 +15,7 @@ class Arquivo{
 	public function getAcao(){
 		return $this->acao;
 	}
-	public function Nome(){
+	public function getNome(){
 		return $this->nome;
 	}
 }

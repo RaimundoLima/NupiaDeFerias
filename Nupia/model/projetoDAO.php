@@ -17,12 +17,12 @@ class ProjetoDAO{
     $listaProjeto = pg_fetch_all($result);
     pg_close($conexao);
     $listaProjetoObj = [];
-    for($i=0; $i<count($result); $i++){
+    for($i=0; $i<count($listaProjeto); $i++){
       $id = $listaProjeto[$i]["id"];
       $nome = $listaProjeto[$i]["nome"];
       $descricao = $listaProjeto[$i]["descricao"];
-      $projeto = new Projeto($nome, $descricao);
-      array_push($listaProjetoObj, $projeto, $id);
+      $projeto = new Projeto($nome, $descricao, $id);
+      array_push($listaProjetoObj, $projeto);
     }
     return $listaProjetoObj;
   }
@@ -40,9 +40,10 @@ class ProjetoDAO{
   }
   function editar($projeto){
     $conexao = conexao();
+    $id = $projeto->getId();
     $nome = $projeto->getNome();
     $descricao = $projeto->getDescricao();
-    $query = "UPDATE projeto set nome='".$nome."',descricao='".$descricao."'";
+    $query = "UPDATE projeto set nome='".$nome."',descricao='".$descricao."' where id='".$id."'";
     $result = pg_query($conexao, $query);
     pg_close($conexao);
   }

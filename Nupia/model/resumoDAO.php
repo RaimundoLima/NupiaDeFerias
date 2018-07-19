@@ -14,7 +14,7 @@ class ResumoDAO{
     $resultadoEsperado = $resumo->getResultadoEsperado();
     $impactoEsperado = $resumo->getImpactoEsperado();
     $conexao = conexao();
-    $query = "insert into resumo(titulo, idacao, idator, justificativa, objetivo, metodologia, resultadoesperado, impactoesperado) values('".$titulo."','".idAcao."' ,'".$idAtor."', '".$justificativa."', '".$objetivo."', '".$metodologia."', '".$resultadoEsperado."', '".$impactoEsperado."')";
+    $query = "insert into resumo(titulo, idacao, idator, justificativa, objetivo, metodologia, resultadoesperado, impactoesperado) values('".$titulo."','".$idAcao."' ,'".$idAtor."', '".$justificativa."', '".$objetivo."', '".$metodologia."', '".$resultadoEsperado."', '".$impactoEsperado."' where id='".$id."')";
     pg_query($conexao, $query);
     pg_close($conexao);
   }
@@ -27,7 +27,7 @@ class ResumoDAO{
     $atorDAO = new AtorDAO();
     pg_close($conexao);
     $listaResumoObj = [];
-    for($i=0; $i<count($result); $i++){
+    for($i=0; $i<count($listaResumo); $i++){
       $id = $listaResumo[$i]["id"];
       $titulo = $listaResumo[$i]["titulo"];
       $idAcao = $listaResumo[$i]["idacao"];
@@ -60,7 +60,7 @@ class ResumoDAO{
     $justificativa = $resumo[0]["justificativa"];
     $objetivo = $resumo[0]["objetivo"];
     $metodologia = $resumo[0]["metodologia"];
-    $resultadoEsperado = $resumo[$0]["resultadoesperado"];
+    $resultadoEsperado = $resumo[0]["resultadoesperado"];
     $impactoEsperado = $resumo[0]["impactoesperado"];
     $resumoObj = new Resumo($titulo, $acao, $ator, $justificativa, $objetivo, $metodologia, $resultadoEsperado, $impactoEsperado, $id);
     return $resumoObj;

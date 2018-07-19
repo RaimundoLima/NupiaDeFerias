@@ -1,6 +1,7 @@
 <?php
 include_once("../controller/conexao.php");
 include_once("arquivo.php");
+include_once("acaoDAO.php");
 class ArquivoDAO{
   function adicionar($arquivo){
     $nome = $arquivo->getNome();
@@ -19,11 +20,11 @@ class ArquivoDAO{
     $acaoDAO = new AcaoDAO();
     pg_close($conexao);
     $listaArquivoObj = [];
-    for($i=0; $i<count($result); $i++){
+    for($i=0; $i<count($listaArquivo); $i++){
       $id = $listaArquivo[$i]["id"];
       $nome = $listaArquivo[$i]["nome"];
       $idAcao = $listaArquivo[$i]["idacao"];
-      $acao = $acaoDAO->obter();
+      $acao = $acaoDAO->obter($idAcao);
       $arquivo = new Arquivo($acao, $nome, $id);
       array_push($listaArquivoObj, $arquivo);
     }
@@ -45,10 +46,11 @@ class ArquivoDAO{
   }
   function editar($arquivo){
     $conexao = conexao();
+    $id = $arquivo->getId();
     $nome = $arquivo->getNome();
     $acao = $arquivo->getAcao();
     $idAcao = $acao->getId();
-    $query = "UPDATE arquivo set idacao='".$idAcao."',nome='".$nome."'";
+    $query = "UPDATE arquivo set idacao='".$idAcao."',nome='".$nome."' where id='".$id."'";
     $result = pg_query($conexao, $query);
     pg_close($conexao);
   }

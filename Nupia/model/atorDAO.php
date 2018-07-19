@@ -49,12 +49,13 @@ class AtorDAO{
   }
   function editar($ator){
     $conexao = conexao();
+    $id = $ator->getId();
     $nome = $ator->getNome();
     $tipo = $ator->getTipo();
     $senha = $ator->getSenha();
     $email = $ator->getEmail();
     $codigo = $ator->getCodigo();
-    $query = "UPDATE ator set nome='".$nome."',tipo='".$tipo."',senha='".$senha."',email='".$email."',codigo='".$codigo."'";
+    $query = "UPDATE ator set nome='".$nome."',tipo='".$tipo."',senha='".$senha."',email='".$email."',codigo='".$codigo."' where id='".$id."'";
     $result = pg_query($conexao, $query);
     pg_close($conexao);
   }
