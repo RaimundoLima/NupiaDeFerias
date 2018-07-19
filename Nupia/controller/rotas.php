@@ -33,6 +33,12 @@ function getPagina(){
 			case '/logar':
 				include('view/logar.php');
 				break;
+			case '/logando':
+				//
+				break;
+			case '/deslogar':
+				session_destroy();
+				break;
 			case '/cadastro':
 				//$lista=$dao->InstituicaoListar();
 				include('view/cadastro.php');
