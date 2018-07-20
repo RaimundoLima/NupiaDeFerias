@@ -1,5 +1,5 @@
 <?php
-	include("header.html");
+	include("header.php");
 ?>
 <br><br><br><br>
   <div class="row">
@@ -14,12 +14,12 @@
 	  </li>
 	   <li>
       <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="bottom" src="/img/Nupia.png" alt="Icone">Estudo estatistico sobre solos</div>
-      <div class="collapsible-body"><span class="flow-text"><a href="acoes.php">Acessar Ação</a><br>O solo, mais do que simplesmente a camada superficial da Terra, é conceituado como 
+      <div class="collapsible-body"><span class="flow-text"><a href="acoes.php">Acessar Ação</a><br>O solo, mais do que simplesmente a camada superficial da Terra, é conceituado como
 	</div>
     </li>
 	<li>
       <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="" src="/img/Nupia.png" alt="Icone">Outra ação</div>
-      <div class="collapsible-body"><a href="acoes.php">Acessar Ação</a><br>O solo, mais do que simplesmente a camada superficial da Terra, é conceituado como 
+      <div class="collapsible-body"><a href="acoes.php">Acessar Ação</a><br>O solo, mais do que simplesmente a camada superficial da Terra, é conceituado como
 	</div>
     </li>
 		</ul>
@@ -33,12 +33,12 @@
 	  </li>
 	   <li>
       <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="" src="/img/Nupia.png" alt="Icone">Estudo estatistico sobre solos</div>
-      <div class="collapsible-body"><span class="flow-text"><a href="acoes.php">Acessar Ação</a><br>O solo, mais do que simplesmente a camada superficial da Terra, é conceituado como 
+      <div class="collapsible-body"><span class="flow-text"><a href="acoes.php">Acessar Ação</a><br>O solo, mais do que simplesmente a camada superficial da Terra, é conceituado como
 	</div>
     </li>
 	<li>
       <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="" src="/img/Nupia.png" alt="Icone">Outra ação</div>
-      <div class="collapsible-body"><a href="acoes.php">Acessar Ação</a><br>O solo, mais do que simplesmente a camada superficial da Terra, é conceituado como 
+      <div class="collapsible-body"><a href="acoes.php">Acessar Ação</a><br>O solo, mais do que simplesmente a camada superficial da Terra, é conceituado como
 	</div>
     </li>
 		</ul>
@@ -49,6 +49,5 @@
 		<h2 class="" >&nbsp<b ><a href="pesquisa.php" class="center">&nbspTodas as ações</a></b></h2>
 
 <?php
-	include("footer.html");
+	include("footer.php");
 ?>
-        
