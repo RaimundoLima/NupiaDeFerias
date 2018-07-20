@@ -61,6 +61,12 @@ function getPagina(){
 			case '/infes/acoes':
 				include('view/INFES/acoes.php');
 				break;
+			case '/infes/cadastra':
+				include('view/INFES/cadastro.php');
+				break;
+			case '/infes/pesquisa':
+				include('view/INFES/pesquisa.php');
+				break;
 			////Paginas de erros#######################
 			default :
 				echo 'deu ruim ou bom';
