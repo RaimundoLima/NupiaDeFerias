@@ -34,7 +34,7 @@
     <div class="input-field inline col s2">
     <select name="Pvinculado" multiple>
       <option value="" disabled selected>Projetos</option>
-			<option value=""  >INFES</option>
+			<option value="" >INFES</option>
       <option value="1">VITAL</option>
       <option value="2">GEOSOLO</option>
       <option value="3">GVTecAgro</option>

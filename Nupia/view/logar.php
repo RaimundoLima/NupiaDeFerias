@@ -8,13 +8,13 @@ include('header.php');
         <h3>Acessando o NUPIA</h3>
         <form method="POST" action="/cadastrando">
               <div  class="input-field inline">
-                <input required id="email"name="email" type="email">
-                <label for="email">Nome ou Email</label>
+                <input class='nupia' required id="email"name="email" type="email">
+                <label for="email">Email</label>
                 <span class="helper-text" data-error="wrong" data-success="right"></span>
               </div>
     		  <br>
               <div class="input-field inline ">
-                <input required id="senha"name="senha" type="password">
+                <input class='nupia' required id="senha"name="senha" type="password">
                 <label for="senha">Senha</label>
                 <span class="helper-text" data-error="wrong" data-success="right"></span>
               </div>

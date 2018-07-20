@@ -79,6 +79,16 @@ body {}
   box-shadow: none;
 }
 
+input[class*='nupia']:not(.browser-default):focus:not([readonly]) {
+  border-bottom: 2px solid green !important;
+  box-shadow: none;
+}
+
+div[class*='nupia'] div.select-wrapper input.select-dropdown:focus {
+  border-bottom: 2px solid green !important;
+  box-shadow: none;
+}
+
 .inline {
   width: 30%;
 }
