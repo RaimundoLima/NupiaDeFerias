@@ -44,6 +44,88 @@ class ResumoDAO{
     }
     return $listaResumoObj;
   }
+
+  function listarByAtor($idAtor){
+    $conexao = conexao();
+    $query = "select * from resumo where idator='".$idAtor."'";
+    $result = pg_query($conexao, $query);
+    $listaResumo = pg_fetch_all($result);
+    $acaoDAO = new AcaoDAO();
+    $atorDAO = new AtorDAO();
+    pg_close($conexao);
+    $listaResumoObj = [];
+    for($i=0; $i<count($listaResumo); $i++){
+      $id = $listaResumo[$i]["id"];
+      $titulo = $listaResumo[$i]["titulo"];
+      $idAcao = $listaResumo[$i]["idacao"];
+      $acao = $AcaoDAO->obter($idAcao);
+      $idAtor = $listaResumo[$i]["idator"];
+      $ator = $AtorDAO->obter($idAtor);
+      $justificativa = $listaResumo[$i]["justificativa"];
+      $objetivo = $listaResumo[$i]["objetivo"];
+      $metodologia = $listaResumo[$i]["metodologia"];
+      $resultadoEsperado = $listaResumo[$i]["resultadoesperado"];
+      $impactoEsperado = $listaResumo[$i]["impactoesperado"];
+      $resumo = new Resumo($titulo, $acao, $ator, $justificativa, $objetivo, $metodologia, $resultadoEsperado, $impactoEsperado, $id);
+      array_push($listaResumoObj, $resumo);
+    }
+    return $listaResumoObj;
+  }
+
+  function listarByAcao($idAcao){
+    $conexao = conexao();
+    $query = "select * from resumo where idacao = '".$idAcao."'";
+    $result = pg_query($conexao, $query);
+    $listaResumo = pg_fetch_all($result);
+    $acaoDAO = new AcaoDAO();
+    $atorDAO = new AtorDAO();
+    pg_close($conexao);
+    $listaResumoObj = [];
+    for($i=0; $i<count($listaResumo); $i++){
+      $id = $listaResumo[$i]["id"];
+      $titulo = $listaResumo[$i]["titulo"];
+      $idAcao = $listaResumo[$i]["idacao"];
+      $acao = $AcaoDAO->obter($idAcao);
+      $idAtor = $listaResumo[$i]["idator"];
+      $ator = $AtorDAO->obter($idAtor);
+      $justificativa = $listaResumo[$i]["justificativa"];
+      $objetivo = $listaResumo[$i]["objetivo"];
+      $metodologia = $listaResumo[$i]["metodologia"];
+      $resultadoEsperado = $listaResumo[$i]["resultadoesperado"];
+      $impactoEsperado = $listaResumo[$i]["impactoesperado"];
+      $resumo = new Resumo($titulo, $acao, $ator, $justificativa, $objetivo, $metodologia, $resultadoEsperado, $impactoEsperado, $id);
+      array_push($listaResumoObj, $resumo);
+    }
+    return $listaResumoObj;
+  }
+
+  function listarByAcaoAtor($idAcao, $idAtor){
+    $conexao = conexao();
+    $query = "select * from resumo where idacao='".$idAcao."' and idator='".$idAtor."'";
+    $result = pg_query($conexao, $query);
+    $listaResumo = pg_fetch_all($result);
+    $acaoDAO = new AcaoDAO();
+    $atorDAO = new AtorDAO();
+    pg_close($conexao);
+    $listaResumoObj = [];
+    for($i=0; $i<count($listaResumo); $i++){
+      $id = $listaResumo[$i]["id"];
+      $titulo = $listaResumo[$i]["titulo"];
+      $idAcao = $listaResumo[$i]["idacao"];
+      $acao = $AcaoDAO->obter($idAcao);
+      $idAtor = $listaResumo[$i]["idator"];
+      $ator = $AtorDAO->obter($idAtor);
+      $justificativa = $listaResumo[$i]["justificativa"];
+      $objetivo = $listaResumo[$i]["objetivo"];
+      $metodologia = $listaResumo[$i]["metodologia"];
+      $resultadoEsperado = $listaResumo[$i]["resultadoesperado"];
+      $impactoEsperado = $listaResumo[$i]["impactoesperado"];
+      $resumo = new Resumo($titulo, $acao, $ator, $justificativa, $objetivo, $metodologia, $resultadoEsperado, $impactoEsperado, $id);
+      array_push($listaResumoObj, $resumo);
+    }
+    return $listaResumoObj;
+  }
+
   function obter($id){
     $conexao = conexao();
     $query = "select * from resumo where id = '".$id."'";
