@@ -47,6 +47,23 @@ class AtorDAO{
     $atorObj = new Ator($nome, $tipo, $senha, $email, $codigo, $id);
     return $atorObj;
   }
+
+  function obterByEmail($email){
+    $conexao = conexao();
+    $query = "select * from ator where email = '".$email."'";
+    $result = pg_query($conexao, $query);
+    $ator = pg_fetch_all($result);
+    pg_close($conexao);
+    $id = $ator[0]["id"];
+    $nome = $ator[0]["nome"];
+    $tipo = $ator[0]["tipo"];
+    $senha = $ator[0]["senha"];
+    $email = $ator[0]["email"];
+    $codigo = $ator[0]["codigo"];
+    $atorObj = new Ator($nome, $tipo, $senha, $email, $codigo, $id);
+    return $atorObj;
+  }
+
   function editar($ator){
     $conexao = conexao();
     $id = $ator->getId();

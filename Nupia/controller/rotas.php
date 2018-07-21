@@ -1,13 +1,16 @@
 <?php
-//include('../model/acaoDAO.php');
+include_once('model/projetoDAO.php');
+include_once("model/ator.php");
+include_once("model/atorDAO.php");
 function getPagina(){
+	$atorDAO = new AtorDAO();
 	$url = $_SERVER['REQUEST_URI'];
 	$url = explode("?",$url);
 	$url[0] = strtolower($url[0]);
 	$metodo = $_SERVER['REQUEST_METHOD'];
   if($_SESSION['tipo']!='adm'){
 		if(!empty($_SESSION)){
-			$user=$dao->AtorBuscar($_SESSION['ator']);
+			$user=$atorDao->obter($_SESSION['ator']);
 		}
     switch($url[0]){
 			//NUPIA####
@@ -21,11 +24,13 @@ function getPagina(){
 				include('view/acoes.php');
 	      break;
 			case '/projetos':
-				//$lista=$dao->ProjetosListar();
+				$projetoDAO = new ProjetoDAO();
+				$lista = $projetoDAO->listar();
 				include('view/projetos.php');
 	      break;
 			case '/eixos':
-				//$lista=$dao->EixosListar();
+				$eixoDAO = new EixoDAO();
+				$lista = $eixoDAO->listar();
 				include('view/eixos.php');
 			  break;
 			case '/logar':
@@ -48,11 +53,19 @@ function getPagina(){
 				session_destroy();
 				break;
 			case '/cadastro':
+				// Não tem instituição por enquanto, fica pro futuro
 				//$lista=$dao->InstituicaoListar();
 				include('view/cadastro.php');
 		  	break;
 			case '/cadastrando':
-				//$dao->AtorCadastra();//seria legal se as funções tiverem um return true
+				$nome = $_POST["nome"];
+				$tipo = $_POST["tipo"];
+				$senha = $_POST["senha"];
+				$email = $_POST["email"];
+				$codigo = $_POST["codigo"];
+				$ator = new Ator($nome, $tipo, $senha, $email, $codigo);
+			  $atorDAO = new AtorDAO();
+				$retorno = $atorDAO->adicionar($ator);
 				header("Location: /Home");//redireciona
 			///INFES##########Só testando
 			case '/infes/home':

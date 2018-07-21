@@ -30,6 +30,24 @@ class ArtigoExternoDAO{
     }
     return $listaArtigoExternoObj;
   }
+  function listarByAcao($idAcao){
+    $conexao = conexao();
+    $query = "select * from artigoexterno where idacao='".$idAcao."'";
+    $result = pg_query($conexao, $query);
+    $listaArtigoExterno = pg_fetch_all($result);
+    $acaoDAO = new AcaoDAO();
+    pg_close($conexao);
+    $listaArtigoExternoObj = [];
+    for($i=0; $i<count($listaArtigoExterno); $i++){
+      $id = $listaArtigoExterno[$i]["id"];
+      $idAcao = $listaArtigoExterno[$i]["idacao"];
+      $acao = $acaoDAO->obter($idAcao);
+      $link = $listaArtigoExterno[$i]["link"];
+      $artigoExterno = new ArtigoExterno($acao, $link, $id);
+      array_push($listaArtigoExternoObj, $artigoExterno);
+    }
+    return $listaArtigoExternoObj;
+  }
   function obter($id){
     $conexao = conexao();
     $query = "select * from artigoexterno where id = '".$id."'";

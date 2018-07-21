@@ -76,12 +76,6 @@ CREATE TABLE public.acaoator
   id serial,
   idator integer not null,
   idacao integer NOT NULL,
-  titulo character varying(100),
-  justificativa character varying(10000),
-  objetivo character varying(10000),
-  metodologia character varying(10000),
-  resultadoesperado character varying(100000),
-  impactoesperado character varying(100000),
   CONSTRAINT acaoator_pkey PRIMARY KEY (id),
   CONSTRAINT acaoator_idator_fkey FOREIGN KEY (idator)
       REFERENCES public.ator (id) MATCH SIMPLE

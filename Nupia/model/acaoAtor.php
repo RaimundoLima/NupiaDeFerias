@@ -4,23 +4,10 @@ class AcaoAtor{
 	private $id;
 	private $ator;
 	private $acao;
-	private $titulo;
-	private $justificativa;
-	private $objetivo;
-	private $metodologia;
-	private $resultadoEsperado;
-	private $impactoEsperado;
-	function __construct($ator, $acao, $titulo, $justificativa, $objetivo, $metodologia, $resultadoEsperado, $impactoEsperado, $id=0){
-
+	function __construct($ator, $acao, $id=0){
 		$this->id = $id;
 		$this->ator = $ator;
 		$this->acao = $acao;
-		$this->titulo = $titulo;
-		$this->justificativa = $justificativa;
-		$this->objetivo = $objetivo;
-		$this->metodologia = $metodologia;
-		$this->resultadoEsperado = $resultadoEsperado;
-		$this->impactoEsperado = $impactoEsperado;
 	}
 	public function getId(){
 		return $this->id;
@@ -32,30 +19,6 @@ class AcaoAtor{
 
 	public function getAcao(){
 		return $this->acao;
-	}
-
-	public function getTitulo(){
-		return $this->titulo;
-	}
-
-	public function getJustificativa(){
-		return $this->justificativa;
-	}
-
-	public function getObjetivo(){
-		return $this->objetivo;
-	}
-
-	public function getMetodologia(){
-		return $this->metodologia;
-	}
-
-	public function getResultadoEsperado(){
-		return $this->resultadoEsperado;
-	}
-
-	public function getImpactoEsperado(){
-		return $this->impactoEsperado;
 	}
 }
 
