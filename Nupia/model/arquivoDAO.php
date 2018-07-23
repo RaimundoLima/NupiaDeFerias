@@ -7,8 +7,10 @@ class ArquivoDAO{
     $nome = $arquivo->getNome();
     $acao = $arquivo->getAcao();
     $idAcao = $acao->getId();
+    $documento = $arquivo->getDocumento();
+    $diretorio = $arquivo->getDiretorio();
     $conexao = conexao();
-    $query = "insert into arquivo(nome, idacao) values('".$nome."', '".$idAcao."')";
+    $query = "insert into arquivo(nome, idacao, documento, diretorio) values('".$nome."', '".$idAcao."',lo_import('".$documento."'), '".$diretorio."')";
     pg_query($conexao, $query);
     pg_close($conexao);
   }
@@ -18,16 +20,19 @@ class ArquivoDAO{
     $result = pg_query($conexao, $query);
     $listaArquivo = pg_fetch_all($result);
     $acaoDAO = new AcaoDAO();
-    pg_close($conexao);
     $listaArquivoObj = [];
     for($i=0; $i<count($listaArquivo); $i++){
       $id = $listaArquivo[$i]["id"];
       $nome = $listaArquivo[$i]["nome"];
       $idAcao = $listaArquivo[$i]["idacao"];
       $acao = $acaoDAO->obter($idAcao);
-      $arquivo = new Arquivo($acao, $nome, $id);
+      $documento = $listaArquivo[$i]["documento"];
+      $diretorio = $listaArquivo[$i]["diretorio"];
+      pg_lo_export($documento, $diretorio, $conexao);
+      $arquivo = new Arquivo($acao, $nome, $documento, $diretorio, $id);
       array_push($listaArquivoObj, $arquivo);
     }
+    pg_close($conexao);
     return $listaArquivoObj;
   }
   function obter($id){
@@ -41,7 +46,10 @@ class ArquivoDAO{
     $idacao = $arquivo[0]["idacao"];
     $acao = $acaoDAO->obter($idacao);
     $nome = $arquivo[0]["nome"];
-    $arquivoObj = new Arquivo($acao, $nome, $id);
+    $documento = $listaArquivo[$i]["documento"];
+    $diretorio = $listaArquivo[$i]["diretorio"];
+    pg_lo_export($documento, $diretorio, $conexao);
+    $arquivo = new Arquivo($acao, $nome, $documento, $diretorio, $id);
     return $arquivoObj;
   }
   function editar($arquivo){
@@ -50,7 +58,9 @@ class ArquivoDAO{
     $nome = $arquivo->getNome();
     $acao = $arquivo->getAcao();
     $idAcao = $acao->getId();
-    $query = "UPDATE arquivo set idacao='".$idAcao."',nome='".$nome."' where id='".$id."'";
+    $documento = $arquivo->getDocumento();
+    $diretorio = $arquivo->getDiretorio();
+    $query = "UPDATE arquivo set idacao='".$idAcao."',nome='".$nome."',documento='".$documento."',diretorio='".$diretorio."' where id='".$id."'";
     $result = pg_query($conexao, $query);
     pg_close($conexao);
   }

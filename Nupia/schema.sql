@@ -103,7 +103,8 @@ CREATE TABLE public.arquivo
 (
   id serial,
   idacao integer not null,
-  documento integer,
+  documento oid,
+  diretorio text,
   nome character varying(100),
   CONSTRAINT arquivo_pkey PRIMARY KEY (id),
   CONSTRAINT arquivo_idacao_fkey FOREIGN KEY (idacao)
