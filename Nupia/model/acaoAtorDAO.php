@@ -1,5 +1,5 @@
 <?php
-include_once("../controller/conexao.php");
+include_once("controller/conexao.php");
 include_once("acaoAtor.php");
 include_once("atorDAO.php");
 include_once("acaoDAO.php");

@@ -1,12 +1,13 @@
 <?php
-include_once("../controller/conexao.php");
+include_once("controller/conexao.php");
 include_once("projeto.php");
 class ProjetoDAO{
   function adicionar($projeto){
     $nome = $projeto->getNome();
     $descricao = $projeto->getDescricao();
+    $link = $projeto->getLink();
     $conexao = conexao();
-    $query = "insert into projeto(nome, descricao) values('".$nome."', '".$descricao."')";
+    $query = "insert into projeto(nome, descricao, link) values('".$nome."', '".$descricao."', '".$link."')";
     pg_query($conexao, $query);
     pg_close($conexao);
   }
@@ -21,7 +22,8 @@ class ProjetoDAO{
       $id = $listaProjeto[$i]["id"];
       $nome = $listaProjeto[$i]["nome"];
       $descricao = $listaProjeto[$i]["descricao"];
-      $projeto = new Projeto($nome, $descricao, $id);
+      $link = $listaProjeto[$i]["link"];
+      $projeto = new Projeto($nome, $descricao, $link, $id);
       array_push($listaProjetoObj, $projeto);
     }
     return $listaProjetoObj;
@@ -35,7 +37,8 @@ class ProjetoDAO{
     $id = $projeto[0]["id"];
     $nome = $projeto[0]["nome"];
     $descricao = $projeto[0]["descricao"];
-    $projetoObj = new Eixo($nome, $descricao, $id);
+    $link = $projeto[0]["link"];
+    $projetoObj = new Eixo($nome, $descricao, $link, $id);
     return $projetoObj;
   }
   function editar($projeto){
@@ -43,7 +46,8 @@ class ProjetoDAO{
     $id = $projeto->getId();
     $nome = $projeto->getNome();
     $descricao = $projeto->getDescricao();
-    $query = "UPDATE projeto set nome='".$nome."',descricao='".$descricao."' where id='".$id."'";
+    $link = $projeto->getLink();
+    $query = "UPDATE projeto set nome='".$nome."',descricao='".$descricao."', link='".$link."' where id='".$id."'";
     $result = pg_query($conexao, $query);
     pg_close($conexao);
   }

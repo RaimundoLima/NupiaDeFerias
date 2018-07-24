@@ -1,5 +1,5 @@
 <?php
-include_once('../controller/conexao.php');
+include_once('controller/conexao.php');
 include_once('ator.php');
 class AtorDAO{
   function adicionar($ator){

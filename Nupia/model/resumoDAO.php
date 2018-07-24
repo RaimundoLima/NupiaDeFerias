@@ -1,5 +1,5 @@
 <?php
-include_once("../controller/conexao.php");
+include_once("controller/conexao.php");
 include_once("resumo.php");
 class ResumoDAO{
   function adicionar($resumo){

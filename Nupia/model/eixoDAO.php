@@ -1,5 +1,5 @@
 <?php
-include_once("../controller/conexao.php");
+include_once("controller/conexao.php");
 include_once("eixo.php");
 class EixoDAO{
   function adicionar($eixo){

@@ -6,7 +6,7 @@ include('header.php');
     <div aling='center' style="margin:auto;border: 1px solid #e8e8e8;padding: 2em;" class='container'>
       <div class='center'>
         <h3>Acessando o NUPIA</h3>
-        <form method="POST" action="/cadastrando">
+        <form method="POST" action="/logando">
               <div  class="input-field inline">
                 <input class='nupia' required id="email"name="email" type="email">
                 <label for="email">Email</label>
@@ -16,6 +16,11 @@ include('header.php');
               <div class="input-field inline ">
                 <input class='nupia' required id="senha"name="senha" type="password">
                 <label for="senha">Senha</label>
+                <span class="helper-text" data-error="wrong" data-success="right"></span>
+              </div>
+          <br>
+              <div class="input-field inline ">
+                <input class='nupia' id="submit" name="submit" type="submit">
                 <span class="helper-text" data-error="wrong" data-success="right"></span>
               </div>
               <br>

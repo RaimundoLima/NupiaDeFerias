@@ -1,5 +1,5 @@
 <?php
-include_once("../controller/conexao.php");
+include_once("controller/conexao.php");
 include_once("acao.php");
 include_once("eixoDAO.php");
 include_once("projetoDAO.php");
@@ -12,12 +12,13 @@ class AcaoDAO{
     $idProjeto = $projeto->getId();
     $titulo = $acao->getTitulo();
     $tema = $acao->getTema();
+    $descricao = $acao->getDescricao();
     $palavraChave = $acao->getPalavraChave();
     $prevInicio = $acao->getPrevInicio();
     $prevTermino = $acao->getPrevTermino();
     $situacao = $acao->getSituacao();
     $conexao = conexao();
-    $query = "insert into acao(ideixo, idprojeto, titulo, tema, palavrachave, previnicio, prevtermino, situacao) values('".$idResumo."','".$idEixo."', '".$idProjeto."', '".$titulo."', '".$tema."', '".$palavraChave."', '".$prevInicio."', '".$prevTermino."', '".$situacao."')";
+    $query = "insert into acao(ideixo, idprojeto, titulo, tema, descricao, palavrachave, previnicio, prevtermino, situacao) values('".$idResumo."','".$idEixo."', '".$idProjeto."', '".$titulo."', '".$tema."', '".$descricao."','".$palavraChave."', '".$prevInicio."', '".$prevTermino."', '".$situacao."')";
     pg_query($conexao, $query);
     pg_close($conexao);
     return true;
@@ -39,11 +40,12 @@ class AcaoDAO{
       $projeto = $projetoDAO->obter($idProjeto);
       $titulo = $listaAcao[$i]["titulo"];
       $tema = $listaAcao[$i]["tema"];
+      $descricao = $listaAcao[$i]["descricao"];
       $palavraChave = $listaAcao[$i]["palavrachave"];
       $prevInicio = $listaAcao[$i]["previnicio"];
       $prevTermino = $listaAcao[$i]["prevtermino"];
       $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
+      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
       array_push($listaAcaoObj, $acao);
     }
     return $listaAcaoObj;
@@ -66,11 +68,12 @@ class AcaoDAO{
       $projeto = $projetoDAO->obter($idProjeto);
       $titulo = $listaAcao[$i]["titulo"];
       $tema = $listaAcao[$i]["tema"];
+      $descricao = $listaAcao[$i]["descricao"];
       $palavraChave = $listaAcao[$i]["palavrachave"];
       $prevInicio = $listaAcao[$i]["previnicio"];
       $prevTermino = $listaAcao[$i]["prevtermino"];
       $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
+      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
       array_push($listaAcaoObj, $acao);
     }
     return $listaAcaoObj;
@@ -93,11 +96,12 @@ class AcaoDAO{
       $projeto = $projetoDAO->obter($idProjeto);
       $titulo = $listaAcao[$i]["titulo"];
       $tema = $listaAcao[$i]["tema"];
+      $descricao = $listaAcao[$i]["descricao"];
       $palavraChave = $listaAcao[$i]["palavrachave"];
       $prevInicio = $listaAcao[$i]["previnicio"];
       $prevTermino = $listaAcao[$i]["prevtermino"];
       $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
+      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
       array_push($listaAcaoObj, $acao);
     }
     return $listaAcaoObj;
@@ -120,11 +124,12 @@ class AcaoDAO{
       $projeto = $projetoDAO->obter($idProjeto);
       $titulo = $listaAcao[$i]["titulo"];
       $tema = $listaAcao[$i]["tema"];
+      $descricao = $listaAcao[$i]["descricao"];
       $palavraChave = $listaAcao[$i]["palavrachave"];
       $prevInicio = $listaAcao[$i]["previnicio"];
       $prevTermino = $listaAcao[$i]["prevtermino"];
       $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
+      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
       array_push($listaAcaoObj, $acao);
     }
     return $listaAcaoObj;
@@ -145,11 +150,12 @@ class AcaoDAO{
     $projeto = $projetoDAO->obter($idProjeto);
     $titulo = $acao[0]["titulo"];
     $tema = $acao[0]["tema"];
+    $descricao = $acao[0]["descricao"];
     $palavraChave = $acao[0]["palavrachave"];
     $prevInicio = $acao[0]["previnicio"];
     $prevTermino = $acao[0]["prevtermino"];
     $situacao = $acao[0]["situacao"];
-    $acaoObj = new Acao($eixo, $projeto, $titulo, $tema, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
+    $acaoObj = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
     return $acaoObj;
   }
   function editar($acao){
@@ -161,11 +167,12 @@ class AcaoDAO{
     $idProjeto = $projeto->getId();
     $titulo = $acao->getTitulo();
     $tema = $acao->getTema();
+    $descricao = $acao->getDescricao();
     $palavraChave = $acao->getPalavraChave();
     $prevInicio = $acao->getPrevInicio();
     $prevTermino = $acao->getPrevTermino();
     $situacao = $acao->getSituacao();
-    $query = "UPDATE acao set ideixo='".$idEixo."',idprojeto='".$idProjeto."',titulo='".$titulo."',tema='".$tema."',palavrachave='".$palavraChave."', previnicio='".$prevInicio."', prevtermino='".$prevTermino."', situacao='".$situacao."' where id='".$id."' where id='".$id."'";
+    $query = "UPDATE acao set ideixo='".$idEixo."',idprojeto='".$idProjeto."',titulo='".$titulo."',tema='".$tema."', descricao='".$descricao."',palavrachave='".$palavraChave."', previnicio='".$prevInicio."', prevtermino='".$prevTermino."', situacao='".$situacao."' where id='".$id."' where id='".$id."'";
     $result = pg_query($conexao, $query);
     pg_close($conexao);
   }

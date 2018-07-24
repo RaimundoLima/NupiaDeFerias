@@ -30,17 +30,12 @@
 	  <ul class="collapsible popout">
 	  <li>
 	 <h3 class="white" >Minhas Ações</h3>
-	  </li>
-	   <li>
-      <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="" src="/img/Nupia.png" alt="Icone">Estudo estatistico sobre solos</div>
-      <div class="collapsible-body"><span class="flow-text"><a href="acoes.php">Acessar Ação</a><br>O solo, mais do que simplesmente a camada superficial da Terra, é conceituado como
+	  </li><?php
+	   '<li>
+      <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="" src="/img/Nupia.png" alt="Icone">'.$suasAcoes[$i]->getTitulo().'</div>
+      <div class="collapsible-body"><span class="flow-text"><a href="acoes.php">'.$suasAcoes[$i]->getDescricao().'
 	</div>
-    </li>
-	<li>
-      <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="" src="/img/Nupia.png" alt="Icone">Outra ação</div>
-      <div class="collapsible-body"><a href="acoes.php">Acessar Ação</a><br>O solo, mais do que simplesmente a camada superficial da Terra, é conceituado como
-	</div>
-    </li>
+    </li>'; ?>
 		</ul>
 	  </div>
     </div>

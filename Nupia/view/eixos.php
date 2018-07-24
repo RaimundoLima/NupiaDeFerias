@@ -6,9 +6,9 @@
 <h2 style='padding-left: 0.5em;' > <b style="color: black;">Eixos</b></h2>
 <p style="color: black;" class="flow-text">&nbsp&nbsp&nbsp&nbspNo projeto existem existem 3 eixos <i><b>Ensino,Pesquisa,Extensão</b></i> e eles são focados em ...</p>
 <?php
-	foreach($eixo as $lista){
-		echo '<h2 class="" >&nbsp <b style="color: green;">'.$eixo->getNome().'</b></h2>';
-		echo '<p style="color: black;" class="flow-text">&nbsp&nbsp&nbsp&nbsp'.$eixo->getDescricao().'</p>';
+	for ($i=0; $i<count($lista); $i++){
+		echo '<h2 class="" >&nbsp <b style="color: green;">'.$lista[$i]->getNome().'</b></h2>';
+		echo '<p style="color: black;" class="flow-text">&nbsp&nbsp&nbsp&nbsp'.$lista[$i]->getDescricao().'</p>';
 	}
 ?>
 <?php

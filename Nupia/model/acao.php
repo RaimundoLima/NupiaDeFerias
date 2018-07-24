@@ -6,12 +6,13 @@ class Acao {
 	private $projeto;
 	private $titulo;
 	private $tema;
+	private $descricao;
 	private $palavraChave;
 	private $prevInicio;
 	private $prevTermino;
 	private $situacao;
 
-	public function __construct($eixo, $projeto, $titulo, $tema, $palavraChave, $prevInicio, $prevTermino, $situacao, $id=0){
+	public function __construct($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id=0){
 		$this->eixo = $eixo;
 		$this->projeto = $projeto;
 		$this->titulo = $titulo;
@@ -35,6 +36,9 @@ class Acao {
 		return $this->titulo;
 	}
 	public function getTema(){
+		return $this->tema;
+	}
+	public function getDescricao(){
 		return $this->tema;
 	}
 	public function getPalavraChave(){

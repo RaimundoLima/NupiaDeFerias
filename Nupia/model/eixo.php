@@ -9,17 +9,18 @@
 			$this->nome = $nome;
 			$this->descricao = $descricao;
 		}
-	}
-	public function getId(){
-		return $this->id;
-	}
+	
+		public function getId(){
+			return $this->id;
+		}
 
-	public function getNome(){
-		return $this->nome;
-	}
+		public function getNome(){
+			return $this->nome;
+		}
 
-	public function getDescricao(){
-		return $this->descricao;
+		public function getDescricao(){
+			return $this->descricao;
+		}
 	}
 
 ?>

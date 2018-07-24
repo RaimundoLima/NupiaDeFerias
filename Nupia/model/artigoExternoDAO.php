@@ -1,5 +1,5 @@
 <?php
-include_once("../controller/conexao.php");
+include_once("controller/conexao.php");
 include_once("artigoExterno.php");
 include_once("acaoDAO.php");
 class ArtigoExternoDAO{

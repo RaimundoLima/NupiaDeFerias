@@ -1,5 +1,5 @@
 <?php
-include_once("../controller/conexao.php");
+include_once("controller/conexao.php");
 include_once("acaoVinculada.php");
 include_once("acaoDAO.php");
 class AcaoVinculadaDAO{

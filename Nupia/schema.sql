@@ -11,6 +11,7 @@ CREATE TABLE public.projeto
   id serial,
   nome character varying(100),
   descricao character varying(1000),
+  link text,
   CONSTRAINT projeto_pkey PRIMARY KEY (id)
 );
 
@@ -57,7 +58,7 @@ CREATE TABLE public.acao
   edital oid,
   cronograma oid,
   situacao boolean,
-  tema character varying(100),
+  tema text,
 
   CONSTRAINT acao_pkey PRIMARY KEY (id),
   CONSTRAINT acao_ideixo_fkey FOREIGN KEY (ideixo)
