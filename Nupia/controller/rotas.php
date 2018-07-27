@@ -12,9 +12,9 @@ function getPagina(){
 	$url = explode("?",$url);
 	$url[0] = strtolower($url[0]);
 	$metodo = $_SERVER['REQUEST_METHOD'];
- 	if($_SESSION['tipo']!='adm'){
+	if($_SESSION['tipo']!='adm'){
 		if(!empty($_SESSION)){
-			$user=$atorDao->obter($_SESSION['ator']);
+			$user=$atorDAO->obter($_SESSION['ator']->getId());
 		}
     switch($url[0]){
 			//NUPIA####
@@ -68,7 +68,7 @@ function getPagina(){
 				$tipo = "ator";//tipo padrão
 				$senha = $_POST["senha"];
 				$email = $_POST["email"];
-				$codigo = gerarCodigo();
+				//$codigo = gerarCodigo();
 				// $instituicao = $_POST["instituicao"]; Sera Implementado no futuro.
 				$ator = new Ator($nome, $tipo, $senha, $email, $codigo);
 			    $atorDAO = new AtorDAO();
@@ -82,21 +82,68 @@ function getPagina(){
 				$acaoAtorDAO = new AcaoAtorDAO();
 				$idAtor = $_SESSION["ator"]->getId();
 				$idProjeto = "1";
-				$suasAcoes = $acaoAtorDAO->listarByAtorProjeto($idAtor, $idProjeto);
+				$listaAcaoAtor = $acaoAtorDAO->listarByAtorProjeto($idAtor, $idProjeto);
+				$listaAcao = [];
+				for($i=0; $i<count($listaAcaoAtor); $i++){
+					$acao = $listaAcaoAtor[$i]->getAcao();
+					array_push($listaAcao, $acao);
+
+				}
 				include('view/INFES/acoes.php');
 				break;
 			case '/infes/cadastra':
 				include('view/INFES/cadastro.php');
 				break;
 			case '/infes/pesquisa':
+				// precisa ser atualizado
 				$acaoDAO = new AcaoDAO();
-				$lista = $acaoDAO->listarByProjeto("1");
-				include('view/INFES/pesquisa.php');
+				$idEixo = $_POST["Peixo"];
+				$idProjeto = $_POST["Pprojeto"];
+				$tema = $_POST["Ptema"];
+				$data = $_POST["Pdata"];
+				$listaAcao = "";
+				if($idEixo != "" && $idProjeto != "" && $tema != "" && $data != ""){
+					$listaAcao = $acaoDAO->listarByEixoProjetoTemaData($idEixo, $idProjeto, $tema, $data);
+				}
+				if($idEixo != "" && $idProjeto != "" && $tema != "" && $data == ""){
+					$listaAcao = $acaoDAO->listarByEixoProjetoTema($idEixo, $idProjeto, $tema);
+				}
+				if($idEixo != "" && $idProjeto != "" && $tema == "" && $data != ""){
+					$listaAcao = $acaoDAO->listarByEixoProjetoData($idEixo, $idProjeto, $data);
+				}
+				if($idEixo != "" && $idProjeto != "" && $tema == "" && $data == ""){
+					$listaAcao = $acaoDAO->listarByEixoProjeto($idEixo, $idProjeto);
+				}
+				if($idEixo != "" && $idProjeto == "" && $tema == "" && $data == ""){
+					$listaAcao = $acaoDAO->listarByEixo($idEixo);
+				}
+				if($idEixo == "" && $idProjeto != "" && $tema != "" && $data != ""){
+					$listaAcao = $acaoDAO->listarByProjetoTemaData($idProjeto, $tema, $data);
+				}
+				if($idEixo == "" && $idProjeto != "" && $tema != "" && $data == ""){
+					$listaAcao = $acaoDAO->listarByProjetoTema($idProjeto, $tema);
+				}
+				if($idEixo == "" && $idProjeto != "" && $tema == "" && $data != ""){
+					$listaAcao = $acaoDAO->listarByProjetoData($idProjeto, $data);
+				}
+				if($idEixo == "" && $idProjeto != "" && $tema == "" && $data == ""){
+					$listaAcao = $acaoDAO->listarByProjeto($idProjeto);
+				}
+				if($idEixo == "" && $idProjeto == "" && $tema != "" && $data != ""){
+					$listaAcao = $acaoDAO->listarByTemaData($tema, $data);
+				}
+				if($idEixo == "" && $idProjeto == "" && $tema != "" && $data == ""){
+					$listaAcao = $acaoDAO->listarByTema($tema);
+				}
+				if($idEixo == "" && $idProjeto == "" && $tema == "" && $data != ""){
+					$listaAcao = $acaoDAO->listarByData($data);
+				}
+				include('view/INFES/Pesquisa.php');
 				break;
 			////Paginas de erros#######################
 			default :
 				echo 'deu ruim ou bom';
 				break;
-    }
-  }
+    	}
+	}
 }

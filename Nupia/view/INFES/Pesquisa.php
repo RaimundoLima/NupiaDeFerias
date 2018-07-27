@@ -6,7 +6,7 @@
 <div style="border: 1px solid #f19393;" class="container">
 <div class="center">
 <h2 >Pesquisa</h2>
-<form method="GET" action="Pesquisa.php">
+<form method="GET" action="/infes/pesquisa">
 <div  class="input-field inline">
 <input  name="Pesquisar" id="pesquisaInfes" type="text" class="">
 <input  hidden type="submit" >
@@ -33,13 +33,13 @@
     </select>
   </div>
     <div class="input-field inline col s2">
-    <select name="Pvinculado" multiple>
+    <select name="Pprojeto" multiple>
       <option value="" disabled selected>Projetos</option>
-			<option value="" >INFES</option>
-      <option value="1">VITAL</option>
-      <option value="2">GEOSOLO</option>
-      <option value="3">GVTecAgro</option>
-	  <option value="3">Nupia-Conex</option>
+			<option value="1">INFES</option>
+      <option value="3">VITAL</option>
+      <option value="5">GEOSOLO</option>
+      <option value="2">GVTecAgro</option>
+	    <option value="4">Nupia-Conex</option>
     </select>
     <label></label>
 </div>
