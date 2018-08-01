@@ -96,48 +96,12 @@ function getPagina(){
 				break;
 			case '/infes/pesquisa':
 				// precisa ser atualizado
-				$acaoDAO = new AcaoDAO();
+				/*$acaoDAO = new AcaoDAO();
 				$idEixo = $_POST["Peixo"];
 				$idProjeto = $_POST["Pprojeto"];
 				$tema = $_POST["Ptema"];
 				$data = $_POST["Pdata"];
-				$listaAcao = "";
-				if($idEixo != "" && $idProjeto != "" && $tema != "" && $data != ""){
-					$listaAcao = $acaoDAO->listarByEixoProjetoTemaData($idEixo, $idProjeto, $tema, $data);
-				}
-				if($idEixo != "" && $idProjeto != "" && $tema != "" && $data == ""){
-					$listaAcao = $acaoDAO->listarByEixoProjetoTema($idEixo, $idProjeto, $tema);
-				}
-				if($idEixo != "" && $idProjeto != "" && $tema == "" && $data != ""){
-					$listaAcao = $acaoDAO->listarByEixoProjetoData($idEixo, $idProjeto, $data);
-				}
-				if($idEixo != "" && $idProjeto != "" && $tema == "" && $data == ""){
-					$listaAcao = $acaoDAO->listarByEixoProjeto($idEixo, $idProjeto);
-				}
-				if($idEixo != "" && $idProjeto == "" && $tema == "" && $data == ""){
-					$listaAcao = $acaoDAO->listarByEixo($idEixo);
-				}
-				if($idEixo == "" && $idProjeto != "" && $tema != "" && $data != ""){
-					$listaAcao = $acaoDAO->listarByProjetoTemaData($idProjeto, $tema, $data);
-				}
-				if($idEixo == "" && $idProjeto != "" && $tema != "" && $data == ""){
-					$listaAcao = $acaoDAO->listarByProjetoTema($idProjeto, $tema);
-				}
-				if($idEixo == "" && $idProjeto != "" && $tema == "" && $data != ""){
-					$listaAcao = $acaoDAO->listarByProjetoData($idProjeto, $data);
-				}
-				if($idEixo == "" && $idProjeto != "" && $tema == "" && $data == ""){
-					$listaAcao = $acaoDAO->listarByProjeto($idProjeto);
-				}
-				if($idEixo == "" && $idProjeto == "" && $tema != "" && $data != ""){
-					$listaAcao = $acaoDAO->listarByTemaData($tema, $data);
-				}
-				if($idEixo == "" && $idProjeto == "" && $tema != "" && $data == ""){
-					$listaAcao = $acaoDAO->listarByTema($tema);
-				}
-				if($idEixo == "" && $idProjeto == "" && $tema == "" && $data != ""){
-					$listaAcao = $acaoDAO->listarByData($data);
-				}
+				$listaAcao = $acaoDAO->pesquisa($idEixo, $idProjeto, $tema, $data);*/
 				include('view/INFES/Pesquisa.php');
 				break;
 			////Paginas de erros#######################

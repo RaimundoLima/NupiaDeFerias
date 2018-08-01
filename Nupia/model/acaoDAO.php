@@ -51,401 +51,69 @@ class AcaoDAO{
     return $listaAcaoObj;
   }
 
-  function listarByProjeto($idProjeto){
+  function pesquisa($idEixo, $idProjeto, $tema, $data){
     $conexao = conexao();
-    $query = "select * from acao where idprojeto = '".$idProjeto."'";
-    $result = pg_query($conexao, $query);
-    $listaAcao = pg_fetch_all($result);
-    pg_close($conexao);
-    $eixoDAO = new EixoDAO();
-    $projetoDAO = new ProjetoDAO();
-    $listaAcaoObj = [];
-    for($i=0; $i<count($listaAcao); $i++){
-      $id = $listaAcao[$i]["id"];
-      $idEixo = $listaAcao[$i]["ideixo"];
-      $eixo = $eixoDAO->obter($idEixo);
-      $idProjeto = $listaAcao[$i]["idprojeto"];
-      $projeto = $projetoDAO->obter($idProjeto);
-      $titulo = $listaAcao[$i]["titulo"];
-      $tema = $listaAcao[$i]["tema"];
-      $descricao = $listaAcao[$i]["descricao"];
-      $palavraChave = $listaAcao[$i]["palavrachave"];
-      $prevInicio = $listaAcao[$i]["previnicio"];
-      $prevTermino = $listaAcao[$i]["prevtermino"];
-      $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
-      array_push($listaAcaoObj, $acao);
+    $query = "";
+    if($idEixo != "" && $idProjeto != "" && $tema != "" && $data != ""){
+      //$listaAcao = $acaoDAO->listarByEixoProjetoTemaData($idEixo, $idProjeto, $tema, $data);
+      $query = "select * from acao where ideixo='".$idEixo."' and idprojeto='".$idProjeto."' and tema='".$tema."' and previnicio>='".$data."'";
     }
-    return $listaAcaoObj;
-  }
-
-  function listarByEixo($idEixo){
-    $conexao = conexao();
-    $query = "select * from acao where ideixo = '".$idEixo."'";
-    $result = pg_query($conexao, $query);
-    $listaAcao = pg_fetch_all($result);
-    pg_close($conexao);
-    $eixoDAO = new EixoDAO();
-    $projetoDAO = new ProjetoDAO();
-    $listaAcaoObj = [];
-    for($i=0; $i<count($listaAcao); $i++){
-      $id = $listaAcao[$i]["id"];
-      $idEixo = $listaAcao[$i]["ideixo"];
-      $eixo = $eixoDAO->obter($idEixo);
-      $idProjeto = $listaAcao[$i]["idprojeto"];
-      $projeto = $projetoDAO->obter($idProjeto);
-      $titulo = $listaAcao[$i]["titulo"];
-      $tema = $listaAcao[$i]["tema"];
-      $descricao = $listaAcao[$i]["descricao"];
-      $palavraChave = $listaAcao[$i]["palavrachave"];
-      $prevInicio = $listaAcao[$i]["previnicio"];
-      $prevTermino = $listaAcao[$i]["prevtermino"];
-      $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
-      array_push($listaAcaoObj, $acao);
+    if($idEixo != "" && $idProjeto != "" && $tema != "" && $data == ""){
+    //  $listaAcao = $acaoDAO->listarByEixoProjetoTema($idEixo, $idProjeto, $tema);
+      $query = "select * from acao where ideixo='".$idEixo."' and idprojeto='".$idProjeto."' and tema='".$tema."'";
     }
-    return $listaAcaoObj;
-  }
-
-  function listarByEixoProjeto($idEixo, $idProjeto){
-    $conexao = conexao();
-    $query = "select * from acao where ideixo = '".$idEixo."' and idprojeto = '".$idProjeto."'";
-    $result = pg_query($conexao, $query);
-    $listaAcao = pg_fetch_all($result);
-    pg_close($conexao);
-    $eixoDAO = new EixoDAO();
-    $projetoDAO = new ProjetoDAO();
-    $listaAcaoObj = [];
-    for($i=0; $i<count($listaAcao); $i++){
-      $id = $listaAcao[$i]["id"];
-      $idEixo = $listaAcao[$i]["ideixo"];
-      $eixo = $eixoDAO->obter($idEixo);
-      $idProjeto = $listaAcao[$i]["idprojeto"];
-      $projeto = $projetoDAO->obter($idProjeto);
-      $titulo = $listaAcao[$i]["titulo"];
-      $tema = $listaAcao[$i]["tema"];
-      $descricao = $listaAcao[$i]["descricao"];
-      $palavraChave = $listaAcao[$i]["palavrachave"];
-      $prevInicio = $listaAcao[$i]["previnicio"];
-      $prevTermino = $listaAcao[$i]["prevtermino"];
-      $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
-      array_push($listaAcaoObj, $acao);
+    if($idEixo != "" && $idProjeto != "" && $tema == "" && $data != ""){
+     // $listaAcao = $acaoDAO->listarByEixoProjetoData($idEixo, $idProjeto, $data);
+       $query = "select * from acao where ideixo='".$idEixo."' and idprojeto='".$idProjeto."' and previnicio>='".$data."'";
     }
-    return $listaAcaoObj;
-  }
-
-  function listarByTema($tema){
-    $conexao = conexao();
-    $query = "select * from acao where tema='".$tema."'";
-    $result = pg_query($conexao, $query);
-    $listaAcao = pg_fetch_all($result);
-    pg_close($conexao);
-    $eixoDAO = new EixoDAO();
-    $projetoDAO = new ProjetoDAO();
-    $listaAcaoObj = [];
-    for($i=0; $i<count($listaAcao); $i++){
-      $id = $listaAcao[$i]["id"];
-      $idEixo = $listaAcao[$i]["ideixo"];
-      $eixo = $eixoDAO->obter($idEixo);
-      $idProjeto = $listaAcao[$i]["idprojeto"];
-      $projeto = $projetoDAO->obter($idProjeto);
-      $titulo = $listaAcao[$i]["titulo"];
-      $tema = $listaAcao[$i]["tema"];
-      $descricao = $listaAcao[$i]["descricao"];
-      $palavraChave = $listaAcao[$i]["palavrachave"];
-      $prevInicio = $listaAcao[$i]["previnicio"];
-      $prevTermino = $listaAcao[$i]["prevtermino"];
-      $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
-      array_push($listaAcaoObj, $acao);
+    if($idEixo != "" && $idProjeto != "" && $tema == "" && $data == ""){
+    //  $listaAcao = $acaoDAO->listarByEixoProjeto($idEixo, $idProjeto);
+      $query = "select * from acao where ideixo = '".$idEixo."' and idprojeto = '".$idProjeto."'";
     }
-    return $listaAcaoObj;
-  }
-
-  function listarByData($prevInicio){
-    $conexao = conexao();
-    $query = "select * from acao where previnicio>='".$prevInicio."'";
-    $result = pg_query($conexao, $query);
-    $listaAcao = pg_fetch_all($result);
-    pg_close($conexao);
-    $eixoDAO = new EixoDAO();
-    $projetoDAO = new ProjetoDAO();
-    $listaAcaoObj = [];
-    for($i=0; $i<count($listaAcao); $i++){
-      $id = $listaAcao[$i]["id"];
-      $idEixo = $listaAcao[$i]["ideixo"];
-      $eixo = $eixoDAO->obter($idEixo);
-      $idProjeto = $listaAcao[$i]["idprojeto"];
-      $projeto = $projetoDAO->obter($idProjeto);
-      $titulo = $listaAcao[$i]["titulo"];
-      $tema = $listaAcao[$i]["tema"];
-      $descricao = $listaAcao[$i]["descricao"];
-      $palavraChave = $listaAcao[$i]["palavrachave"];
-      $prevInicio = $listaAcao[$i]["previnicio"];
-      $prevTermino = $listaAcao[$i]["prevtermino"];
-      $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
-      array_push($listaAcaoObj, $acao);
+    if($idEixo != "" && $idProjeto == "" && $tema != "" && $data != ""){
+    //  $listaAcao = $acaoDAO->listarByEixoTemaData($idEixo, $idProjeto);
+      $query = "select * from acao where ideixo='".$idEixo."' and tema='".$tema."' and previnicio>='".$data."'";
     }
-    return $listaAcaoObj;
-  }
-
-   function listarByEixoProjetoTemaData($idEixo , $idProjeto, $tema, $prevInicio){
-    $conexao = conexao();
-    $query = "select * from acao where ideixo='".$idEixo."' and idprojeto='".$idProjeto."' and tema='".$tema."' and previnicio>='".$prevInicio."'";
-    $result = pg_query($conexao, $query);
-    $listaAcao = pg_fetch_all($result);
-    pg_close($conexao);
-    $eixoDAO = new EixoDAO();
-    $projetoDAO = new ProjetoDAO();
-    $listaAcaoObj = [];
-    for($i=0; $i<count($listaAcao); $i++){
-      $id = $listaAcao[$i]["id"];
-      $idEixo = $listaAcao[$i]["ideixo"];
-      $eixo = $eixoDAO->obter($idEixo);
-      $idProjeto = $listaAcao[$i]["idprojeto"];
-      $projeto = $projetoDAO->obter($idProjeto);
-      $titulo = $listaAcao[$i]["titulo"];
-      $tema = $listaAcao[$i]["tema"];
-      $descricao = $listaAcao[$i]["descricao"];
-      $palavraChave = $listaAcao[$i]["palavrachave"];
-      $prevInicio = $listaAcao[$i]["previnicio"];
-      $prevTermino = $listaAcao[$i]["prevtermino"];
-      $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
-      array_push($listaAcaoObj, $acao);
+    if($idEixo != "" && $idProjeto == "" && $tema != "" && $data == ""){
+    //  $listaAcao = $acaoDAO->listarByEixoTema($idEixo, $idProjeto);
+      $query = "select * from acao where ideixo='".$idEixo."' tema='".$tema."'";
     }
-    return $listaAcaoObj;
-  }
-
-   function listarByEixoTemaData($idEixo, $tema, $prevInicio){
-    $conexao = conexao();
-    $query = "select * from acao where ideixo='".$idEixo."' and tema='".$tema."' and previnicio>='".$prevInicio."'";
-    $result = pg_query($conexao, $query);
-    $listaAcao = pg_fetch_all($result);
-    pg_close($conexao);
-    $eixoDAO = new EixoDAO();
-    $projetoDAO = new ProjetoDAO();
-    $listaAcaoObj = [];
-    for($i=0; $i<count($listaAcao); $i++){
-      $id = $listaAcao[$i]["id"];
-      $idEixo = $listaAcao[$i]["ideixo"];
-      $eixo = $eixoDAO->obter($idEixo);
-      $idProjeto = $listaAcao[$i]["idprojeto"];
-      $projeto = $projetoDAO->obter($idProjeto);
-      $titulo = $listaAcao[$i]["titulo"];
-      $tema = $listaAcao[$i]["tema"];
-      $descricao = $listaAcao[$i]["descricao"];
-      $palavraChave = $listaAcao[$i]["palavrachave"];
-      $prevInicio = $listaAcao[$i]["previnicio"];
-      $prevTermino = $listaAcao[$i]["prevtermino"];
-      $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
-      array_push($listaAcaoObj, $acao);
+    if($idEixo != "" && $idProjeto == "" && $tema == "" && $data != ""){
+    //  $listaAcao = $acaoDAO->listarByEixoData($idEixo, $idProjeto);
+      $query = "select * from acao where ideixo='".$idEixo."' and previnicio>='".$data."'";
     }
-    return $listaAcaoObj;
-  }
-
-function listarByEixoTema($idEixo, $tema, $prevInicio){
-    $conexao = conexao();
-    $query = "select * from acao where ideixo='".$idEixo."' and tema='".$tema."' and previnicio>='".$prevInicio."'";
-    $result = pg_query($conexao, $query);
-    $listaAcao = pg_fetch_all($result);
-    pg_close($conexao);
-    $eixoDAO = new EixoDAO();
-    $projetoDAO = new ProjetoDAO();
-    $listaAcaoObj = [];
-    for($i=0; $i<count($listaAcao); $i++){
-      $id = $listaAcao[$i]["id"];
-      $idEixo = $listaAcao[$i]["ideixo"];
-      $eixo = $eixoDAO->obter($idEixo);
-      $idProjeto = $listaAcao[$i]["idprojeto"];
-      $projeto = $projetoDAO->obter($idProjeto);
-      $titulo = $listaAcao[$i]["titulo"];
-      $tema = $listaAcao[$i]["tema"];
-      $descricao = $listaAcao[$i]["descricao"];
-      $palavraChave = $listaAcao[$i]["palavrachave"];
-      $prevInicio = $listaAcao[$i]["previnicio"];
-      $prevTermino = $listaAcao[$i]["prevtermino"];
-      $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
-      array_push($listaAcaoObj, $acao);
+    if($idEixo != "" && $idProjeto == "" && $tema == "" && $data == ""){
+      // $listaAcao = $acaoDAO->listarByEixo($idEixo);
+      $query = "select * from acao where ideixo = '".$idEixo."'";
     }
-    return $listaAcaoObj;
-  }
-
-  function listarByEixoData($idEixo, $prevInicio){
-    $conexao = conexao();
-    $query = "select * from acao where ideixo='".$idEixo."' and previnicio>='".$prevInicio."'";
-    $result = pg_query($conexao, $query);
-    $listaAcao = pg_fetch_all($result);
-    pg_close($conexao);
-    $eixoDAO = new EixoDAO();
-    $projetoDAO = new ProjetoDAO();
-    $listaAcaoObj = [];
-    for($i=0; $i<count($listaAcao); $i++){
-      $id = $listaAcao[$i]["id"];
-      $idEixo = $listaAcao[$i]["ideixo"];
-      $eixo = $eixoDAO->obter($idEixo);
-      $idProjeto = $listaAcao[$i]["idprojeto"];
-      $projeto = $projetoDAO->obter($idProjeto);
-      $titulo = $listaAcao[$i]["titulo"];
-      $tema = $listaAcao[$i]["tema"];
-      $descricao = $listaAcao[$i]["descricao"];
-      $palavraChave = $listaAcao[$i]["palavrachave"];
-      $prevInicio = $listaAcao[$i]["previnicio"];
-      $prevTermino = $listaAcao[$i]["prevtermino"];
-      $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
-      array_push($listaAcaoObj, $acao);
+    if($idEixo == "" && $idProjeto != "" && $tema != "" && $data != ""){
+      // $listaAcao = $acaoDAO->listarByProjetoTemaData($idProjeto, $tema, $data);
+      $query = "select * from acao where idprojeto='".$idProjeto."' and tema='".$tema."' and previnicio>='".$data."'";
     }
-    return $listaAcaoObj;
-  }
-
-  function listarByEixoProjetoData($idEixo, $idProjeto, $prevInicio){
-    $conexao = conexao();
-    $query = "select * from acao where ideixo='".$idEixo."' and idprojeto='".$idProjeto."' and previnicio>='".$prevInicio."'";
-    $result = pg_query($conexao, $query);
-    $listaAcao = pg_fetch_all($result);
-    pg_close($conexao);
-    $eixoDAO = new EixoDAO();
-    $projetoDAO = new ProjetoDAO();
-    $listaAcaoObj = [];
-    for($i=0; $i<count($listaAcao); $i++){
-      $id = $listaAcao[$i]["id"];
-      $idEixo = $listaAcao[$i]["ideixo"];
-      $eixo = $eixoDAO->obter($idEixo);
-      $idProjeto = $listaAcao[$i]["idprojeto"];
-      $projeto = $projetoDAO->obter($idProjeto);
-      $titulo = $listaAcao[$i]["titulo"];
-      $tema = $listaAcao[$i]["tema"];
-      $descricao = $listaAcao[$i]["descricao"];
-      $palavraChave = $listaAcao[$i]["palavrachave"];
-      $prevInicio = $listaAcao[$i]["previnicio"];
-      $prevTermino = $listaAcao[$i]["prevtermino"];
-      $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
-      array_push($listaAcaoObj, $acao);
+    if($idEixo == "" && $idProjeto != "" && $tema != "" && $data == ""){
+      // $listaAcao = $acaoDAO->listarByProjetoTema($idProjeto, $tema);
+      $query = "select * from acao where ideixo='".$idEixo."' and tema='".$tema."'";
     }
-    return $listaAcaoObj;
-  }
-
-  function listarByEixoProjetoTema($idEixo, $idProjeto, $tema){
-    $conexao = conexao();
-    $query = "select * from acao where ideixo='".$idEixo."' and idprojeto='".$idProjeto."' and tema='".$tema."'";
-    $result = pg_query($conexao, $query);
-    $listaAcao = pg_fetch_all($result);
-    pg_close($conexao);
-    $eixoDAO = new EixoDAO();
-    $projetoDAO = new ProjetoDAO();
-    $listaAcaoObj = [];
-    for($i=0; $i<count($listaAcao); $i++){
-      $id = $listaAcao[$i]["id"];
-      $idEixo = $listaAcao[$i]["ideixo"];
-      $eixo = $eixoDAO->obter($idEixo);
-      $idProjeto = $listaAcao[$i]["idprojeto"];
-      $projeto = $projetoDAO->obter($idProjeto);
-      $titulo = $listaAcao[$i]["titulo"];
-      $tema = $listaAcao[$i]["tema"];
-      $descricao = $listaAcao[$i]["descricao"];
-      $palavraChave = $listaAcao[$i]["palavrachave"];
-      $prevInicio = $listaAcao[$i]["previnicio"];
-      $prevTermino = $listaAcao[$i]["prevtermino"];
-      $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
-      array_push($listaAcaoObj, $acao);
+    if($idEixo == "" && $idProjeto != "" && $tema == "" && $data != ""){
+      //$listaAcao = $acaoDAO->listarByProjetoData($idProjeto, $data);
+      $query = "select * from acao where idprojeto='".$idProjeto."' and previnicio>='".$data."'";
     }
-    return $listaAcaoObj;
-  }
-
-  function listarByProjetoTemaData($idProjeto, $tema, $prevInicio){
-    $conexao = conexao();
-    $query = "select * from acao where idprojeto='".$idProjeto."' and tema='".$tema."' and previnicio>='".$prevInicio."'";
-    $result = pg_query($conexao, $query);
-    $listaAcao = pg_fetch_all($result);
-    pg_close($conexao);
-    $eixoDAO = new EixoDAO();
-    $projetoDAO = new ProjetoDAO();
-    $listaAcaoObj = [];
-    for($i=0; $i<count($listaAcao); $i++){
-      $id = $listaAcao[$i]["id"];
-      $idEixo = $listaAcao[$i]["ideixo"];
-      $eixo = $eixoDAO->obter($idEixo);
-      $idProjeto = $listaAcao[$i]["idprojeto"];
-      $projeto = $projetoDAO->obter($idProjeto);
-      $titulo = $listaAcao[$i]["titulo"];
-      $tema = $listaAcao[$i]["tema"];
-      $descricao = $listaAcao[$i]["descricao"];
-      $palavraChave = $listaAcao[$i]["palavrachave"];
-      $prevInicio = $listaAcao[$i]["previnicio"];
-      $prevTermino = $listaAcao[$i]["prevtermino"];
-      $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
-      array_push($listaAcaoObj, $acao);
+    if($idEixo == "" && $idProjeto != "" && $tema == "" && $data == ""){
+     // $listaAcao = $acaoDAO->listarByProjeto($idProjeto);
+      $query = "select * from acao where idprojeto = '".$idProjeto."'";
     }
-    return $listaAcaoObj;
-  }
-
-  function listarByProjetoTema($idProjeto, $tema){
-    $conexao = conexao();
-    $query = "select * from acao where ideixo='".$idEixo."' and tema='".$tema."'";
-    $result = pg_query($conexao, $query);
-    $listaAcao = pg_fetch_all($result);
-    pg_close($conexao);
-    $eixoDAO = new EixoDAO();
-    $projetoDAO = new ProjetoDAO();
-    $listaAcaoObj = [];
-    for($i=0; $i<count($listaAcao); $i++){
-      $id = $listaAcao[$i]["id"];
-      $idEixo = $listaAcao[$i]["ideixo"];
-      $eixo = $eixoDAO->obter($idEixo);
-      $idProjeto = $listaAcao[$i]["idprojeto"];
-      $projeto = $projetoDAO->obter($idProjeto);
-      $titulo = $listaAcao[$i]["titulo"];
-      $tema = $listaAcao[$i]["tema"];
-      $descricao = $listaAcao[$i]["descricao"];
-      $palavraChave = $listaAcao[$i]["palavrachave"];
-      $prevInicio = $listaAcao[$i]["previnicio"];
-      $prevTermino = $listaAcao[$i]["prevtermino"];
-      $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
-      array_push($listaAcaoObj, $acao);
+    if($idEixo == "" && $idProjeto == "" && $tema != "" && $data != ""){
+      // $listaAcao = $acaoDAO->listarByTemaData($tema, $data);
+      $query = "select * from acao where tema='".$tema."' and previnicio>='".$data."'";
     }
-    return $listaAcaoObj;
-  }
-
-  function listarByProjetoData($idProjeto, $prevInicio){
-    $conexao = conexao();
-    $query = "select * from acao where idprojeto='".$idProjeto."' and previnicio>='".$prevInicio."'";
-    $result = pg_query($conexao, $query);
-    $listaAcao = pg_fetch_all($result);
-    pg_close($conexao);
-    $eixoDAO = new EixoDAO();
-    $projetoDAO = new ProjetoDAO();
-    $listaAcaoObj = [];
-    for($i=0; $i<count($listaAcao); $i++){
-      $id = $listaAcao[$i]["id"];
-      $idEixo = $listaAcao[$i]["ideixo"];
-      $eixo = $eixoDAO->obter($idEixo);
-      $idProjeto = $listaAcao[$i]["idprojeto"];
-      $projeto = $projetoDAO->obter($idProjeto);
-      $titulo = $listaAcao[$i]["titulo"];
-      $tema = $listaAcao[$i]["tema"];
-      $descricao = $listaAcao[$i]["descricao"];
-      $palavraChave = $listaAcao[$i]["palavrachave"];
-      $prevInicio = $listaAcao[$i]["previnicio"];
-      $prevTermino = $listaAcao[$i]["prevtermino"];
-      $situacao = $listaAcao[$i]["situacao"];
-      $acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
-      array_push($listaAcaoObj, $acao);
+    if($idEixo == "" && $idProjeto == "" && $tema != "" && $data == ""){
+     // $listaAcao = $acaoDAO->listarByTema($tema);
+      $query = "select * from acao where tema='".$tema."'";
     }
-    return $listaAcaoObj;
-  }
-
-  function listarByTemaData($tema, $prevInicio){
-    $conexao = conexao();
-    $query = "select * from acao where tema='".$tema."' and previnicio>='".$prevInicio."'";
+    if($idEixo == "" && $idProjeto == "" && $tema == "" && $data != ""){
+      //$listaAcao = $acaoDAO->listarByData($data);
+      $query = "select * from acao where previnicio>='".$data."'";
+    }
     $result = pg_query($conexao, $query);
     $listaAcao = pg_fetch_all($result);
     pg_close($conexao);
