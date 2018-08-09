@@ -41,7 +41,6 @@ function getPagina(){
 				include('view/logar.php');
 				break;
 			case '/logando':
-			
 				$usuario_informado=$atorDAO->obterByEmail($_POST['email']);
 				$senha=$usuario_informado->getSenha();
 				if(!empty($usuario_informado) && $_POST['senha']==$senha){
@@ -104,6 +103,7 @@ function getPagina(){
 				$listaAcao = $acaoDAO->pesquisa($idEixo, $idProjeto, $tema, $data);*/
 				include('view/INFES/Pesquisa.php');
 				break;
+				
 			////Paginas de erros#######################
 			default :
 				echo 'deu ruim ou bom';
