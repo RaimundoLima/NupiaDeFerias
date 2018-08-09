@@ -103,10 +103,10 @@ function getPagina(){
 				$listaAcao = $acaoDAO->pesquisa($idEixo, $idProjeto, $tema, $data);*/
 				include('view/INFES/Pesquisa.php');
 				break;
-				
+			//case 'infes/'
 			////Paginas de erros#######################
 			default :
-				echo 'deu ruim ou bom';
+				echo 'deu ruim ou bom';//marcos chupa rola
 				break;
     	}
 	}
