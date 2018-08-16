@@ -6,10 +6,10 @@
 <div style="border: 1px solid #f19393;" class="container">
 <div class="center">
 <h2 >Pesquisa</h2>
-<form method="GET" action="/infes/pesquisa">
+<form method="POST" action="/infes/resultadopesquisa">
 <div  class="input-field inline">
 <input  name="Pesquisar" id="pesquisaInfes" type="text" class="">
-<input  hidden type="submit" >
+<input  type="submit" value="Pesquisar">
 <label  for="pesquisa"></label>
 <span class="helper-text" >Procurar palavras chaves podem facilitar a sua pesquisa :)</span>
 <p><b><a id="filtros" class="waves-effect waves-light btn red"><i class="material-icons left">menu</i>Filtos</a><b></p>

@@ -103,9 +103,33 @@ function getPagina(){
 				$listaAcao = $acaoDAO->pesquisa($idEixo, $idProjeto, $tema, $data);*/
 				include('view/INFES/Pesquisa.php');
 				break;
+			case '/infes/resultadopesquisa': 
+				// precisa ser atualizado
+				$acaoDAO = new AcaoDAO();
+				$idEixo = $_POST["Peixo"];
+				$idProjeto = $_POST["Pprojeto"];
+				$tema = $_POST["Ptema"];
+				$data = $_POST["Pdata"];
+				$hoje = date("d/m/Y");
+				$listaAcao=[];
+				if($data == "1"){
+					$data = date('d/m/Y', strtotime('-7 days'));
+					echo $data;
+				}
+				if($data == "2"){
+					$data = date('d/m/Y', strtotime('-1 month'));
+				}
+				if($data == "3"){
+					$data = date('d/m/Y', strtotime('-1 year'));
+				}
+				
+				$listaAcao = $acaoDAO->pesquisa($idEixo, $idProjeto, $tema, $data);
+				include('view/INFES/resultadoPesquisa.php');
+				break;
 			//case 'infes/'
 			////Paginas de erros#######################
 			default :
+			var_dump($url[0]);exit;
 				echo 'deu ruim ou bom';//marcos chupa rola
 				break;
     	}

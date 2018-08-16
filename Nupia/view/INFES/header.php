@@ -30,8 +30,8 @@
       <ul id="nav-mobile" class="right">
         <li><a class="" id="home" href="Home.php">Home</a></li>
         <li><a id="projetos" href="Acoes">Ações</a></li>
-        <li><a id="pesquisa" href="Pesquisa.php">Pesquisa</a></li>
-        <li><a id="cadastra" href="../Cadastro.php">Cadastro
+        <li><a id="pesquisa" href="Pesquisa">Pesquisa</a></li>
+        <li><a id="cadastra" href="Cadastro">Cadastro
 		<i id="pesquisaIco"  class="material-icons prefix left tiny">account_circle</i>
 		</li></a>
           <li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</li>
@@ -41,7 +41,7 @@
   <ul class="sidenav" id="mobile-demo">
     <li><a href="Home.php">Home</a></li>
     <li><a href="Acoes.php">Ações</a></li>
-    <li><a href="../Cadastro.php">Cadastro</a></li>
+    <li><a href="Cadastro.php">Cadastro</a></li>
     <!--	<li><i class="material-icons left">search</i></li><li><input  placeholder="Pesquisar" ></li>-->
   </ul>
   <script>
