@@ -12,7 +12,7 @@ class Acao {
 	private $prevTermino;
 	private $situacao;
 
-	public function __construct($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id=0){
+	public function __construct($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio=NULL, $prevTermino=NULL, $situacao="0", $id=0){
 		$this->eixo = $eixo;
 		$this->projeto = $projeto;
 		$this->titulo = $titulo;

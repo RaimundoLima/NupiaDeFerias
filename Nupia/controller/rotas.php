@@ -88,9 +88,55 @@ function getPagina(){
 					array_push($listaAcao, $acao);
 
 				}
+				
 				include('view/INFES/acoes.php');
 				break;
-			case '/infes/cadastra':
+			case '/infes/cadastro':
+				include('view/INFES/cadastro.php');
+				break;
+			case '/infes/cadastrando':	
+				$acaoDAO = new AcaoDAO();
+				$eixoDAO = new EixoDAO();
+				$projetoDAO = new ProjetoDAO();
+				$atorDAO = new AtorDAO();
+				//Adicionar Ação
+				$idEixo = $_POST["eixo"];
+  				$eixo = $eixoDAO->obter($idEixo);
+				$idProjeto = $_POST["projeto"];
+  				$projeto = $projetoDAO->obter($idProjeto);
+				$titulo = $_POST["titulo"];
+				$tema = $_POST["tema"];
+				$descricao = $_POST["descricao"];
+				$palavraChave = $_POST["chave"];
+				$acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave);
+				$acaoDAO = new AcaoDAO();
+				$acaoDAO->adicionar($acao);
+				$idAcao = $acaoDAO->obterUltimoId();
+
+				// Adicionar Acao Ator
+				$idAtor = $_POST["ator"];
+  				$ator = $atorDAO->obter($idAtor);
+				$acao = $acaoDAO->obter($idAcao);
+				$acaoAtor = new AcaoAtor($ator, $acao);
+				$acaoAtorDAO = new AcaoAtorDAO();
+				$acaoAtorDAO->adicionar($acaoAtor);
+				//Adicionar Arquivo
+				$diretorio = $_SERVER["DOCUMENT_ROOT"]."/arquivos/";
+				if (isset($_FILES["edital"])) {
+					$nome = $_FILES["edital"]["name"];
+					$tmp_name = $_FILES["edital"]["tmp_name"];
+					$error = $_FILES["edital"]["error"];
+					if ($error !== UPLOAD_ERR_OK) {
+						echo "Erro ao fazer upload: ".$error;
+					} elseif (move_uploaded_file($_FILES["edital"]["tmp_name"], $diretorio.$nome)) {
+						$documento = $diretorio . $nome;
+						$acao = $acaoDAO->obter($idAcao);
+						$arquivo= new Arquivo($acao, $nome, $documento, $diretorio);
+					  	$arquivoDAO = new ArquivoDAO();
+						$arquivoDAO->adicionar($arquivo);
+						unlink($diretorio);
+					}
+				}
 				include('view/INFES/cadastro.php');
 				break;
 			case '/infes/pesquisa':
@@ -125,6 +171,10 @@ function getPagina(){
 				
 				$listaAcao = $acaoDAO->pesquisa($idEixo, $idProjeto, $tema, $data);
 				include('view/INFES/resultadoPesquisa.php');
+				break;
+			case '/infes/acaopesquisa':
+
+				include('view/INFES/acaoEspecifica.php');
 				break;
 			//case 'infes/'
 			////Paginas de erros#######################

@@ -5,13 +5,15 @@ class Arquivo{
 	private $nome;
 	private $documento;
 	private $diretorio;
+	private $tipo;
 
-	function __construct($acao, $nome, $documento, $diretorio, $id=0){
+	function __construct($acao, $nome, $documento, $diretorio, $tipo="comum" $id=0){
 		$this->id = $id;
 		$this->acao = $acao;
 		$this->nome = $nome;
 		$this->documento = $documento;
 		$this->diretorio = $diretorio;
+		$this->tipo = $tipo;
 	}
 	public function getId(){
 		return $this->id;
@@ -27,6 +29,9 @@ class Arquivo{
 	}
 	public function getDiretorio(){
 		return $this->diretorio;
+	}
+	public function getTipo(){
+		return $this->tipo;
 	}
 }
 ?>

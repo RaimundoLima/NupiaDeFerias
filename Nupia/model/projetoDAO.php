@@ -38,7 +38,7 @@ class ProjetoDAO{
     $nome = $projeto[0]["nome"];
     $descricao = $projeto[0]["descricao"];
     $link = $projeto[0]["link"];
-    $projetoObj = new Eixo($nome, $descricao, $link, $id);
+    $projetoObj = new Projeto($nome, $descricao, $link, $id);
     return $projetoObj;
   }
   function editar($projeto){

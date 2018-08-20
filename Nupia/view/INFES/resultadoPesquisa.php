@@ -9,7 +9,7 @@
 <form method="POST" action="/infes/resultadoPesquisa">
 <div  class="input-field inline">
 <input  name="Pesquisar" id="pesquisaInfes" type="text" class="">
-<input  hidden type="submit" >
+<input  type="submit" value="Pesquisar">
 <label  for="pesquisa"></label>
 <span class="helper-text" >Procurar palavras chaves podem facilitar a sua pesquisa :)</span>
 <p><b><a id="filtros" class="waves-effect waves-light btn red"><i class="material-icons left">menu</i>Filtos</a><b></p>
@@ -67,7 +67,7 @@
  for ($i=0; $i<count($listaAcao); $i++) {
    echo '<li>
      <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="" src="/img/Nupia.png" alt="Icone">'.$listaAcao[$i]->getTitulo().'</div>
-     <div class="collapsible-body"><span class="flow-text"><a href="acoes.php">'.$listaAcao[$i]->getDescricao().'
+     <div class="collapsible-body"><span class="flow-text"><a href="acoes.php">'.$listaAcao[$i]->getDescricao().'</a>
  </div>
     </li>';
  }

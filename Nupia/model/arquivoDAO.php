@@ -9,8 +9,9 @@ class ArquivoDAO{
     $idAcao = $acao->getId();
     $documento = $arquivo->getDocumento();
     $diretorio = $arquivo->getDiretorio();
+    $tipo = $arquivo->getTipo();
     $conexao = conexao();
-    $query = "insert into arquivo(nome, idacao, documento, diretorio) values('".$nome."', '".$idAcao."',lo_import('".$documento."'), '".$diretorio."')";
+    $query = "insert into arquivo(nome, idacao, documento, diretorio, tipo) values('".$nome."', '".$idAcao."',lo_import('".$documento."'), '".$diretorio."', '".$tipo."')";
     pg_query($conexao, $query);
     pg_close($conexao);
   }
@@ -28,8 +29,9 @@ class ArquivoDAO{
       $acao = $acaoDAO->obter($idAcao);
       $documento = $listaArquivo[$i]["documento"];
       $diretorio = $listaArquivo[$i]["diretorio"];
+      $tipo = $listaArquivo[$i]["tipo"];
       pg_lo_export($documento, $diretorio, $conexao);
-      $arquivo = new Arquivo($acao, $nome, $documento, $diretorio, $id);
+      $arquivo = new Arquivo($acao, $nome, $documento, $diretorio, $tipo, $id);
       array_push($listaArquivoObj, $arquivo);
     }
     pg_close($conexao);
@@ -48,8 +50,9 @@ class ArquivoDAO{
     $nome = $arquivo[0]["nome"];
     $documento = $listaArquivo[$i]["documento"];
     $diretorio = $listaArquivo[$i]["diretorio"];
+    $tipo = $listaArquivo[$i]["tipo"];
     pg_lo_export($documento, $diretorio, $conexao);
-    $arquivo = new Arquivo($acao, $nome, $documento, $diretorio, $id);
+    $arquivo = new Arquivo($acao, $nome, $documento, $diretorio, $tipo, $id);
     return $arquivoObj;
   }
   function editar($arquivo){
@@ -60,7 +63,8 @@ class ArquivoDAO{
     $idAcao = $acao->getId();
     $documento = $arquivo->getDocumento();
     $diretorio = $arquivo->getDiretorio();
-    $query = "UPDATE arquivo set idacao='".$idAcao."',nome='".$nome."',documento='".$documento."',diretorio='".$diretorio."' where id='".$id."'";
+    $tipo = $arquivo->getTipo();
+    $query = "UPDATE arquivo set idacao='".$idAcao."',nome='".$nome."',documento='".$documento."',diretorio='".$diretorio."', tipo='".$tipo."' where id='".$id."'";
     $result = pg_query($conexao, $query);
     pg_close($conexao);
   }

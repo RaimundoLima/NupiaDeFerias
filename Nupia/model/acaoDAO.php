@@ -14,11 +14,9 @@ class AcaoDAO{
     $tema = $acao->getTema();
     $descricao = $acao->getDescricao();
     $palavraChave = $acao->getPalavraChave();
-    $prevInicio = $acao->getPrevInicio();
-    $prevTermino = $acao->getPrevTermino();
     $situacao = $acao->getSituacao();
     $conexao = conexao();
-    $query = "insert into acao(ideixo, idprojeto, titulo, tema, descricao, palavrachave, previnicio, prevtermino, situacao) values('".$idResumo."','".$idEixo."', '".$idProjeto."', '".$titulo."', '".$tema."', '".$descricao."','".$palavraChave."', '".$prevInicio."', '".$prevTermino."', '".$situacao."')";
+    $query = "insert into acao(ideixo, idprojeto, titulo, tema, descricao, palavrachave, situacao) values('".$idEixo."', '".$idProjeto."', '".$titulo."', '".$tema."', '".$descricao."','".$palavraChave."', '".$situacao."')";
     pg_query($conexao, $query);
     pg_close($conexao);
     return true;
@@ -53,7 +51,7 @@ class AcaoDAO{
 
   function pesquisa($idEixo, $idProjeto, $tema, $data){
     $conexao = conexao();
-    $query = "";
+    $query = "select * from acao";
     if($idEixo != "" && $idProjeto != "" && $tema != "" && $data != ""){
       //$listaAcao = $acaoDAO->listarByEixoProjetoTemaData($idEixo, $idProjeto, $tema, $data);
       $query = "select * from acao where ideixo='".$idEixo."' and idprojeto='".$idProjeto."' and tema='".$tema."' and previnicio>='".$data."'";
@@ -162,6 +160,17 @@ class AcaoDAO{
     $acaoObj = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
     return $acaoObj;
   }
+
+   function obterUltimoId(){
+    $conexao = conexao();
+    $query = "select max(id) as id from acao";
+    $result = pg_query($conexao, $query);
+    $acao = pg_fetch_all($result);
+    pg_close($conexao);
+    $id = $acao[0]["id"];
+    return $id;
+  }
+
   function editar($acao){
     $conexao = conexao();
     $id = $acao->getId();
