@@ -7,6 +7,7 @@ include_once("model/acaoDAO.php");
 include_once("model/acaoAtorDAO.php");
 function getPagina(){
 	session_start();
+	error_reporting(0);
 	$atorDAO = new AtorDAO();
 	$url = $_SERVER['REQUEST_URI'];
 	$url = explode("?",$url);
@@ -88,13 +89,13 @@ function getPagina(){
 					array_push($listaAcao, $acao);
 
 				}
-				
+
 				include('view/INFES/acoes.php');
 				break;
 			case '/infes/cadastro':
 				include('view/INFES/cadastro.php');
 				break;
-			case '/infes/cadastrando':	
+			case '/infes/cadastrando':
 				$acaoDAO = new AcaoDAO();
 				$eixoDAO = new EixoDAO();
 				$projetoDAO = new ProjetoDAO();
@@ -149,7 +150,7 @@ function getPagina(){
 				$listaAcao = $acaoDAO->pesquisa($idEixo, $idProjeto, $tema, $data);*/
 				include('view/INFES/Pesquisa.php');
 				break;
-			case '/infes/resultadopesquisa': 
+			case '/infes/resultadopesquisa':
 				// precisa ser atualizado
 				$acaoDAO = new AcaoDAO();
 				$idEixo = $_POST["Peixo"];
@@ -168,12 +169,11 @@ function getPagina(){
 				if($data == "3"){
 					$data = date('d/m/Y', strtotime('-1 year'));
 				}
-				
+
 				$listaAcao = $acaoDAO->pesquisa($idEixo, $idProjeto, $tema, $data);
 				include('view/INFES/resultadoPesquisa.php');
 				break;
 			case '/infes/acaopesquisa':
-
 				include('view/INFES/acaoEspecifica.php');
 				break;
 			//case 'infes/'
