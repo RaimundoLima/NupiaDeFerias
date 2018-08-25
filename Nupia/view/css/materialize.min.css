@@ -4020,7 +4020,7 @@ nav {
 }
 
 nav.nav-extended {
-  height: auto
+  height: 48px !important;
 }
 
 nav.nav-extended .nav-wrapper {

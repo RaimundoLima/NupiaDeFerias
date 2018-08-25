@@ -34,7 +34,7 @@
 	  for ($i=0; $i<count($listaAcao); $i++) { 
 	  	echo '<li>
     	  <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="" src="/img/Nupia.png" alt="Icone">'.$listaAcao[$i]->getTitulo().'</div>
-      	<div class="collapsible-body"><span class="flow-text"><a href="acoes.php">'.$listaAcao[$i]->getDescricao().'
+      	<div class="collapsible-body"><span class="flow-text"><a href="acaoEspecidica.php">'.$listaAcao[$i]->getDescricao().'</a>
 		</div>
    		 </li>';
 	  }

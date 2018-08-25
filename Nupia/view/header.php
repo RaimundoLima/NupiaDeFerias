@@ -17,8 +17,8 @@
 
 <body class="green lighten-5 ">
 
-  <nav style="position: fixed;" class="green nav-extended navbar-fixed">
-    <div class="green nav-wrapper ">
+  <nav style="position: fixed;" style="height: 48px !important" class="green nav-extended navbar-fixed">
+    <div style="height: 48px !important" class="green nav-wrapper ">
       <div aling="center" class="brand-logo">
         <a href="Home">
           <img style=" margin-top: 4%;"  height="48px" src="view/img/Nupia2.png" alt="Icone">
@@ -47,8 +47,10 @@
                       </li>
                     </div>';
           }else{
-            echo '<div style="margin-right: 15%;" class="right">
-            <li><a >notficacoes</a></li>
+            echo '<div style="max-height:48px;margin-right: 15%;" class="right">
+            <li><img class= "foto-sidenav"style="margin-top:10%; width: 48px;
+              height: 48px;" src="view/img/raiLindo.jpg"></img><li>
+            <li><a >Notficações</a></li>
           <li><a id="'.$user->getId().'"></a></li>';
             }
         ?>
@@ -60,7 +62,7 @@
     <div  class='green' style='height: 25%;'>
       <div style='position: absolute;z-index:3;top:10%;'>
         <div class='foto-sidenav'>
-          <img src='view/img/NupiaPessoas.jpg'>
+          <img src='view/img/raiLindo.jpg'>
         </div>
       </div>
       <div style='margin-left: 160px;position: absolute;z-index:3;top:12%;'>

@@ -107,6 +107,7 @@ CREATE TABLE public.arquivo
   documento oid,
   diretorio text,
   nome character varying(100),
+  tipo text,
   CONSTRAINT arquivo_pkey PRIMARY KEY (id),
   CONSTRAINT arquivo_idacao_fkey FOREIGN KEY (idacao)
       REFERENCES public.acao (id) MATCH SIMPLE
