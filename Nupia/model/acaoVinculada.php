@@ -4,7 +4,7 @@ class AcaoVinculada{
 	private $id;
 	private $acao1;
 	private $acao2;
-	function __construct($acao1, $acao2, $id=0){
+	function __construct($acao1, $acao2="", $id=0){
 		$this->id = $id;
 		$this->acao1=$acao1;
 		$this->acao2=$acao2;

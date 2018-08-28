@@ -17,6 +17,7 @@ class Acao {
 		$this->projeto = $projeto;
 		$this->titulo = $titulo;
 		$this->tema = $tema;
+		$this->descricao = $descricao;
 		$this->palavraChave = $palavraChave;
 		$this->prevInicio = $prevInicio;
 		$this->prevTermino = $prevTermino;
@@ -39,7 +40,7 @@ class Acao {
 		return $this->tema;
 	}
 	public function getDescricao(){
-		return $this->tema;
+		return $this->descricao;
 	}
 	public function getPalavraChave(){
 		return $this->palavraChave;

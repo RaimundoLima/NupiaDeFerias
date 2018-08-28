@@ -5,6 +5,9 @@ include_once("model/atorDAO.php");
 include_once("model/eixoDAO.php");
 include_once("model/acaoDAO.php");
 include_once("model/acaoAtorDAO.php");
+include_once("model/arquivoDAO.php");
+include_once("model/acaoVinculadaDAO.php");
+include_once("model/artigoExternoDAO.php");
 function getPagina(){
 	error_reporting(0);
 	session_start();
@@ -176,8 +179,21 @@ function getPagina(){
 				$listaAcao = $acaoDAO->pesquisa($idEixo, $idProjeto, $tema, $data);
 				include('view/INFES/resultadoPesquisa.php');
 				break;
-			case '/infes/acaopesquisa':
-
+			case '/infes/acaoespecifica':
+				$acaoDAO = new AcaoDAO();
+				$arquivoDAO = new ArquivoDAO();
+				$acaoAtorDAO = new AcaoAtorDAO();
+				$acaoVinculadaDAO = new AcaoVinculadaDAO();
+				$artigoExternoDAO = new ArtigoExternoDAO();
+				$primeiravarivel = $url[1];
+				$primeiravarivel = explode("=",$primeiravarivel);
+				$id = $primeiravarivel[1];
+				$acaoObj = $acaoDAO->obter($id);
+				$edital = $arquivoDAO->obterEdital($id);
+				$listaArquivo = $arquivoDAO->listar();
+				$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
+				$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
+				$artigoExterno = $artigoExternoDAO->listarByAcao($id);
 				include('view/INFES/acaoEspecifica.php');
 				break;
 			//case 'infes/'

@@ -4,7 +4,7 @@ class AcaoAtor{
 	private $id;
 	private $ator;
 	private $acao;
-	function __construct($ator, $acao, $id=0){
+	function __construct($ator, $acao="", $id=0){
 		$this->id = $id;
 		$this->ator = $ator;
 		$this->acao = $acao;

@@ -17,7 +17,7 @@ class ArquivoDAO{
   }
   function listar(){
     $conexao = conexao();
-    $query = "select * from arquivo";
+    $query = "select * from arquivo where tipo ='comum'";
     $result = pg_query($conexao, $query);
     $listaArquivo = pg_fetch_all($result);
     $acaoDAO = new AcaoDAO();
@@ -30,16 +30,20 @@ class ArquivoDAO{
       $documento = $listaArquivo[$i]["documento"];
       $diretorio = $listaArquivo[$i]["diretorio"];
       $tipo = $listaArquivo[$i]["tipo"];
-      pg_lo_export($documento, $diretorio, $conexao);
+      $caminhoCompleto =  $diretorio.$nome;
+      $conexao = conexao();
+      $query = "select lo_export(arquivo.documento, '".$caminhoCompleto."') from arquivo where idacao = '".$idacao."' and tipo='edital'";
+      pg_query($conexao, $query);
+      pg_close($conexao);
       $arquivo = new Arquivo($acao, $nome, $documento, $diretorio, $tipo, $id);
       array_push($listaArquivoObj, $arquivo);
     }
     pg_close($conexao);
     return $listaArquivoObj;
   }
-  function obter($id){
+  function obter($idacao){
     $conexao = conexao();
-    $query = "select * from arquivo where id = '".$id."'";
+    $query = "select * from arquivo where idacao = '".$idacao."' and tipo='comum'";
     $result = pg_query($conexao, $query);
     $arquivo = pg_fetch_all($result);
     $acaoDAO = new AcaoDAO();
@@ -48,11 +52,38 @@ class ArquivoDAO{
     $idacao = $arquivo[0]["idacao"];
     $acao = $acaoDAO->obter($idacao);
     $nome = $arquivo[0]["nome"];
-    $documento = $listaArquivo[$i]["documento"];
-    $diretorio = $listaArquivo[$i]["diretorio"];
-    $tipo = $listaArquivo[$i]["tipo"];
-    pg_lo_export($documento, $diretorio, $conexao);
-    $arquivo = new Arquivo($acao, $nome, $documento, $diretorio, $tipo, $id);
+    $documento = $arquivo[0]["documento"];
+    $diretorio = $arquivo[0]["diretorio"];
+    $tipo = $arquivo[0]["tipo"];
+    $caminhoCompleto =  $diretorio.$nome;
+    $conexao = conexao();
+    $query = "select lo_export(arquivo.documento, '".$caminhoCompleto."') from arquivo where idacao = '".$idacao."' and tipo='edital'";
+    pg_query($conexao, $query);
+    pg_close($conexao);
+    $arquivoObj = new Arquivo($acao, $nome, $documento, $diretorio, $tipo, $id);
+    return $arquivoObj;
+  }
+  function obterEdital($idacao){
+    $conexao = conexao();
+    $query = "select * from arquivo where idacao = '".$idacao."' and tipo='edital'";
+    $result = pg_query($conexao, $query);
+    $arquivo = pg_fetch_all($result);
+    $acaoDAO = new AcaoDAO();
+    pg_close($conexao);
+    $id = $arquivo[0]["id"];
+    $idacao = $arquivo[0]["idacao"];
+    $acao = $acaoDAO->obter($idacao);
+    $nome = $arquivo[0]["nome"];
+    $documento = $arquivo[0]["documento"];
+    $diretorio = $arquivo[0]["diretorio"];
+    $tipo = $arquivo[0]["tipo"];
+    $caminhoCompleto =  $diretorio.$nome;
+    $conexao = conexao();
+    $query = "select lo_export(arquivo.documento, '".$caminhoCompleto."') from arquivo where idacao = '".$idacao."' and tipo='edital'";
+    pg_query($conexao, $query);
+    pg_close($conexao);
+    $arquivoObj = new Arquivo($acao, $nome, $documento, $diretorio, $tipo, $id);
+  //  var_dump($arquivoObj);exit;
     return $arquivoObj;
   }
   function editar($arquivo){

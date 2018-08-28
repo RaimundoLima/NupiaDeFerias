@@ -7,7 +7,7 @@ class Arquivo{
 	private $diretorio;
 	private $tipo;
 
-	function __construct($acao, $nome, $documento, $diretorio, $tipo="comum" $id=0){
+	function __construct($acao, $nome, $documento, $diretorio, $tipo="comum", $id=0){
 		$this->id = $id;
 		$this->acao = $acao;
 		$this->nome = $nome;

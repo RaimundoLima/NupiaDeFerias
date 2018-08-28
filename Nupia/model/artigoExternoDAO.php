@@ -40,9 +40,8 @@ class ArtigoExternoDAO{
     $listaArtigoExternoObj = [];
     for($i=0; $i<count($listaArtigoExterno); $i++){
       $id = $listaArtigoExterno[$i]["id"];
-      $idAcao = $listaArtigoExterno[$i]["idacao"];
-      $acao = $acaoDAO->obter($idAcao);
       $link = $listaArtigoExterno[$i]["link"];
+      $acao="";
       $artigoExterno = new ArtigoExterno($acao, $link, $id);
       array_push($listaArtigoExternoObj, $artigoExterno);
     }

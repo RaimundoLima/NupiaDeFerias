@@ -28,9 +28,32 @@ class AcaoVinculadaDAO{
       $idAcao2 = $listaAcaoVinculada[$i]["idacao2"];
       $acao2 = $acaoDAO->obter($idAcao2);
       $acaoVinculada = new AcaoVinculada($acao1, $acao2, $id);
-      array_push($listaAcaoVinculadaObj, $acaoVinculada;
+      array_push($listaAcaoVinculadaObj, $acaoVinculada);
     }
-    return $listaVinculadaObj;
+    return $listaAcaoVinculadaObj;
+  }
+  function listarByAcao($idAcao){
+    $conexao = conexao();
+    $query = "select * from acaovinculada where idacao1='".$idAcao."' or idacao2='".$idAcao."'";
+    $result = pg_query($conexao, $query);
+    $listaAcaoVinculada = pg_fetch_all($result);
+    $acaoDAO = new AcaoDAO();
+    pg_close($conexao);
+    $listaAcaoVinculadaObj = [];
+    for($i=0; $i<count($listaAcaoVinculada); $i++){
+      $id = $listaAcaoVinculada[$i]["id"];
+      if($idAcao == $listaAcaoVinculada[$i]["idacao1"]){
+        $idAcao1 = $listaAcaoVinculada[$i]["idacao2"];
+        $acao1 = $acaoDAO->obter($idAcao1);
+      }else {
+        $idAcao1 = $listaAcaoVinculada[$i]["idacao1"];
+        $acao1 = $acaoDAO->obter($idAcao1);
+      }
+      $acao2 = "";
+      $acaoVinculada = new AcaoVinculada($acao1, $acao2, $id);
+      array_push($listaAcaoVinculadaObj, $acaoVinculada);
+    }
+    return $listaAcaoVinculadaObj;
   }
   function obter($id){
     $conexao = conexao();
