@@ -36,7 +36,7 @@
 								<ul>
 									<?php if(!empty($listaArquivo)){
 										for ($i=0; $i < count($listaArquivo) ; $i++) {
-											echo '<li>-<a href= ../'.$listaArquivo[$i]->getDiretorio().$listaArquivo[$i]->getNome().' target=“_blank”>'.$listaArquivo[$i]->getNome().'</a></li>';
+											echo '<li>-<a href= ../baixando?id='.$listaArquivo[$i]->getId().' target=“_blank”>'.$listaArquivo[$i]->getNome().'</a></li>';
 										}
 									} ?>
 								</ul>

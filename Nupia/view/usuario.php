@@ -8,10 +8,10 @@
      <p></p>
      <img style="width:100%" src="view/img/raiLindo.jpg"></img>
      <br>
-     <b class="flow-text">Raimundo Lima</b>
+     <b class="flow-text"><?php echo $_SESSION["ator"]->getNome()?></b>
     <i>IFRS campus Rio Grande </i>
      <br>
-     <p>raimundolima8991@gmail.com</p>
+     <p><?php echo $_SESSION["ator"]->getEmail()?></p>
 
    </div>
    <div class="col s4">
@@ -19,17 +19,17 @@
      <ul class="collapsible popout " style="padding:0px;">
      <li>
      </li>
-      <li >
-        <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="bottom" src="view/img/Nupia.png" alt="Icone">Estudo estatistico sobre solos</div>
+		 <?php
+		 for ($i=0; $i < count($listaAcaoAtor); $i++) {
+			 if($i%2==0){
+				 echo '<li >
+					 <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="bottom" src="view/img/Nupia.png" alt="Icone">'.$listaAcaoAtor[$i]->getAcao()->getTitulo().'</div>
 
-        <div class="collapsible-body"><a href="acoes.php">Acessar Ação</a><br>O solo, mais do que simplesmente a camada superficial da Terra, é conceituado como
-   </div>
-      </li>
-   <li>
-        <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="" src="view/img/Nupia.png" alt="Icone">Outra ação</div>
-        <div class="collapsible-body"><a href="acoes.php">Acessar Ação</a><br>O solo, mais do que simplesmente a camada superficial da Terra, é conceituado como
-   </div>
-      </li>
+					 <div class="collapsible-body"><a href="acoes.php">Acessar Ação</a><br>'.$listaAcaoAtor[$i]->getAcao()->getTema().' </div>
+				 </li>';
+		 	}
+		 }
+		  ?>
      </ul>
    </div>
    <div class="col s4">
@@ -37,16 +37,17 @@
      <ul class="collapsible popout" style="padding:0px;">
      <li>
      </li>
-      <li>
-        <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="bottom" src="view/img/Nupia.png" alt="Icone">Estudo estatistico sobre solos</div>
-        <div class="collapsible-body"><a href="acoes.php">Acessar Ação</a><br>O solo, mais do que simplesmente a camada superficial da Terra, é conceituado como
-   </div>
-      </li>
-   <li>
-        <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="" src="view/img/Nupia.png" alt="Icone">Outra ação</div>
-        <div class="collapsible-body"><a href="acoes.php">Acessar Ação</a><br>O solo, mais do que simplesmente a camada superficial da Terra, é conceituado como
-   </div>
-      </li>
+		 <?php
+		 for ($i=0; $i < count($listaAcaoAtor); $i++) {
+			 if($i%2!=0){
+				 echo '<li >
+					 <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="bottom" src="view/img/Nupia.png" alt="Icone">'.$listaAcaoAtor[$i]->getAcao()->getTitulo().'</div>
+
+					 <div class="collapsible-body"><a href="acoes.php">Acessar Ação</a><br>'.$listaAcaoAtor[$i]->getAcao()->getTema().'</div>
+				 </li>';
+			}
+		 }
+			?>
      </ul>
    </div>
     <div class="col s1"><p><p></div>

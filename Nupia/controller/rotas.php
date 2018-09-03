@@ -42,8 +42,23 @@ function getPagina(){
 				include('view/eixos.php');
 			  break;
 			case "/usuario":
+				$acaoAtorDAO = new AcaoAtorDAO();
+				$idAtor = $_SESSION["ator"]->getId();
+				$listaAcaoAtor = $acaoAtorDAO->listarByAtor($idAtor);
+
+				//var_dump($listaAcaoAtor);exit;
 			include('view/usuario.php');
 			 break;
+			 case "/baixando":
+			 $arquivoDAO = new ArquivoDAO();
+			 $primeiravarivel = $url[1];
+			 $primeiravarivel = explode("=",$primeiravarivel);
+			 $id = $primeiravarivel[1];
+			 $result=$arquivoDAO->baixando($id);
+			 var_dump($result);exit;
+
+			 include('view/baixando.php');
+				break;
 			case '/logar':
 				include('view/logar.php');
 				break;
@@ -93,7 +108,6 @@ function getPagina(){
 				for($i=0; $i<count($listaAcaoAtor); $i++){
 					$acao = $listaAcaoAtor[$i]->getAcao();
 					array_push($listaAcao, $acao);
-
 				}
 
 				include('view/INFES/acoes.php');
@@ -189,11 +203,11 @@ function getPagina(){
 				$primeiravarivel = explode("=",$primeiravarivel);
 				$id = $primeiravarivel[1];
 				$acaoObj = $acaoDAO->obter($id);
-				$edital = $arquivoDAO->obterEdital($id);
-				$listaArquivo = $arquivoDAO->listar();
+				$edital = $arquivoDAO->obterEditalByAcao($id);
+				$listaArquivo = $arquivoDAO->listarByAcao($id);
 				$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
 				$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
-				$artigoExterno = $artigoExternoDAO->listarByAcao($id);
+			//	var_dump($acaoAtor);exit;
 				include('view/INFES/acaoEspecifica.php');
 				break;
 			//case 'infes/'

@@ -58,7 +58,9 @@ class AcaoAtorDAO{
 
   function listarByAtor($idAtor){
     $conexao = conexao();
-    $query = "select * from acaoator where idator='".$idAtor."'";
+    $query = "select  idacao, acaoator.idator, titulo, descricao
+from acaoator inner join acao on acaoator.idacao=acao.id
+where acaoator.idator='".$idAtor."' group by acaoator.idator, acaoator.idacao,acao.titulo,acao.descricao";
     $result = pg_query($conexao, $query);
     $listaAcaoAtor = pg_fetch_all($result);
     $atorDAO = new AtorDAO();
@@ -67,11 +69,11 @@ class AcaoAtorDAO{
     $listaAcaoAtorObj = [];
     for($i=0; $i<count($listaAcaoAtor); $i++){
       $id = $listaAcaoAtor[$i]["id"];
-      $idAtor = $listaAcaoAtor[$i]["idator"];
-      $ator = $atorDAO->obter($idAtor);
+      //$idAtor = $listaAcaoAtor[$i]["idator"];
+      //$ator = $atorDAO->obter($idAtor);
       $idAcao = $listaAcaoAtor[$i]["idacao"];
       $acao = $acaoDAO->obter($idAcao);
-      $acaoAtor = new AcaoAtor($ator, $acao, $id);
+      $acaoAtor = new AcaoAtor($ator="", $acao, $id);
       array_push($listaAcaoAtorObj, $acaoAtor);
     }
     return $listaAcaoAtorObj;
