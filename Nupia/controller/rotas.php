@@ -87,7 +87,9 @@ function getPagina(){
 				for($i=0; $i<count($listaAcaoAtor); $i++){
 					$acao = $listaAcaoAtor[$i]->getAcao();
 					array_push($listaAcao, $acao);
+
 				}
+
 				include('view/INFES/acoes.php');
 				break;
 			case '/infes/cadastro':
@@ -111,6 +113,7 @@ function getPagina(){
 				$acaoDAO = new AcaoDAO();
 				$acaoDAO->adicionar($acao);
 				$idAcao = $acaoDAO->obterUltimoId();
+
 				// Adicionar Acao Ator
 				$idAtor = $_POST["ator"];
   				$ator = $atorDAO->obter($idAtor);
@@ -166,12 +169,30 @@ function getPagina(){
 				if($data == "3"){
 					$data = date('d/m/Y', strtotime('-1 year'));
 				}
+
 				$listaAcao = $acaoDAO->pesquisa($idEixo, $idProjeto, $tema, $data);
 				include('view/INFES/resultadoPesquisa.php');
 				break;
 			case '/infes/acaopesquisa':
 				include('view/INFES/acaoEspecifica.php');
 				break;
+				case '/infes/acaoespecifica':
+					$acaoDAO = new AcaoDAO();
+					$arquivoDAO = new ArquivoDAO();
+					$acaoAtorDAO = new AcaoAtorDAO();
+					$acaoVinculadaDAO = new AcaoVinculadaDAO();
+					$artigoExternoDAO = new ArtigoExternoDAO();
+					$primeiravarivel = $url[1];
+					$primeiravarivel = explode("=",$primeiravarivel);
+					$id = $primeiravarivel[1];
+					$acaoObj = $acaoDAO->obter($id);
+					$edital = $arquivoDAO->obterEdital($id);
+					$listaArquivo = $arquivoDAO->listar();
+					$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
+					$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
+					$artigoExterno = $artigoExternoDAO->listarByAcao($id);
+					include('view/INFES/acaoEspecifica.php');
+					break;
 			//case 'infes/'
 			////Paginas de erros#######################
 			default :
