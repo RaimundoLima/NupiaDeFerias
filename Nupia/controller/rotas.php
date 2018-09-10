@@ -87,9 +87,7 @@ function getPagina(){
 				for($i=0; $i<count($listaAcaoAtor); $i++){
 					$acao = $listaAcaoAtor[$i]->getAcao();
 					array_push($listaAcao, $acao);
-
 				}
-
 				include('view/INFES/acoes.php');
 				break;
 			case '/infes/cadastro':
@@ -113,7 +111,6 @@ function getPagina(){
 				$acaoDAO = new AcaoDAO();
 				$acaoDAO->adicionar($acao);
 				$idAcao = $acaoDAO->obterUltimoId();
-
 				// Adicionar Acao Ator
 				$idAtor = $_POST["ator"];
   				$ator = $atorDAO->obter($idAtor);
@@ -169,7 +166,6 @@ function getPagina(){
 				if($data == "3"){
 					$data = date('d/m/Y', strtotime('-1 year'));
 				}
-
 				$listaAcao = $acaoDAO->pesquisa($idEixo, $idProjeto, $tema, $data);
 				include('view/INFES/resultadoPesquisa.php');
 				break;
