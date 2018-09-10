@@ -3,7 +3,7 @@ class ArtigoExterno{
 	private $id;
 	private $acao;
 	private $link;
-	function __construct($acao, $link, $id=0){
+	function __construct($acao="", $link="", $id=0){
 		$this->id = $id;
 		$this->acao=$acao;
 		$this->link=$link;

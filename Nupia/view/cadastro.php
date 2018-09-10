@@ -5,7 +5,7 @@
 <div style="border: 1px solid #a8dea4;" class="container">
 <div class="center">
 <h2 >Cadastrar</h2>
-		<form method="POST" action="/cadastrando">
+		<form method="POST" action="infes/cadastrando">
           <div  class="input-field inline">
             <input class="nupia"required id="nome"name="nome" type="text">
             <label for="nome">Primeiro Nome</label>

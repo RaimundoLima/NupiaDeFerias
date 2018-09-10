@@ -28,7 +28,7 @@
       </div>
       <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
       <ul id="nav-mobile" class="right">
-        <li><a class="" id="home" href="Home.php">Home</a></li>
+        <li><a class="" id="home" href="Home">Home</a></li>
         <li><a id="projetos" href="Acoes">Ações</a></li>
         <li><a id="pesquisa" href="Pesquisa">Pesquisa</a></li>
         <li><a id="cadastra" href="Cadastro">Cadastro
