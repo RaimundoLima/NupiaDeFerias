@@ -53,6 +53,7 @@ class AcaoVinculadaDAO{
       $acaoVinculada = new AcaoVinculada($acao1, $acao2, $id);
       array_push($listaAcaoVinculadaObj, $acaoVinculada);
     }
+    //var_dump($listaAcaoVinculadaObj);exit;
     return $listaAcaoVinculadaObj;
   }
   function obter($id){

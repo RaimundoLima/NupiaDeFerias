@@ -135,7 +135,7 @@ group by acaoator.idator, acaoator.idacao,acao.titulo,acao.descricao";
       $id = $listaAcaoAtor[$i]["id"];
       $idAtor = $listaAcaoAtor[$i]["idator"];
       $ator = $atorDAO->obter($idAtor);
-      $acaoAtor = new AcaoAtor($ator, $id);
+      $acaoAtor = new AcaoAtor($ator,$acao="", $id);
       array_push($listaAcaoAtorObj, $acaoAtor);
     }
     return $listaAcaoAtorObj;

@@ -5,6 +5,9 @@ include_once("model/atorDAO.php");
 include_once("model/eixoDAO.php");
 include_once("model/acaoDAO.php");
 include_once("model/acaoAtorDAO.php");
+include_once("model/artigoExternoDAO.php");
+include_once("model/acaoVinculadaDAO.php");
+include_once("model/arquivoDAO.php");
 function getPagina(){
 	session_start();
 	error_reporting(0);
@@ -74,6 +77,22 @@ function getPagina(){
 			    $atorDAO = new AtorDAO();
 				$retorno = $atorDAO->adicionar($ator);
 				header("Location: /Home");//redireciona
+				break;
+			case '/baixando':
+			 $arquivoDAO = new ArquivoDAO();
+			 $primeiravarivel = $url[1];
+			 $primeiravarivel = explode("=",$primeiravarivel);
+			 $id = $primeiravarivel[1];
+			 $result=$arquivoDAO->baixando($id);
+ 			 include('view/baixando.php');
+			break;
+			case '/usuario':
+				$acaoAtorDAO = new AcaoAtorDAO();
+				$idAtor = $_SESSION["ator"]->getId();
+				$listaAcaoAtor = $acaoAtorDAO->listarByAtor($idAtor);
+ 				//var_dump($listaAcaoAtor);exit;
+				include('view/usuario.php');
+			 break;
 			///INFES##########Só testando
 			case '/infes/home':
 				include('view/INFES/home.php');
@@ -102,9 +121,9 @@ function getPagina(){
 				$atorDAO = new AtorDAO();
 				//Adicionar Ação
 				$idEixo = $_POST["eixo"];
-  				$eixo = $eixoDAO->obter($idEixo);
+  			$eixo = $eixoDAO->obter($idEixo);
 				$idProjeto = $_POST["projeto"];
-  				$projeto = $projetoDAO->obter($idProjeto);
+  			$projeto = $projetoDAO->obter($idProjeto);
 				$titulo = $_POST["titulo"];
 				$tema = $_POST["tema"];
 				$descricao = $_POST["descricao"];
@@ -116,7 +135,7 @@ function getPagina(){
 
 				// Adicionar Acao Ator
 				$idAtor = $_POST["ator"];
-  				$ator = $atorDAO->obter($idAtor);
+  			$ator = $atorDAO->obter($idAtor);
 				$acao = $acaoDAO->obter($idAcao);
 				$acaoAtor = new AcaoAtor($ator, $acao);
 				$acaoAtorDAO = new AcaoAtorDAO();
@@ -176,23 +195,52 @@ function getPagina(){
 			case '/infes/acaopesquisa':
 				include('view/INFES/acaoEspecifica.php');
 				break;
-				case '/infes/acaoespecifica':
-					$acaoDAO = new AcaoDAO();
-					$arquivoDAO = new ArquivoDAO();
-					$acaoAtorDAO = new AcaoAtorDAO();
-					$acaoVinculadaDAO = new AcaoVinculadaDAO();
-					$artigoExternoDAO = new ArtigoExternoDAO();
-					$primeiravarivel = $url[1];
-					$primeiravarivel = explode("=",$primeiravarivel);
-					$id = $primeiravarivel[1];
-					$acaoObj = $acaoDAO->obter($id);
-					$edital = $arquivoDAO->obterEdital($id);
-					$listaArquivo = $arquivoDAO->listar();
-					$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
-					$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
-					$artigoExterno = $artigoExternoDAO->listarByAcao($id);
-					include('view/INFES/acaoEspecifica.php');
-					break;
+			case '/infes/acaoespecifica':
+				$acaoDAO = new AcaoDAO();
+				$arquivoDAO = new ArquivoDAO();
+				$acaoAtorDAO = new AcaoAtorDAO();
+				$acaoVinculadaDAO = new AcaoVinculadaDAO();
+				$artigoExternoDAO = new ArtigoExternoDAO();
+				$primeiravarivel = $url[1];
+				$primeiravarivel = explode("=",$primeiravarivel);
+				$id = $primeiravarivel[1];
+				$acaoObj = $acaoDAO->obter($id);
+				$edital = $arquivoDAO->obterEditalByAcao($id);
+				$listaArquivo = $arquivoDAO->listarByAcao($id);
+				$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
+				$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
+				$artigoExterno = $artigoExternoDAO->listarByAcao($id);
+				//var_dump($artigoExterno);exit;
+				include('view/INFES/acaoEspecifica.php');
+			break;
+
+			case '/infes/editaAcao':
+				$acaoDAO = new AcaoDAO();
+				$arquivoDAO = new ArquivoDAO();
+				$acaoAtorDAO = new AcaoAtorDAO();
+				$acaoVinculadaDAO = new AcaoVinculadaDAO();
+				$artigoExternoDAO = new ArtigoExternoDAO();
+				$primeiravarivel = $url[1];
+				$primeiravarivel = explode("=",$primeiravarivel);
+				$id = $primeiravarivel[1];
+				$acaoObj = $acaoDAO->obter($id);
+				$edital = $arquivoDAO->obterEdital($id);
+				$listaArquivo = $arquivoDAO->listar();
+				$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
+				$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
+				$artigoExterno = $artigoExternoDAO->listarByAcao($id);
+				include('view/INFES/editaAcao.php');
+			break;
+
+			case '/infes/acaoEditada':
+				$acaoDAO = new AcaoDAO();
+				$arquivoDAO = new ArquivoDAO();
+				$acaoAtorDAO = new AcaoAtorDAO();
+				$acaoVinculadaDAO = new AcaoVinculadaDAO();
+				$artigoExternoDAO = new ArtigoExternoDAO();
+
+				include('view/INFES/editaAcao.php');
+			break;
 			//case 'infes/'
 			////Paginas de erros#######################
 			default :
