@@ -47,7 +47,7 @@ class ProjetoDAO{
     $nome = $projeto->getNome();
     $descricao = $projeto->getDescricao();
     $link = $projeto->getLink();
-    $query = "UPDATE projeto set nome='".$nome."',descricao='".$descricao."', link='".$link."' where id='".$id."'";
+    $query = "UPDATE projeto set nome='".$nome."',descricao='".$descricao"', link='".$link."' where id='".$id."'";
     $result = pg_query($conexao, $query);
     pg_close($conexao);
   }

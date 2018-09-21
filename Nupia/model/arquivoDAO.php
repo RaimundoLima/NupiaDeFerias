@@ -46,9 +46,9 @@ class ArquivoDAO{
     $caminhoCompleto =  $diretorio.$nome;
     $conexao = conexao();
     $query = "select lo_export(arquivo.documento, '".$caminhoCompleto."') from arquivo where id = '".$id."'";
-    $result=pg_query($conexao, $query);
+    pg_query($conexao, $query);
     pg_close($conexao);
-    return $result;
+    return $caminhoCompleto;
   }
   function obterByAcao($idacao){
     $conexao = conexao();

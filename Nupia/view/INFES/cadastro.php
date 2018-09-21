@@ -28,7 +28,7 @@
 					<span class="helper-text" data-error="wrong" data-success="right"></span>
 				</div><br>
 				<div  class="input-field inline">
-					<textarea class="infes materialize-textarea"required id="descricao"name="descricao"> </textarea>
+					<textarea class="infes materialize-textarea"required id="apresentacao"name="apresentacao"> </textarea>
 					<label for="resumo">Descrição</label>
 					<span class="helper-text" data-error="wrong" data-success="right"></span>
 				</div><br>
@@ -85,7 +85,7 @@
 			-->
 				<div  class="input-field inline">
 					<input class="infes" id="edital"name="edital" type="file">
-					
+
 					<span class="helper-text" data-error="wrong" data-success="right">A ação não tem edital? Não tem problema deixe o campo em branco</span>
 				</div><br>
 				<input type="submit" value="Cadastrar">

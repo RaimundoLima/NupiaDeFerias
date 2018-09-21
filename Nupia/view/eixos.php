@@ -8,7 +8,7 @@
 <?php
 	for ($i=0; $i<count($lista); $i++){
 		echo '<h2 class="" >&nbsp <b style="color: green;">'.$lista[$i]->getNome().'</b></h2>';
-		echo '<p style="color: black;" class="flow-text">&nbsp&nbsp&nbsp&nbsp'.$lista[$i]->getDescricao().'</p>';
+		echo '<p style="color: black;" class="flow-text">&nbsp&nbsp&nbsp&nbsp'.$lista[$i]->getApresentacao().'</p>';
 	}
 ?>
 <?php

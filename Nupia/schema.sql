@@ -59,6 +59,7 @@ CREATE TABLE public.acao
   cronograma oid,
   situacao boolean,
   tema text,
+  descriacao text,
 
   CONSTRAINT acao_pkey PRIMARY KEY (id),
   CONSTRAINT acao_ideixo_fkey FOREIGN KEY (ideixo)
@@ -123,4 +124,11 @@ CREATE TABLE public.artigoexterno
   CONSTRAINT artigoexterno_idacao_fkey FOREIGN KEY (idacao)
       REFERENCES public.acao (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+
+create table instituicao (
+	id serial primary key,
+	nome text,
+	idator integer,
+	foreign key (idator) references ator(id)
 );

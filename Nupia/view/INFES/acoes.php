@@ -34,7 +34,7 @@
 	  for ($i=0; $i<count($listaAcao); $i++) {
 	  	echo '<li>
     	  <div class="collapsible-header"><img style=" margin-top: 4%;"  height="32px" aling="" src="/img/Nupia.png" alt="Icone">'.$listaAcao[$i]->getTitulo().'</div>
-      	<div class="collapsible-body"><span class="flow-text"><a href="acaoespecifica?id='.$listaAcao[$i]->getId().'">'.$listaAcao[$i]->getDescricao().'</a>
+      	<div class="collapsible-body"><span class="flow-text"><a href="acaoespecifica?id='.$listaAcao[$i]->getId().'">'.$listaAcao[$i]->getApresentacao().'</a>
 		</div>
    		 </li>';
 	  }
@@ -44,7 +44,7 @@
     </div>
 	  <div class="row">
        <div class="col s4"></div>
-		<h2 class="" >&nbsp<b ><a href="pesquisa.php" class="center">&nbspTodas as ações</a></b></h2>
+		<h2 class="" >&nbsp<b ><a href="busca.php" class="center">&nbspTodas as ações</a></b></h2>
 
 <?php
 	include("footer.php");

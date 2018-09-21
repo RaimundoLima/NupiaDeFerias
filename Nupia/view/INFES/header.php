@@ -30,7 +30,7 @@
       <ul id="nav-mobile" class="right">
         <li><a class="" id="home" href="Home">Home</a></li>
         <li><a id="projetos" href="Acoes">Ações</a></li>
-        <li><a id="pesquisa" href="Pesquisa">Pesquisa</a></li>
+        <li><a id="busca" href="Busca">Busca</li>
         <li><a id="cadastra" href="Cadastro">Cadastro
 		<i id="pesquisaIco"  class="material-icons prefix left tiny">account_circle</i>
 		</li></a>

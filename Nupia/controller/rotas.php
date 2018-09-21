@@ -10,7 +10,7 @@ include_once("model/acaoVinculadaDAO.php");
 include_once("model/arquivoDAO.php");
 function getPagina(){
 	session_start();
-	error_reporting(0);
+ 	error_reporting(0);
 	$atorDAO = new AtorDAO();
 	$url = $_SERVER['REQUEST_URI'];
 	$url = explode("?",$url);
@@ -83,13 +83,24 @@ function getPagina(){
 			 $primeiravarivel = $url[1];
 			 $primeiravarivel = explode("=",$primeiravarivel);
 			 $id = $primeiravarivel[1];
-			 $result=$arquivoDAO->baixando($id);
+			 //var_dump($id);exit;
+			 $result = $arquivoDAO->baixando($id);
+			 //var_dump($result);exit;
+
+
  			 include('view/baixando.php');
 			break;
 			case '/usuario':
 				$acaoAtorDAO = new AcaoAtorDAO();
-				$idAtor = $_SESSION["ator"]->getId();
+				$primeiravarivel = $url[1];
+				$primeiravarivel = explode("=",$primeiravarivel);
+				if($primeiravarivel[1] == ""){
+					$idAtor = $_SESSION["ator"]->getId();
+				}else{
+					$idAtor = $primeiravarivel[1];
+				}
 				$listaAcaoAtor = $acaoAtorDAO->listarByAtor($idAtor);
+
  				//var_dump($listaAcaoAtor);exit;
 				include('view/usuario.php');
 			 break;
@@ -126,9 +137,9 @@ function getPagina(){
   			$projeto = $projetoDAO->obter($idProjeto);
 				$titulo = $_POST["titulo"];
 				$tema = $_POST["tema"];
-				$descricao = $_POST["descricao"];
+				$apresentacao = $_POST["apresentacao"];
 				$palavraChave = $_POST["chave"];
-				$acao = new Acao($eixo, $projeto, $titulo, $tema, $descricao, $palavraChave);
+				$acao = new Acao($eixo, $projeto, $titulo, $tema, $apresentacao, $palavraChave);
 				$acaoDAO = new AcaoDAO();
 				$acaoDAO->adicionar($acao);
 				$idAcao = $acaoDAO->obterUltimoId();
@@ -151,7 +162,7 @@ function getPagina(){
 					} elseif (move_uploaded_file($_FILES["edital"]["tmp_name"], $diretorio.$nome)) {
 						$documento = $diretorio . $nome;
 						$acao = $acaoDAO->obter($idAcao);
-						$arquivo= new Arquivo($acao, $nome, $documento, $diretorio);
+						$arquivo= new Arquivo($acao, $nome, $documento, "/arquivos/");
 					  	$arquivoDAO = new ArquivoDAO();
 						$arquivoDAO->adicionar($arquivo);
 						unlink($diretorio);
@@ -159,43 +170,49 @@ function getPagina(){
 				}
 				include('view/INFES/cadastro.php');
 				break;
-			case '/infes/pesquisa':
+			case '/infes/busca':
 				// precisa ser atualizado
 				/*$acaoDAO = new AcaoDAO();
 				$idEixo = $_POST["Peixo"];
 				$idProjeto = $_POST["Pprojeto"];
 				$tema = $_POST["Ptema"];
 				$data = $_POST["Pdata"];
-				$listaAcao = $acaoDAO->pesquisa($idEixo, $idProjeto, $tema, $data);*/
-				include('view/INFES/Pesquisa.php');
+				$listaAcao = $acaoDAO->busca($idEixo, $idProjeto, $tema, $data);*/
+				include('view/INFES/Busca.php');
 				break;
-			case '/infes/resultadopesquisa':
+			case '/infes/resultadobusca':
 				// precisa ser atualizado
 				$acaoDAO = new AcaoDAO();
-				$idEixo = $_POST["Peixo"];
-				$idProjeto = $_POST["Pprojeto"];
-				$tema = $_POST["Ptema"];
-				$data = $_POST["Pdata"];
-				$hoje = date("d/m/Y");
-				$listaAcao=[];
-				if($data == "1"){
-					$data = date('d/m/Y', strtotime('-7 days'));
-					echo $data;
-				}
-				if($data == "2"){
-					$data = date('d/m/Y', strtotime('-1 month'));
-				}
-				if($data == "3"){
-					$data = date('d/m/Y', strtotime('-1 year'));
-				}
+				if(!empty($_POST["buscarapida"])){
+					$buscaRapida = $_POST['buscarapida'];
+					$listaAcao = $acaoDAO->buscaRapida($buscaRapida);
+					include('view/INFES/resultadoBusca.php');
+				}else{
+					$idEixo = $_POST["Peixo"];
+					$idProjeto = $_POST["Pprojeto"];
+					$tema = $_POST["Ptema"];
+					$data = $_POST["Pdata"];
+					$hoje = date("d/m/Y");
+					$listaAcao=[];
+					if($data == "1"){
+						$data = date('d/m/Y', strtotime('-7 days'));
+					}
+					if($data == "2"){
+						$data = date('d/m/Y', strtotime('-1 month'));
+					}
+					if($data == "3"){
+						$data = date('d/m/Y', strtotime('-1 year'));
+					}
 
-				$listaAcao = $acaoDAO->pesquisa($idEixo, $idProjeto, $tema, $data);
-				include('view/INFES/resultadoPesquisa.php');
+					$listaAcao = $acaoDAO->busca($idEixo, $idProjeto, $tema, $data);
+					include('view/INFES/resultadoBusca.php');
+			 }
+
 				break;
-			case '/infes/acaopesquisa':
+			case '/infes/acao':
 				include('view/INFES/acaoEspecifica.php');
 				break;
-			case '/infes/acaoespecifica':
+			case '/infes/acaoespecificabusca':
 				$acaoDAO = new AcaoDAO();
 				$arquivoDAO = new ArquivoDAO();
 				$acaoAtorDAO = new AcaoAtorDAO();

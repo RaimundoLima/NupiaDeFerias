@@ -58,9 +58,9 @@ class AcaoAtorDAO{
 
   function listarByAtor($idAtor){
     $conexao = conexao();
-    $query = "select  idacao, acaoator.idator, titulo, descricao
+    $query = "select  idacao, acaoator.idator, titulo, apresentacao
 from acaoator inner join acao on acaoator.idacao=acao.id
-where acaoator.idator='".$idAtor."' group by acaoator.idator, acaoator.idacao,acao.titulo,acao.descricao";
+where acaoator.idator='".$idAtor."' group by acaoator.idator, acaoator.idacao,acao.titulo,acao.apresentacao";
     $result = pg_query($conexao, $query);
     $listaAcaoAtor = pg_fetch_all($result);
     $atorDAO = new AtorDAO();
@@ -102,10 +102,10 @@ where acaoator.idator='".$idAtor."' group by acaoator.idator, acaoator.idacao,ac
 
   function listarByAtorProjeto($idAtor, $idProjeto){
     $conexao = conexao();
-    $query = "select  idacao, acaoator.idator, titulo, descricao
+    $query = "select  idacao, acaoator.idator, titulo, apresentacao
 from acaoator inner join acao on acaoator.idacao=acao.id
 where acaoator.idator='".$idAtor."' and acao.idprojeto='".$idProjeto."'
-group by acaoator.idator, acaoator.idacao,acao.titulo,acao.descricao";
+group by acaoator.idator, acaoator.idacao,acao.titulo,acao.apresentacao";
     $result = pg_query($conexao, $query);
     $listaAcaoAtor = pg_fetch_all($result);
     $atorDAO = new AtorDAO();
@@ -124,7 +124,7 @@ group by acaoator.idator, acaoator.idacao,acao.titulo,acao.descricao";
   }
   function listarAtorByAcao($idAcao){
     $conexao = conexao();
-    $query = "select idator from acaoator where idacao='".$idAcao."'";
+    $query = "select id, idator from acaoator where idacao='".$idAcao."'";
     $result = pg_query($conexao, $query);
     $listaAcaoAtor = pg_fetch_all($result);
     $atorDAO = new AtorDAO();

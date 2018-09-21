@@ -31,9 +31,9 @@
           <li><a id="acoes" href="Acoes">Ações</a></li>
           <li><a id="projetos" href="Projetos">Projetos</a></li>
           <li><a id="eixos" href="Eixos">Eixos</a></li>
-          <form method="GET" action="Home">
+          <form method="POST" action="/infes/resultadobusca">
             <li><i style='cursor:pointer;' id='search' class="material-icons left">search</i></li>
-            <li><input class='nupia' id="searchInput" style="color: #ffffff;background: #337b36e8;border-radius: 15px" placeholder="Pesquisa Rapida"></li>
+            <li><input class='nupia' name='buscarapida' id="searchInput" style="color: #ffffff;background: #337b36e8;border-radius: 15px" placeholder="Busca Rapida"></li>
             <li><input type="submit" hidden></li>
           </form>
         </div>
