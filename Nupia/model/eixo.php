@@ -19,7 +19,7 @@
 		}
 
 		public function getDescricao(){
-			return $this-descricao;
+			return $this->descricao;
 		}
 	}
 
