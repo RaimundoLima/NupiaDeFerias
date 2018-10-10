@@ -10,7 +10,7 @@
 	for ($i=0; $i<count($lista); $i++) {
 
 		echo '<h2 class="" >&nbsp<b style="color: #ff8d38;"><a href="'.$lista[$i]->getLink().'">'. $lista[$i]->getNome() .'</a></b></h2>
-		<p tyle="color: black;" class="flow-text">&nbsp&nbsp&nbsp&nbsp '.$lista[$i]->getApresentacao().'</p>';
+		<p tyle="color: black;" class="flow-text">&nbsp&nbsp&nbsp&nbsp '.$lista[$i]->getDescricao().'</p>';
 	}
  ?>
 <?php

@@ -216,6 +216,16 @@ class AcaoDAO{
     $result = pg_query($conexao, $query);
     pg_close($conexao);
   }
+  function editarPagina($acao){
+    $conexao = conexao();
+    $id = $acao->getId();
+    $titulo = $acao->getTitulo();
+    $tema = $acao->getTema();
+    $apresentacao = $acao->getApresentacao();
+    $query = "UPDATE acao set titulo='".$titulo."',tema='".$tema."', apresentacao='".$apresentacao."' where id='".$id."'";
+    $result = pg_query($conexao, $query);
+    pg_close($conexao);
+  }
   function excluir($id){
     $conexao = conexao();
     $query = "delete FROM acao WHERE id = '".$id."'";

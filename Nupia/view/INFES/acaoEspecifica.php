@@ -3,14 +3,15 @@
 ?>
 <br><br><br><br><br><br>
 <div style="border: 1px solid #f19393;" class="container">
-<h2 >Cadastrar Ação</h2>
-  <br><br><br><br>
 			<div  class="input-field center">
 				<h2><?php echo $acaoObj->getTitulo(); ?></h2>
+				<form method="post" action="../infes/editaacao?id=<?php echo $_GET['id'];?>">
+					<h6> <input type="submit" value="Editar Acão"></h6>
+				</form>
 	<div class="row">
 	 <div class="col s8">
 		 <div  class="input-field ">
-			 <h4>Tema ➣ Projeto de eixo </h4>
+			 <h4> <?php echo $acaoObj->getTema(); ?> ➣ <?php echo $acaoObj->getEixo()->getNome(); ?> </h4>
 		 </div>
 			 <b><a>Resumo</a></b>
 			 <h2>Apresentação</h2>

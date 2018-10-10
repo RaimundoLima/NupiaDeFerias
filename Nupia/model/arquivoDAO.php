@@ -87,7 +87,7 @@ class ArquivoDAO{
     $tipo = $arquivo[0]["tipo"];
     $caminhoCompleto =  $diretorio.$nome;
     $conexao = conexao();
-    $query = "select lo_export(arquivo.documento, '".$caminhoCompleto."') from arquivo where idacao = '".$idacao."' and tipo='edital'";
+    $query = "select lo_export(arquivo.documento, '". $_SERVER["DOCUMENT_ROOT"].$caminhoCompleto."') from arquivo where idacao = '".$idacao."' and tipo='edital'";
     pg_query($conexao, $query);
     pg_close($conexao);
     $arquivoObj = new Arquivo($acao="", $nome, $documento, $diretorio, $tipo, $id);

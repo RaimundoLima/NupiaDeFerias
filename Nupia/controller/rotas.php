@@ -10,7 +10,7 @@ include_once("model/acaoVinculadaDAO.php");
 include_once("model/arquivoDAO.php");
 function getPagina(){
 	session_start();
- 	error_reporting(0);
+ 	//error_reporting(0);
 	$atorDAO = new AtorDAO();
 	$url = $_SERVER['REQUEST_URI'];
 	$url = explode("?",$url);
@@ -162,7 +162,7 @@ function getPagina(){
 					} elseif (move_uploaded_file($_FILES["edital"]["tmp_name"], $diretorio.$nome)) {
 						$documento = $diretorio . $nome;
 						$acao = $acaoDAO->obter($idAcao);
-						$arquivo= new Arquivo($acao, $nome, $documento, "/arquivos/");
+						$arquivo= new Arquivo($acao, $nome, $documento, "/arquivos/", $tipo="edital");
 					  	$arquivoDAO = new ArquivoDAO();
 						$arquivoDAO->adicionar($arquivo);
 						unlink($diretorio);
@@ -212,7 +212,7 @@ function getPagina(){
 			case '/infes/acao':
 				include('view/INFES/acaoEspecifica.php');
 				break;
-			case '/infes/acaoespecificabusca':
+			case '/infes/acaoespecifica':
 				$acaoDAO = new AcaoDAO();
 				$arquivoDAO = new ArquivoDAO();
 				$acaoAtorDAO = new AcaoAtorDAO();
@@ -231,7 +231,8 @@ function getPagina(){
 				include('view/INFES/acaoEspecifica.php');
 			break;
 
-			case '/infes/editaAcao':
+			case '/infes/editaacao':
+			var_dump($url);
 				$acaoDAO = new AcaoDAO();
 				$arquivoDAO = new ArquivoDAO();
 				$acaoAtorDAO = new AcaoAtorDAO();
@@ -241,22 +242,51 @@ function getPagina(){
 				$primeiravarivel = explode("=",$primeiravarivel);
 				$id = $primeiravarivel[1];
 				$acaoObj = $acaoDAO->obter($id);
-				$edital = $arquivoDAO->obterEdital($id);
-				$listaArquivo = $arquivoDAO->listar();
+				$edital = $arquivoDAO->obterEditalByAcao($id);
+				$listaArquivo = $arquivoDAO->listarByAcao($id);
 				$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
 				$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
 				$artigoExterno = $artigoExternoDAO->listarByAcao($id);
 				include('view/INFES/editaAcao.php');
 			break;
 
-			case '/infes/acaoEditada':
+			case '/infes/acaoeditada':
 				$acaoDAO = new AcaoDAO();
 				$arquivoDAO = new ArquivoDAO();
 				$acaoAtorDAO = new AcaoAtorDAO();
 				$acaoVinculadaDAO = new AcaoVinculadaDAO();
 				$artigoExternoDAO = new ArtigoExternoDAO();
+				$primeiravarivel = $url[1];
+				$primeiravarivel = explode("=",$primeiravarivel);
+				$id = $primeiravarivel[1];
+				$acaoEditada = new Acao($eixo="", $projeto="", $_POST['titulo'], $_POST['tema'], $_POST['apresentacao'], $palavraChave="", $prevInicio=NULL, $prevTermino=NULL, $situacao="0", $id);
+				$acaoDAO->editarPagina($acaoEditada);
+				$diretorio = $_SERVER["DOCUMENT_ROOT"]."/arquivos/";
+				if (isset($_FILES["edital"])) {
+					$arquivoDAO->excluir($_POST['velhoedital']);
+					$nome = $_FILES["edital"]["name"];
+					$tmp_name = $_FILES["edital"]["tmp_name"];
+					$error = $_FILES["edital"]["error"];
+					if ($error !== UPLOAD_ERR_OK) {
+						echo "Erro ao fazer upload: ".$error;
+					} elseif (move_uploaded_file($_FILES["edital"]["tmp_name"], $diretorio.$nome)) {
+						$documento = $diretorio . $nome;
+						$acao = $acaoDAO->obter($id);
+						$arquivo= new Arquivo($acao, $nome, $documento, "/arquivos/", $tipo="edital");
+						$arquivoDAO = new ArquivoDAO();
+						$arquivoDAO->adicionar($arquivo);
+						unlink($diretorio);
+					}
+				}
 
-				include('view/INFES/editaAcao.php');
+				$acaoObj = $acaoDAO->obter($id);
+				$edital = $arquivoDAO->obterEditalByAcao($id);
+				$listaArquivo = $arquivoDAO->listarByAcao($id);
+				$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
+				$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
+				$artigoExterno = $artigoExternoDAO->listarByAcao($id);
+				//var_dump($artigoExterno);exit;
+				include('view/INFES/acaoEspecifica.php');
 			break;
 			//case 'infes/'
 			////Paginas de erros#######################
