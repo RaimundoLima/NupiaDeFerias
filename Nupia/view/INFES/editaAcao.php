@@ -46,10 +46,15 @@
 		 <div  class="input-field ">
 			 <h3>Arquivos</h3>
 			 <ul>
+				 <form action="../infes/adicionararquivo?id=<?php echo $_GET['id'];?>" enctype="multipart/form-data" method="post">
+					 	<label for="novoarquivo"> Adicionar Arquivo</label>
+						<input type="file" name="novoarquivo">
+						<input type="submit" value="Adicionar">
+				 </form>
 				 	<?php
 						if (!empty($listaArquivo)) {
 							for ($i=0; $i < count($listaArquivo); $i++) {
-								echo '<li>-<a target="_blank" href="../baixando?id='.$listaArquivo[$i]->getId().'">'.$listaArquivo[$i]->getNome().'</a></li>';
+								echo '<li>-<a target="_blank" href="../baixando?id='.$listaArquivo[$i]->getId().'">'.$listaArquivo[$i]->getNome().'</a> <button onclick=location.href="../infes/excluirarquivo?id='.$_GET['id'].'&idArquivo='.$listaArquivo[$i]->getId().'">Excluir</button> </li>';
 							}
 						}else {
 							echo "";
@@ -58,10 +63,15 @@
 			 </ul>
 			 <h3>Atores envolvidos</h3>
 			 <ul>
+				 <form action="../infes/adicionaracaoator?id=<?php echo $_GET['id'];?>" method="post">
+					 	<label for="novoator">Digite o Email do novo ator</label>
+						<input type="text" name="novoator">
+						<input type="submit" value="Vincular">
+				 </form>
 				 <?php
 				 	if (!empty($acaoAtor)) {
 						for ($i=0; $i < count($acaoAtor); $i++) {
-	 						echo '<li><a href="../usuario?id='.$acaoAtor[$i]->getAtor()->getId().'">'.$acaoAtor[$i]->getAtor()->getNome().'</a></li>';
+	 						echo '<li><a href="../usuario?id='.$acaoAtor[$i]->getAtor()->getId().'">'.$acaoAtor[$i]->getAtor()->getNome().'</a>   <button onclick=location.href="../infes/excluiracaoator?id='.$_GET['id'].'&idAcaoAtor='.$acaoAtor[$i]->getId().'">Excluir</button></li>';
 	 					}
 				 	}else {
 						echo "";
@@ -70,10 +80,15 @@
 			 </ul>
 			 <h3>Ações Vinculadas</h3>
 			 <ul>
+				 <form action="../infes/adicionaracaovinculada?id=<?php echo $_GET['id'];?>" method="post">
+					 	<label for="novaacao">Digite o nome da Ação</label>
+						<input type="text" name="novaacao">
+						<input type="submit" value="Vincular">
+				 </form>
 				 <?php
 						if(!empty($acaoVinculada)){
 							for ($i=0; $i < count($acaoVinculada); $i++) {
-								echo '<li><a href="./acaoEspecifica?id='.$acaoVinculada[$i]->getAcao1()->getId().'">'.$acaoVinculada[$i]->getAcao1()->getTitulo().'</a></li>';
+								echo '<li><a href="./acaoEspecifica?id='.$acaoVinculada[$i]->getAcao1()->getId().'">'.$acaoVinculada[$i]->getAcao1()->getTitulo().'</a> <button onclick=location.href="../infes/excluiracaovinculada?id='.$_GET['id'].'&idAcaoVinculada='.$acaoVinculada[$i]->getId().'">Excluir</button> </li>';
 							}
 						}else {
 							echo "";
@@ -82,10 +97,15 @@
 			 </ul>
 			 <h3>Ações Externas</h3>
 			 <ul>
+				 <form action="../infes/adicionarartigoexterno?id=<?php echo $_GET['id'];?>" method="post">
+					 <label for="novolink">Digite o novo link</label>
+					 <input type="text" name="novolink">
+					 <input type="submit" value="Adicionar">
+				</form>
 				 <?php
 				 if (!empty($artigoExterno)) {
 					 for ($i=0; $i < count($artigoExterno); $i++) {
- 							echo '<li>-<a target="_blank" href="'.$artigoExterno[$i]->getLink().'">'.$artigoExterno[$i]->getLink().'</a></li>';
+ 							echo '<li>-<a target="_blank" href="'.$artigoExterno[$i]->getLink().'">'.$artigoExterno[$i]->getLink().'</a> <button onclick=location.href="../infes/excluirartigoexterno?id='.$_GET['id'].'&idArtigoExterno='.$artigoExterno[$i]->getId().'">Excluir</button> </li>';
  					}
 				}else {
 					echo "";

@@ -11,7 +11,7 @@ class AcaoVinculada{
 	}
 
 	public function getId(){
-		$this->id = $id;
+		return $this->id;
 	}
 
 	public function getAcao1(){

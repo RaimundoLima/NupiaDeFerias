@@ -16,7 +16,7 @@ function getPagina(){
 	$url = explode("?",$url);
 	$url[0] = strtolower($url[0]);
 	$metodo = $_SERVER['REQUEST_METHOD'];
-	if($_SESSION['tipo']!='adm'){
+	#if($_SESSION['tipo']!='adm'){
 		if(!empty($_SESSION)){
 			$user=$atorDAO->obter($_SESSION['ator']->getId());
 		}
@@ -232,7 +232,6 @@ function getPagina(){
 			break;
 
 			case '/infes/editaacao':
-			var_dump($url);
 				$acaoDAO = new AcaoDAO();
 				$arquivoDAO = new ArquivoDAO();
 				$acaoAtorDAO = new AcaoAtorDAO();
@@ -259,17 +258,42 @@ function getPagina(){
 				$primeiravarivel = $url[1];
 				$primeiravarivel = explode("=",$primeiravarivel);
 				$id = $primeiravarivel[1];
-				$acaoEditada = new Acao($eixo="", $projeto="", $_POST['titulo'], $_POST['tema'], $_POST['apresentacao'], $palavraChave="", $prevInicio=NULL, $prevTermino=NULL, $situacao="0", $id);
+				$acao = $acaoDAO->obter($id);
+				$titulo = $acao->getTitulo();
+				$tema = $acao->getTema();
+				$apresentacao = $acao->getApresentacao();
+				$acaoEditada =  new Acao($eixo="", $projeto="", $_POST['titulo'], $_POST['tema'], $_POST['apresentacao'], $palavraChave="", $prevInicio=NULL, $prevTermino=NULL, $situacao="0", $id);
+				if($_POST["titulo"] == "" &&  $_POST['tema'] == "" &&  $_POST['apresentacao']==""){
+						$acaoEditada = new Acao($eixo="", $projeto="", $titulo, $tema, $apresentacao, $palavraChave="", $prevInicio=NULL, $prevTermino=NULL, $situacao="0", $id);
+				}
+				if($_POST["titulo"] == "" &&  $_POST['tema'] == "" && $_POST['apresentacao']!=""){
+						$acaoEditada = new Acao($eixo="", $projeto="", $titulo, $tema, $_POST['apresentacao'], $palavraChave="", $prevInicio=NULL, $prevTermino=NULL, $situacao="0", $id);
+				}
+				if($_POST["titulo"] == "" && $_POST['tema']!="" && $_POST['apresentacao']==""){
+						$acaoEditada = new Acao($eixo="", $projeto="", $titulo, $_POST['tema'], $apresentacao, $palavraChave="", $prevInicio=NULL, $prevTermino=NULL, $situacao="0", $id);
+				}
+				if($_POST["titulo"] == "" && $_POST['tema']!="" && $_POST['apresentacao']!=""){
+						$acaoEditada = new Acao($eixo="", $projeto="", $titulo, $_POST['tema'], $_POST['apresentacao'], $palavraChave="", $prevInicio=NULL, $prevTermino=NULL, $situacao="0", $id);
+				}
+				if($_POST['titulo']!="" && $_POST['tema'] == "" &&  $_POST['apresentacao']==""){
+						$acaoEditada = new Acao($eixo="", $projeto="", $_POST['titulo'], $tema, $apresentacao, $palavraChave="", $prevInicio=NULL, $prevTermino=NULL, $situacao="0", $id);
+				}
+				if($_POST['apresentacao']!="" && $_POST['tema'] == "" && $_POST['apresentacao']!=""){
+						$acaoEditada = new Acao($eixo="", $projeto="", $_POST['titulo'], $tema, $_POST['apresentacao'], $palavraChave="", $prevInicio=NULL, $prevTermino=NULL, $situacao="0", $id);
+				}
+				if($_POST['titulo']!="" && $_POST['tema']!="" && $_POST['apresentacao']==""){
+						$acaoEditada = new Acao($eixo="", $projeto="", $_POST['titulo'], $_POST['tema'], $apresentacao, $palavraChave="", $prevInicio=NULL, $prevTermino=NULL, $situacao="0", $id);
+				}
 				$acaoDAO->editarPagina($acaoEditada);
 				$diretorio = $_SERVER["DOCUMENT_ROOT"]."/arquivos/";
-				if (isset($_FILES["edital"])) {
+				if ($_FILES["novoedital"]["name"] != "") {
 					$arquivoDAO->excluir($_POST['velhoedital']);
-					$nome = $_FILES["edital"]["name"];
-					$tmp_name = $_FILES["edital"]["tmp_name"];
-					$error = $_FILES["edital"]["error"];
+					$nome = $_FILES["novoedital"]["name"];
+					$tmp_name = $_FILES["novoedital"]["tmp_name"];
+					$error = $_FILES["novoedital"]["error"];
 					if ($error !== UPLOAD_ERR_OK) {
 						echo "Erro ao fazer upload: ".$error;
-					} elseif (move_uploaded_file($_FILES["edital"]["tmp_name"], $diretorio.$nome)) {
+					} elseif (move_uploaded_file($_FILES["novoedital"]["tmp_name"], $diretorio.$nome)) {
 						$documento = $diretorio . $nome;
 						$acao = $acaoDAO->obter($id);
 						$arquivo= new Arquivo($acao, $nome, $documento, "/arquivos/", $tipo="edital");
@@ -288,6 +312,265 @@ function getPagina(){
 				//var_dump($artigoExterno);exit;
 				include('view/INFES/acaoEspecifica.php');
 			break;
+
+			case '/infes/excluirarquivo':
+				$acaoDAO = new AcaoDAO();
+				$arquivoDAO = new ArquivoDAO();
+				$acaoAtorDAO = new AcaoAtorDAO();
+				$acaoVinculadaDAO = new AcaoVinculadaDAO();
+				$artigoExternoDAO = new ArtigoExternoDAO();
+				$variaveis = $url[1];
+			//	var_dump($variaveis);exit;
+				$variaveis = explode("&",$variaveis);
+				//var_dump($variaveis);exit;
+				$id = $variaveis[0];
+				//var_dump($id);exit;
+				$id = explode("=", $id);
+				$id = $id[1];
+			//	var_dump($id);exit;
+				$idArquivo = $variaveis[1];
+				$idArquivo = explode("=", $idArquivo);
+				$idArquivo = $idArquivo[1];
+			//	var_dump($idArquivo);exit;
+				$arquivoDAO->excluir($idArquivo);
+				$acaoObj = $acaoDAO->obter($id);
+				$edital = $arquivoDAO->obterEditalByAcao($id);
+				$listaArquivo = $arquivoDAO->listarByAcao($id);
+				$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
+				$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
+				$artigoExterno = $artigoExternoDAO->listarByAcao($id);
+				include('view/INFES/acaoEspecifica.php');
+
+			break;
+
+			case '/infes/adicionararquivo':
+				$acaoDAO = new AcaoDAO();
+				$arquivoDAO = new ArquivoDAO();
+				$acaoAtorDAO = new AcaoAtorDAO();
+				$acaoVinculadaDAO = new AcaoVinculadaDAO();
+				$artigoExternoDAO = new ArtigoExternoDAO();
+				$variaveis = $url[1];
+			//	var_dump($variaveis);exit;
+				$variaveis = explode("&",$variaveis);
+				//var_dump($variaveis);exit;
+				$id = $variaveis[0];
+				//var_dump($id);exit;
+				$id = explode("=", $id);
+				$id = $id[1];
+
+				$diretorio = $_SERVER["DOCUMENT_ROOT"]."/arquivos/";
+				if ($_FILES["novoarquivo"]["name"] != "") {
+					$nome = $_FILES["novoarquivo"]["name"];
+					$tmp_name = $_FILES["novoarquivo"]["tmp_name"];
+					$error = $_FILES["novoarquivo"]["error"];
+					if ($error !== UPLOAD_ERR_OK) {
+						echo "Erro ao fazer upload: ".$error;
+					} elseif (move_uploaded_file($_FILES["novoarquivo"]["tmp_name"], $diretorio.$nome)) {
+						$documento = $diretorio . $nome;
+						$acao = $acaoDAO->obter($id);
+						$arquivo= new Arquivo($acao, $nome, $documento, "/arquivos/", $tipo="comum");
+							$arquivoDAO = new ArquivoDAO();
+						$arquivoDAO->adicionar($arquivo);
+						unlink($diretorio);
+					}
+				}
+				$acaoObj = $acaoDAO->obter($id);
+				$edital = $arquivoDAO->obterEditalByAcao($id);
+				$listaArquivo = $arquivoDAO->listarByAcao($id);
+				$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
+				$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
+				$artigoExterno = $artigoExternoDAO->listarByAcao($id);
+				include('view/INFES/acaoEspecifica.php');
+
+			break;
+
+			case '/infes/adicionaracaoator':
+				$acaoDAO = new AcaoDAO();
+				$atorDAO = new AtorDAO();
+				$arquivoDAO = new ArquivoDAO();
+				$acaoAtorDAO = new AcaoAtorDAO();
+				$acaoVinculadaDAO = new AcaoVinculadaDAO();
+				$artigoExternoDAO = new ArtigoExternoDAO();
+				$variaveis = $url[1];
+			//	var_dump($variaveis);exit;
+				$variaveis = explode("&",$variaveis);
+				//var_dump($variaveis);exit;
+				$id = $variaveis[0];
+				//var_dump($id);exit;
+				$id = explode("=", $id);
+				$id = $id[1];
+				//var_dump($_POST["novoator"]);exit;
+
+				$emailNovoAtor = $_POST["novoator"];
+				$ator = $atorDAO->obterByEmail($emailNovoAtor);
+				$acao = $acaoDAO->obter($id);
+			//	var_dump($idArquivo);exit;
+				$acaoAtor = new AcaoAtor($ator, $acao);
+				$acaoAtorDAO->adicionar($acaoAtor);
+				$acaoObj = $acaoDAO->obter($id);
+				$edital = $arquivoDAO->obterEditalByAcao($id);
+				$listaArquivo = $arquivoDAO->listarByAcao($id);
+				$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
+				$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
+				$artigoExterno = $artigoExternoDAO->listarByAcao($id);
+				include('view/INFES/acaoEspecifica.php');
+
+			break;
+
+			case '/infes/excluiracaoator':
+				$acaoDAO = new AcaoDAO();
+				$arquivoDAO = new ArquivoDAO();
+				$acaoAtorDAO = new AcaoAtorDAO();
+				$acaoVinculadaDAO = new AcaoVinculadaDAO();
+				$artigoExternoDAO = new ArtigoExternoDAO();
+				$variaveis = $url[1];
+			//	var_dump($variaveis);exit;
+				$variaveis = explode("&",$variaveis);
+				//var_dump($variaveis);exit;
+				$id = $variaveis[0];
+				//var_dump($id);exit;
+				$id = explode("=", $id);
+				$id = $id[1];
+			//	var_dump($id);exit;
+				$idAcaoAtor = $variaveis[1];
+				$idAcaoAtor= explode("=", $idAcaoAtor);
+				$idAcaoAtor = $idAcaoAtor[1];
+			//	var_dump($idArquivo);exit;
+				$acaoAtorDAO->excluir($idAcaoAtor);
+				$acaoObj = $acaoDAO->obter($id);
+				$edital = $arquivoDAO->obterEditalByAcao($id);
+				$listaArquivo = $arquivoDAO->listarByAcao($id);
+				$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
+				$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
+				$artigoExterno = $artigoExternoDAO->listarByAcao($id);
+				include('view/INFES/acaoEspecifica.php');
+
+			break;
+
+			case '/infes/adicionaracaovinculada':
+				$acaoDAO = new AcaoDAO();
+				$atorDAO = new AtorDAO();
+				$arquivoDAO = new ArquivoDAO();
+				$acaoAtorDAO = new AcaoAtorDAO();
+				$acaoVinculadaDAO = new AcaoVinculadaDAO();
+				$artigoExternoDAO = new ArtigoExternoDAO();
+				$variaveis = $url[1];
+			//	var_dump($variaveis);exit;
+				$variaveis = explode("&",$variaveis);
+				//var_dump($variaveis);exit;
+				$id = $variaveis[0];
+				//var_dump($id);exit;
+				$id = explode("=", $id);
+				$id = $id[1];
+				//var_dump($_POST["novoator"]);exit;
+
+				$tituloNovaAcao = $_POST["novaacao"];
+				$acao1 = $acaoDAO->obterByNome($tituloNovaAcao);
+				$acao2 = $acaoDAO->obter($id);
+			//	var_dump($idArquivo);exit;
+				$acaoVinculada = new AcaoVinculada($acao1, $acao2);
+				$acaoVinculadaDAO->adicionar($acaoVinculada);
+				$acaoObj = $acaoDAO->obter($id);
+				$edital = $arquivoDAO->obterEditalByAcao($id);
+				$listaArquivo = $arquivoDAO->listarByAcao($id);
+				$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
+				$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
+				$artigoExterno = $artigoExternoDAO->listarByAcao($id);
+				include('view/INFES/acaoEspecifica.php');
+
+			break;
+
+			case '/infes/excluiracaovinculada':
+				$acaoDAO = new AcaoDAO();
+				$arquivoDAO = new ArquivoDAO();
+				$acaoAtorDAO = new AcaoAtorDAO();
+				$acaoVinculadaDAO = new AcaoVinculadaDAO();
+				$artigoExternoDAO = new ArtigoExternoDAO();
+				$variaveis = $url[1];
+			//	var_dump($variaveis);exit;
+				$variaveis = explode("&",$variaveis);
+				//var_dump($variaveis);exit;
+				$id = $variaveis[0];
+				//var_dump($id);exit;
+				$id = explode("=", $id);
+				$id = $id[1];
+			//	var_dump($id);exit;
+				$idAcaoVinculada = $variaveis[1];
+				$idAcaoVinculada= explode("=", $idAcaoVinculada);
+				$idAcaoVinculada = $idAcaoVinculada[1];
+				//var_dump($idAcaoVinculada);exit;
+				$acaoVinculadaDAO->excluir($idAcaoVinculada);
+				$acaoObj = $acaoDAO->obter($id);
+				$edital = $arquivoDAO->obterEditalByAcao($id);
+				$listaArquivo = $arquivoDAO->listarByAcao($id);
+				$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
+				$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
+				$artigoExterno = $artigoExternoDAO->listarByAcao($id);
+				include('view/INFES/acaoEspecifica.php');
+
+			break;
+
+			case '/infes/adicionarartigoexterno':
+				$acaoDAO = new AcaoDAO();
+				$atorDAO = new AtorDAO();
+				$arquivoDAO = new ArquivoDAO();
+				$acaoAtorDAO = new AcaoAtorDAO();
+				$acaoVinculadaDAO = new AcaoVinculadaDAO();
+				$artigoExternoDAO = new ArtigoExternoDAO();
+				$variaveis = $url[1];
+			//	var_dump($variaveis);exit;
+				$variaveis = explode("&",$variaveis);
+				//var_dump($variaveis);exit;
+				$id = $variaveis[0];
+				//var_dump($id);exit;
+				$id = explode("=", $id);
+				$id = $id[1];
+				//var_dump($_POST["novoator"]);exit;
+
+				$novoLink = $_POST["novolink"];
+				$acao = $acaoDAO->obter($id);
+			//	var_dump($idArquivo);exit;
+				$artigoExterno = new ArtigoExterno($acao, $novoLink);
+				$artigoExternoDAO->adicionar($artigoExterno);
+				$acaoObj = $acaoDAO->obter($id);
+				$edital = $arquivoDAO->obterEditalByAcao($id);
+				$listaArquivo = $arquivoDAO->listarByAcao($id);
+				$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
+				$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
+				$artigoExterno = $artigoExternoDAO->listarByAcao($id);
+				include('view/INFES/acaoEspecifica.php');
+
+			break;
+
+			case '/infes/excluirartigoexterno':
+			$acaoDAO = new AcaoDAO();
+			$arquivoDAO = new ArquivoDAO();
+			$acaoAtorDAO = new AcaoAtorDAO();
+			$acaoVinculadaDAO = new AcaoVinculadaDAO();
+			$artigoExternoDAO = new ArtigoExternoDAO();
+			$variaveis = $url[1];
+		//	var_dump($variaveis);exit;
+			$variaveis = explode("&",$variaveis);
+			//var_dump($variaveis);exit;
+			$id = $variaveis[0];
+			//var_dump($id);exit;
+			$id = explode("=", $id);
+			$id = $id[1];
+		//	var_dump($id);exit;
+			$idArtigoExterno = $variaveis[1];
+			$idArtigoExterno= explode("=", $idArtigoExterno);
+			$idArtigoExterno = $idArtigoExterno[1];
+			//var_dump($idAcaoVinculada);exit;
+			$artigoExternoDAO->excluir($idArtigoExterno);
+			$acaoObj = $acaoDAO->obter($id);
+			$edital = $arquivoDAO->obterEditalByAcao($id);
+			$listaArquivo = $arquivoDAO->listarByAcao($id);
+			$acaoAtor = $acaoAtorDAO->listarAtorByAcao($id);
+			$acaoVinculada = $acaoVinculadaDAO->listarByAcao($id);
+			$artigoExterno = $artigoExternoDAO->listarByAcao($id);
+			include('view/INFES/acaoEspecifica.php');
+
+			break;
 			//case 'infes/'
 			////Paginas de erros#######################
 			default :
@@ -295,5 +578,5 @@ function getPagina(){
 				echo 'deu ruim ou bom';//marcos chupa rola
 				break;
     	}
-	}
+	#}
 }

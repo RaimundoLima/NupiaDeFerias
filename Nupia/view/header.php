@@ -39,7 +39,6 @@
         </div>
         <?php
           if(empty($user)){
-
             echo ' <div style="margin-right: 15%;"" class="right">
                       <li><a id="cadastra" href="Cadastro">Cadastrar</a>
                       </li>

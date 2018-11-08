@@ -188,6 +188,30 @@ class AcaoDAO{
     return $acaoObj;
   }
 
+  function obterByNome($titulo){
+    $conexao = conexao();
+    $query = "select * from acao where titulo = '".$titulo."'";
+    $result = pg_query($conexao, $query);
+    $acao = pg_fetch_all($result);
+    $eixoDAO = new EixoDAO();
+    $projetoDAO = new ProjetoDAO();
+    pg_close($conexao);
+    $id = $acao[0]["id"];
+    $idEixo = $acao[0]["ideixo"];
+    $eixo = $eixoDAO->obter($idEixo);
+    $idProjeto = $acao[0]["idprojeto"];
+    $projeto = $projetoDAO->obter($idProjeto);
+    $titulo = $acao[0]["titulo"];
+    $tema = $acao[0]["tema"];
+    $apresentacao = $acao[0]["apresentacao"];
+    $palavraChave = $acao[0]["palavrachave"];
+    $prevInicio = $acao[0]["previnicio"];
+    $prevTermino = $acao[0]["prevtermino"];
+    $situacao = $acao[0]["situacao"];
+    $acaoObj = new Acao($eixo, $projeto, $titulo, $tema, $apresentacao, $palavraChave, $prevInicio, $prevTermino, $situacao, $id);
+    return $acaoObj;
+  }
+
    function obterUltimoId(){
     $conexao = conexao();
     $query = "select max(id) as id from acao";
